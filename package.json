@@ -1,0 +1,11 @@
+{
+  "name": "brolt-instagram-bot",
+  "version": "1.0.0",
+  "description": "increase your chances of winning prizes of instagram giveaways",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thibault Lucas Marius Tanguy",
+  "license": "ISC"
+}
