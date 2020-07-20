@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style0.css">
+  <title>Giveawys</title>
+</head>
+
+<body>
+  <div class="container-fluid h-100 ">
+    <div class="row h-100">
+      <!--nav-->
+      <div class="navapp col-2  h-100 p-0">
+        <!--logo-->
+        <div class="col-1  w-100 h-25 mw-100">
+          <div class="d-flex align-items-center"><a href="#"><img src="pictures/logog.png " class="w-100" alt="oui"></a></div>
+        </div>
+
+        <!--Menu-->
+        <div class=" col-1 w-100 mw-100 hg10 p-0 hover1 hover-el">
+          <div class="nav-el h-100 w-100">
+            <div class=" h-100 ">
+            </div>
+            <a href="App_management.html" class="nav-text centrer h-100 p-2">
+              Apps panel
+
+            </a>
+          </div>
+        </div>
+        <div class=" col-1 w-100 mw-100 hg10 p-0 hover2 hover-el">
+          <div class="nav-el h-100 w-100">
+            <div class="h-100">
+            </div>
+            <a href="bot_management.html" class="nav-text centrer h-100 p-2">
+              Bots panel
+            </a>
+          </div>
+        </div>
+        <div class=" col-1 w-100 mw-100 hg10 p-0 hover3 hover-el">
+          <div class="nav-el h-100 w-100">
+            <div class="h-100">
+            </div>
+            <a href="Giveaways.html" class="nav-text centrer h-100 p-2">
+              Tasks
+            </a>
+          </div>
+        </div>
+        <div class=" col-1 w-100 mw-100 hg10 p-0 hover4 hover-el">
+          <div class="nav-el h-100 w-100">
+            <div class=" h-100">
+            </div>
+            <a href="Notifications.html" class="nav-text centrer h-100 p-2">
+              Notifications
+            </a>
+          </div>
+        </div>
+        <div class=" col-1 w-100 mw-100 hg10 p-0 hover5 hover-el">
+          <div class="nav-el h-100 w-100">
+            <div class="couleur h-100">
+            </div>
+            <a href="#" class="nav-text centrer h-100 p-2">
+              Settings
+            </a>
+          </div>
+        </div>
+        <div class="version">
+          <p id="actual_version">V2.0.1</p>
+        </div>
+      </div>
+
+      <!--Main-->
+      <div class="col-10 h-100 p-0 main ">
+        <div class="col-1 p-0 w-100 mw-100 haut-main ">
+          <div class="row h-100 w-100 m-0">
+            <div class="col-10 h-100 titre centrer">
+              <h1>Settings</h1>
+            </div>
+            <div class="col-2 h-100 croix ">
+              <!-- <a href="#"> <img src="pictures/moins.png" alt="" id="min"> </a> -->
+              <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-1 w-100 mw-100  corps">
+          <div class="container h-100 pt-3 pb-4">
+            <div class="droite h-100 p-3">
+              <div class="settings-options">
+                <h2>My key</h2>
+                <div class="autour_key">
+                  <div class="key ">
+                    <p class="centrer" id="clef_affichage" style="-webkit-user-select: text;">Seig bot is the best, Seig bot is the best, Seig bot is the best i don't care</p>
+                    <button type="button" class="btn btn-danger centrer" id="btn_delete_key">delete key</button>
+                  </div>
+                </div>
+              </div>
+              <div class="settings-options">
+                <h2>Tasks speed option</h2>
+                <div class="">
+                  <div class="el-goptionsall">
+                    <div class="el-goptions">
+                      <p>Cooldown beetwen tasks</p>
+                      <input type="number" class="form-control" id="exampleInputPassword1" value="190" max="9999">
+                      <p>s</p>
+                    </div>
+                    <small id="Tokenhelp" class="form-text text-muted pl-1">to avoid ban a minimum of 190s is recommended</small>
+                  </div>
+                  <div class="el-goptionsall">
+                    <div class="el-goptions">
+                      <p>Cooldown beetwen account</p>
+                      <input type="number" class="form-control" id="exampleInputPassword2" value="50" max="9999">
+                      <p>s</p>
+                    </div>
+                    <small id="Tokenhelp" class="form-text text-muted pl-1">to avoid ban a minimum of 50s is recommended</small>
+                  </div>
+
+                </div>
+                <div class="settings-options">
+                  <h2>Webhooks notifications</h2>
+                  <div class="">
+                    <div class="el-goptionsall" id="webhook_div">
+                      <p>Enter the webhook url</p>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="input_webhooks" placeholder="Webhook url">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary" type="button" id="test_webhook">Test</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="button-settings">
+                      <button type="button" class="btn btn-primary " id="btn_save_settings">Save</button>
+                      <button type="button" class="btn btn-secondary ml-3" id="btn_reset_settings">Reset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</body>
+<script type="text/javascript" src="js/common/ipc.js"></script>
+<script type="text/javascript" src="js/settings_page/set_settings.js"></script>
+
+<script type="text/javascript" src="js/common/close_minimise.js"></script>
+<script type="text/javascript" src="js/common/version.js"></script>
+
+</html>

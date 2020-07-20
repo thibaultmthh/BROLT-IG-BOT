@@ -1,0 +1,48 @@
+
+
+*, *::after, *::before {
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-app-region: no-drag;
+	cursor: default;
+}
+
+body, html {
+  height: 200px;
+  width: 450px;
+}
+
+.nopad{
+  padding: 0
+}
+.nomarg{
+  margin: 0;
+}
+.blue {
+  background: blue;
+}
+
+.red {
+  color: #CB0731 !important;
+}
+
+
+.yellow {
+  background: yellow;
+}
+.app{
+    background: #0e2431;
+}
+.logo{
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.bord{
+  height: 30%;
+}
+.btn{
+  margin-top: 15px;
+  background: #0074AB;
+  margin-left: 40px;
+}
