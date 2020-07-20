@@ -161,7 +161,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   try {
     const elemText = await page_auth.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
     console.log("wrong password")
-    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Wrong password")
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Wrong password"])
 
   } catch (err) {
     console.log("log in")
