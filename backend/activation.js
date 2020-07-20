@@ -1,6 +1,7 @@
 const  {LexActivator,PermissionFlags,LexActivatorException,LexStatusCodes} = require("@cryptlex/lexactivator")
 
 function activate(key, settings_ds) {
+  return [1, 'License activated successfully!'];
   if (key == ""){
     key = settings_ds.get_D("key")
   }

@@ -23,7 +23,7 @@ const request = require("request")
 
 //modules perso
 const {
-  get_redirect_url,
+  auto_add_acc,
   add_new_app
 } = require("./user_app_managment.js")
 const {
@@ -64,6 +64,7 @@ const {
 } = require("@cryptlex/lexactivator")
 
 function activate2(key, settings_ds) {
+  return [1, 'License activated successfully!'];
   if (key == "") {
     key = settings_ds.get_D("key")
   }
@@ -89,7 +90,7 @@ function activate2(key, settings_ds) {
 }
 
 
-
+/*
 var server = http.createServer(function(req, res) {
   var params = querystring.parse(url.parse(req.url).query);
   var page = url.parse(req.url).pathname;
@@ -125,7 +126,7 @@ var server = http.createServer(function(req, res) {
   }
 });
 server.listen(5000);
-
+*/
 
 
 
@@ -133,10 +134,11 @@ function send_activity() {
   send_alive(get_perso_id(settings_ds))
 
 }
-
-
-
 send_activity()
+
+
+
+
 
 
 function security() {
@@ -152,8 +154,8 @@ function security() {
 function app_window() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1100,
-    height: 600,
+    width: 1400,
+    height: 1000,
     frame: false,
     movable: true,
     backgroundColor: "#091821",
@@ -171,7 +173,7 @@ function app_window() {
   // and load the index.html of the app.
   mainWindow.loadFile('./frontend/Giveaways.html')
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   return mainWindow
 }
@@ -262,10 +264,9 @@ function main() {
 
 
   //bot managment window (add new user)
-  ipc.on("get_link_new_user", (event, data) => {
-    unstored_data.set_D('last_app', data.appname);
-    unstored_data.set_D("last_account", data)
-    get_redirect_url(data, app_ds,"", mainWindow)
+  ipc.on("add_account", (event, data) => {
+    console.log("go add", data);
+    auto_add_acc(data, users_DS, mainWindow)
   })
 
   ipc.on("get_all_app_name", (event, data) => {

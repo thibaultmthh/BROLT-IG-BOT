@@ -12,58 +12,6 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 
 
-
-
-
-function get_giveway_info(link, app_ds, mainWindow) {
-  if (link == null) {
-    return
-  }
-  path_split_url = url.parse(link).pathname.split('/')
-  id = path_split_url[path_split_url.length - 1]
-  organiser_screen_name = path_split_url[path_split_url.length - 2]
-
-  var app = app_ds.get_All()
-  if (app.length < 1) {
-    mainWindow.webContents.send("giveway_info", {
-      errors: "Add some app/user first"
-    });
-    return 1
-  }
-  app = app[0]
-  const api = new Twitter({
-    consumer_key: app[1].consumer_key,
-    consumer_secret: app[1].consumer_secret
-  });
-
-  api.getBearerToken().then(function(response) {
-    const api = new Twitter({
-      bearer_token: response.access_token
-    });
-    api.get("statuses/show", {
-      id: id,
-      include_entities: true,
-      tweet_mode: "extended"
-    }).then(function(data) {
-      mainWindow.webContents.send("giveway_info", {
-        user_mentioned: data.entities.user_mentions,
-        hashtags: data.entities.hashtags,
-        organiser_screen_name: data.user.screen_name,
-        link: link,
-        giveway_id: id,
-        provider: data.user.id_str,
-
-      });
-    }).catch(function(error) {
-      console.error;
-      mainWindow.webContents.send("giveway_info", error);
-    })
-  })
-
-}
-
-
-
 function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_ds) {
   if (unstored_data.get_D("giveways_state") != 0) {
     return 1
@@ -97,20 +45,6 @@ function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_
 }
 
 
-
-
-
-function follow_someone(api, user_id, notif_ds) {
-  console.log("follow done", user_id);
-  api.post("friendships/create", {
-    user_id: user_id
-  }).catch((error) => {
-    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", error.message])
-  });
-
-}
-
-
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue, randomIndex;
@@ -140,61 +74,6 @@ function getChromiumExecPath() {
     return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
-async function puppeteer_comment(link, message, account_info, notif_ds) {
-  const browser = await puppeteer.launch({
-
-    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
-    ignoreHTTPSErrors: true,
-    slowMo: 20,
-    headless: false,
-    executablePath: getChromiumExecPath()
-
-  });
-  const page = await browser.newPage();
-  //await page.setRequestInterception(true);
-  await page.authenticate({
-    username: account_info.proxy_username,
-    password: account_info.proxy_password,
-  });
-  try {
-    await page.goto(link, {
-      timeout: 100000
-    });
-
-  } catch (err) {
-
-    notif_ds.add_D([Date.now().toString(), "X", "error", "While comment : " + err.message])
-  }
-  try {
-    const [button_login] = await page.$x("//span[contains(., 'Log in')]");
-    await button_login.click();
-
-    await sleep(1202)
-    await page.focus("input[name='session[username_or_email]']")
-    await page.keyboard.type(account_info.username)
-    await sleep(452)
-    await page.focus("input[name='session[password]']")
-    await page.keyboard.type(account_info.password)
-    await page.keyboard.press('Enter');
-    await sleep(15226)
-    await page.click("#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div > div > div:nth-child(2) > div > section > div > div > div > div:nth-child(1) > div > div > article > div > div > div > div:nth-child(3) > div.css-1dbjc4n.r-1oszu61.r-1gkumvb.r-1efd50x.r-5kkj8d.r-18u37iz.r-ahm1il.r-a2tzq0 > div:nth-child(1) > div");
-    await sleep(781)
-    page.keyboard.type(message)
-    await sleep(54)
-    const [button_reply] = await page.$x("//span[contains(., 'Reply')]");
-    await button_reply.click();
-    await sleep(3000)
-    console.log("Success");
-    await browser.close()
-
-
-
-  } catch (err) {
-    console.log("----Error : ", err);
-    notif_ds.add_D([Date.now().toString(), "X", "error", "While comment : " + err.message])
-  }
-}
-
 
 /*
 var acc_i = {
@@ -215,7 +94,7 @@ puppeteer_comment("https://twitter.com/NetflixFR/status/1283353483534532608", "o
 
 
 
-function take_giveway(giveway_data, user_screen_name, users_DS, giveways_ds, unstored_data, notif_ds, settings_ds, last) {
+async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_ds, unstored_data, notif_ds, settings_ds, last) {
   let time_between_action = 14000
   let action_done = 0
   console.log("take on", user);
@@ -230,59 +109,63 @@ function take_giveway(giveway_data, user_screen_name, users_DS, giveways_ds, uns
   if (user == 0) {
     return 0
   }
-  const api = new Twitter({
-    consumer_key: user[2].consumer_key,
-    consumer_secret: user[2].consumer_secret,
-    access_token_key: user[2].access_token_key,
-    access_token_secret: user[2].access_token_secret
 
-  })
-  screen_name = users_DS.get_All_screen_name()[0]
+  screen_names = users_DS.get_All_screen_name()[0]
   giveway_rules = giveway_data[1]
-  console.log(giveway_rules);
-  if (giveway_rules.follow_provider) {
-    console.log('follow provider')
-    action_done++;
-    setTimeout(function() {
-      api.post("friendships/create", {
-        user_id: giveway_rules.provider_id
-      }).catch((error) => {
-        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", error.message])
-      });
-    }, time_between_action * action_done);
+  let account_info = user[2]
+  const browser = await puppeteer.launch({
+
+    //args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
+    ignoreHTTPSErrors: true,
+    slowMo: 20,
+    headless: false,
+    executablePath: getChromiumExecPath()
+
+  });
+  const page2 = await browser.newPage()
+  await page2.goto(mydata[0].url)
+  const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
+
+  const regex = /@[a-zA-Z]{0,}/g
+  var matches = []
+  var match = regex.exec(description)
+  while (match != null) {
+    matches.push(match[0])
+    match = regex.exec(description)
   }
+  let user = []
+  var mention_without_dupicate = Array.from(new Set(matches))
+  for (i = 0 ; i < mention_without_dupicate.length ; i++){
+    let a = mention_without_dupicate[i].replace("@","")
+     user.push(a)
+  }
+  console.log(mention_without_dupicate)
+  console.log(user)
+  console.log("new page")
+  await page2.waitFor(5000)
+
+  /*
 
 
+
+
+
+  giveway_rules = les donnees du giveways : {
+  link: "",
+  follow_provider: true/false,
+  follow_mentioned: true/false,
+  need_like: true/false,
+  tag_friend: true/false,
+
+
+}
+
+  */
   if (giveway_rules.need_like) {
-    console.log("like")
-    action_done++;
-    setTimeout(function() {
-      api.post("favorites/create", {
-        id: giveway_rules.giveway_id
-      }).catch((error) => {
-        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", error])
-      });
-    }, time_between_action * action_done);
-  }
-
-  if (giveway_rules.need_rt) {
-    console.log("rt")
-    action_done++;
-    setTimeout(function() {
-      api.post("statuses/retweet/" + giveway_rules.giveway_id, {
-        id: giveway_rules.giveway_id
-      }).catch((error) => {
-        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", error])
-      });
-    }, time_between_action * action_done);
-  }
-  if (giveway_rules.user_to_follow != 0) {
-    for (var i in giveway_rules.user_to_follow) {
-      user_id = giveway_rules.user_to_follow[i].id_str
-      action_done++;
-      console.log("followe", user_id)
-      setTimeout(follow_someone, time_between_action * action_done, api, user_id, notif_ds);
-    }
+    // NEED LIKE //LUCAS
+    await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button")
+    console.log("liked")
+    await page2.waitFor(2000)
   }
 
   if (giveway_rules.tag_friend) {
@@ -296,32 +179,52 @@ function take_giveway(giveway_data, user_screen_name, users_DS, giveways_ds, uns
       }
     })
     let message = random_screen_name.join(" ") + " " + giveway_rules.text_to_add
-    action_done++;
     if (message.length > 0) {
-      setTimeout(function() {
-        if (giveway_rules.without_proxy) {
-          api.post("statuses/update", {
-            status: message,
-            in_reply_to_status_id: giveway_rules.giveway_id,
-            auto_populate_reply_metadata: true
-          }).catch((error) => {
-            notif_ds.add_D([Date.now().toString(), user_screen_name, "error", error])
-          });
-        } else {
-          console.log(user[2]);
-          puppeteer_comment(giveway_rules.link, message, user[2].account_info, notif_ds)
-        }
-
-
-      }, time_between_action * action_done);
+      await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span._15y0l > button")
+      await page2.focus("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea")
+      await page2.keyboard.typemessage)
+      await page2.waitFor(3000)
+      await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
+      console.log("commented")
+      await page2.waitFor(2000)
+      //COMMENT MESSAGE //LUCAS
       console.log(message)
     }
   }
+
+
+  if (giveway_rules.follow_provider) {
+    await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
+    console.log("subsciber")
+    await page2.waitFor(2000)
+    // FOLOW PROVIDER //LUCAS
+
+  }
+
+
+
+
+
+  if (mention_without_dupicate.length != 0 && giveway_rules.follow_mentioned) {
+    for (var i in mention_without_dupicate) {
+      let mention = mention_without_dupicate[i]
+      const page = await browser.newPage()
+      await page.goto("https://www.instagram.com/"+mention)
+      try {
+        const elemText = await page.$eval("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button", elem => elem.innerText)
+        console.log("already subscribed to : " + mention)
+      } catch(err){
+        await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
+        console.log("subsciber to : "+mention)
+      }
+      //FOLOW USER //LUCAS
+    }
+  }
+
 
 }
 
 
 
 
-module.exports.get_giveway_info = get_giveway_info;
 module.exports.start_giveway = start_giveway;

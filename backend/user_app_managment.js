@@ -10,38 +10,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 
 
-function get_redirect_url(data, app_ds, account_info, mainWindow) {
-  var app_name = data.appname
-  console.log("X" + app_name + "X");
-  app = app_ds.get_D(app_name)
-  console.log(app);
-  let client_get = new Twitter({
-    consumer_key: app[1].consumer_key,
-    consumer_secret: app[1].consumer_secret
-  });
-  if (app[1].callback === undefined) {
-    var callback = "http://127.0.0.1:5000/callback"
-  } else {
-    var callback = app[1].callback
-  }
-  let responce
-  responce = client_get.getRequestToken(callback)
-    .then(function(res) {
-      url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + res.oauth_token
-      console.log(url);
-      auto_add_acc(url, data, mainWindow)
-    })
-    .catch(function(error) {
-      console.log(error);
-      mainWindow.webContents.send("new_user_state", {
-        type: "error",
-        message: "cant get url"
-      });
 
-    })
-  return responce
-
-}
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -50,13 +19,23 @@ function getChromiumExecPath() {
     return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
-async function auto_add_acc(redirect_url, account_info, mainWindow) {
+async function auto_add_acc(account_info, users_DS, mainWindow) {
+  /*
+  account_info = {
+  proxyhost: "http://proxy.com:5555",
+  proxy_username: "proxy_username",
+  proxy_password: "proxy_password",
+  username: "thibaultmthh",
+  password: "xjxjxjx"
+
+}
+  */
   const browser = await puppeteer.launch({
 
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 14,
-    headless: true,
+    headless: false,
     executablePath: getChromiumExecPath()
 
   });
@@ -71,7 +50,7 @@ async function auto_add_acc(redirect_url, account_info, mainWindow) {
     password: account_info.proxy_password,
   });
   try {
-    await page.goto(redirect_url, {
+    await page.goto("https://www.instagram.com/", {
       timeout: 100000
     });
 
@@ -82,17 +61,30 @@ async function auto_add_acc(redirect_url, account_info, mainWindow) {
     });
   }
   try {
-    await page.focus('#username_or_email')
-    await page.keyboard.type(account_info.username);
-    await sleep(1023)
-
-    await page.focus('#password')
-    await page.keyboard.type(account_info.password);
-    await sleep(1023)
-
-    await page.click("#allow")
-    await sleep(7000)
-    await browser.close();
+    await page.waitFor(1000)
+  // authentifiction
+    await page.focus("input[name='username']")
+    await page.keyboard.type(account_info.username)
+    await page.focus("input[name='password']")
+    await page.keyboard.type(account_info.password)
+    await page.keyboard.press('Enter');
+    await page.waitForNavigation({ waitUntil: 'networkidle0' })
+    await page.waitFor(1000)
+    try {
+      const elemText = await page.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
+      console.log("wrong password")
+      mainWindow.webContents.send("new_user_state", {
+        type: "error",
+        message: "Password incorect "
+      });
+    } catch(err){
+      mainWindow.webContents.send("new_user_state", {
+        type: "success",
+        message: "successfully added"
+      });
+      data_to_add = [account_info.username, "user_id_ups", account_info]
+      users_DS.add_D(data_to_add)
+    }
 
     mainWindow.webContents.send("new_user_state", {
       type: "success",
@@ -142,5 +134,5 @@ function add_new_app(name, tokens, app_ds, mainWindow) {
 }
 
 
-module.exports.get_redirect_url = get_redirect_url;
+module.exports.auto_add_acc = auto_add_acc;
 module.exports.add_new_app = add_new_app;

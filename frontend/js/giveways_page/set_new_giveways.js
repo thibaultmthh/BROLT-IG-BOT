@@ -1,28 +1,66 @@
+const request = require('request');
+
+const {
+  v4: uuidv4
+} = require('uuid');
+
+
+
+
 function send_giveway_link() {
-  let value = document.getElementById('linkInput').value
+  let value = document.getElementById('linkInput').value.trim()
+
+  let error_place = document.getElementById('emailHelp')
+  error_place.textContent = "Checking..."
   if (value != "") {
-    ipc.send("get_giveway_info", value)
+    let regex = new RegExp('instagram.com');
+    console.log(regex);
+    if (regex.test(value) != true) {
+      error_place.textContent = "Please enter a valid instagram link"
+      console.log(value);
+      return
+    }
+    request.get(value, (error, res, body) => {
+      if (error) {
+        error_place.textContent = error.message
+        return
+      }
+      if (res.statusCode != 200) {
+        error_place.textContent = res.statusCode.toString() + " Error"
+        return
+      }
+      if (res.statusCode == 200) {
+        display_giveway_info("")
+      }
+    })
+
   } else {
-    let error_place = document.getElementById('emailHelp')
     error_place.textContent = "Please specify a giveaway"
   }
 
 }
+
 var btn_valide_giveway = document.getElementById('btn_valide_giveway')
-btn_valide_giveway.addEventListener("click", send_giveway_link)
+btn_valide_giveway.addEventListener("click", (event)=>{event.preventDefault();send_giveway_link()})
 
 
 
 function validate_giveway_info(data) {
   let user_to_follow = []
+  let link = document.getElementById('linkInput').value.trim()
+  if (link ==""){
+    return
+  }
+  let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
+  if (giveaway_name == ""){
+    giveaway_name = "Instagram giveaway"
+  }
 
-  let need_rt = document.getElementById("customSwitches").checked
-
+  let follow_provider = document.getElementById("follow_provider_switch").checked
+  let follow_mentioned = document.getElementById("follow_mentioned_switch").checked
   let need_like = document.getElementById("switch1").checked
 
   let text_to_add = document.getElementById("hashtagsInput").value
-
-
 
   let nb_friend_to_tag = document.getElementById("exampleFormControlSelect1").value * 1
 
@@ -32,35 +70,24 @@ function validate_giveway_info(data) {
     var tag_friend = true
   }
 
-  for (var i in data.user_mentioned) {
-    let screen_name = data.user_mentioned[i].screen_name
-    let element = document.getElementById(screen_name)
-    if (element.checked) {
-      user_to_follow.push(data.user_mentioned[i])
-    }
-  }
-
-  let data_to_send = [data.giveway_id, {
+  let data_to_send = [uuidv4(), {
     user_to_follow: user_to_follow,
-    follow_provider: true,
+    follow_provider: follow_provider,
+    follow_mentioned: follow_mentioned,
     text_to_add: text_to_add,
     need_like: need_like,
-    need_rt: need_rt,
     tag_friend: tag_friend,
     nb_friend_to_tag: nb_friend_to_tag,
-    giveway_id: data.giveway_id,
-    provider_id: data.provider,
-    link: data.link,
-    provider_screen_name: data.organiser_screen_name,
-    without_proxy: false
-  }]
+    provider_screen_name: giveaway_name,
+    link: link}]
+
   ipc.send("add_new_giveway", data_to_send)
 
   //remet tout les truc en place :
   var menu = document.getElementById("Settings_menu")
   menu.classList.remove("je")
   document.getElementById('linkInput').value = ""
-  setTimeout(refresh_all, 1000)
+  setTimeout(refresh_all, 100)
 
 
 
@@ -74,6 +101,8 @@ function display_giveway_info(data) {
     error_place.textContent = data.errors[0].message
   } else {
     //remmet les truc en place
+    let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
+    giveaway_name.textContent = ""
     let error_place = document.getElementById('emailHelp');
     error_place.textContent = ""
     document.getElementById("hashtagsInput").value = ""
@@ -81,6 +110,7 @@ function display_giveway_info(data) {
 
     var menu = document.getElementById("Settings_menu")
     menu.classList.add("je")
+    /*
     let main_div = document.getElementById('list_to_follow')
     main_div.innerHTML = ""
     for (var i in data.user_mentioned) {
@@ -104,28 +134,23 @@ function display_giveway_info(data) {
       el_div.appendChild(label_screen_name)
       let main_div = document.getElementById('list_to_follow')
       main_div.appendChild(el_div)
-
-
-
-    }
-
-    // suite ( en mode function dans fonction)
-    var add_giveway_btn = document.getElementById("add_giveway_btn")
-    add_giveway_btn.addEventListener("click", (event) => {
-      validate_giveway_info(data)
-    })
-
-    get_update_display_giveway()
-
-
-
-
+      */
 
 
 
   }
 
+  // suite ( en mode function dans fonction)
+  var add_giveway_btn = document.getElementById("add_giveway_btn")
+  add_giveway_btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    validate_giveway_info(data)
+  })
+
+  get_update_display_giveway()
 }
+
+
 ipc.on("giveway_info", (event, data) => {
   display_giveway_info(data);
 })
