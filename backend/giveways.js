@@ -135,8 +135,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   try {
     await page_auth.goto("https://www.instagram.com/")
   } catch (e) {
-    console.log("Cant connect"+ e.message);
-    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect"+ e.message])
+    console.log("Cant connect" + e.message);
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
     return
   }
 
@@ -148,12 +148,15 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     await page_auth.focus("input[name='password']")
     await page_auth.keyboard.type(account_info.password)
     await page_auth.keyboard.press('Enter');
+    await page_auth.waitFor(3000)
+    await page_auth.keyboard.press('Enter');
+
     await page_auth.waitForNavigation({
       waitUntil: 'networkidle0'
     })
   } catch (e) {
     console.log("Cant find connextion form", e.message);
-    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form"+ e.message])
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
     return
 
   }
@@ -194,7 +197,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     console.log(user_to_follow)
   } catch (e) {
     console.log("Can't fetch description", e.message);
-    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't fetch description"+ e.message])
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't fetch description" + e.message])
     return
 
   }
@@ -210,7 +213,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       await page2.waitFor(2000)
     } catch (e) {
       console.log("Cant like", e.message);
-      notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant like"+ e.message])
+      notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant like" + e.message])
 
     }
   }
@@ -227,17 +230,17 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     })
     let message = random_screen_name.join(" ") + " " + giveway_rules.text_to_add
     if (message.length > 0) {
-      try{
-      await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span._15y0l > button")
-      await page2.focus("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea")
-      await page2.keyboard.type(message)
-      await page2.waitFor(3000)
-      await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
-      console.log("commented")
-      await page2.waitFor(2000)}
-      catch (e) {
+      try {
+        await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span._15y0l > button")
+        await page2.focus("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea")
+        await page2.keyboard.type(message)
+        await page2.waitFor(3000)
+        await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
+        console.log("commented")
+        await page2.waitFor(2000)
+      } catch (e) {
         console.log("Can't comment", e.message);
-        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't comment"+ e.message])
+        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't comment" + e.message])
 
       }
       //COMMENT MESSAGE //LUCAS
@@ -247,13 +250,12 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
 
   if (giveway_rules.follow_provider) {
-    try{
-    await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
-    console.log("subsciber")
-    await page2.waitFor(2000)
-  }
-  catch (e) {
-    console.log("Can't follow provider", e.message);
+    try {
+      await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
+      console.log("subsciber")
+      await page2.waitFor(2000)
+    } catch (e) {
+      console.log("Can't follow provider", e.message);
     }
     // FOLOW PROVIDER //LUCAS
 
@@ -281,6 +283,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       //FOLOW USER //LUCAS
     }
   }
+  await page_auth.waitFor(2000)
+  await browser.close()
 
 }
 
