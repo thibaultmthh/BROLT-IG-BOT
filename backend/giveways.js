@@ -70,8 +70,9 @@ function shuffle(array) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 function getChromiumExecPath() {
-    return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
+  return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
 
@@ -125,28 +126,41 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     executablePath: getChromiumExecPath()
 
   });
+
   const page_auth = await browser.newPage()
   await page_auth.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,
   });
-  await page_auth.goto("https://www.instagram.com/")
+  try {
+    await page_auth.goto("https://www.instagram.com/")
+  } catch (e) {
+    console.log("Cant connect", e.message);
+  }
+
   await page_auth.waitFor(1000)
   // authentifiction
-  await page_auth.focus("input[name='username']")
-  await page_auth.keyboard.type(account_info.username)
-  await page_auth.focus("input[name='password']")
-  await page_auth.keyboard.type(account_info.password)
-  await page_auth.keyboard.press('Enter');
-  await page_auth.waitForNavigation({ waitUntil: 'networkidle0' })
+  try {
+    await page_auth.focus("input[name='username']")
+    await page_auth.keyboard.type(account_info.username)
+    await page_auth.focus("input[name='password']")
+    await page_auth.keyboard.type(account_info.password)
+    await page_auth.keyboard.press('Enter');
+    await page_auth.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
+  } catch (e) {
+    console.log("Cant find connextion form", e.message);
+  }
+
   try {
     const elemText = await page_auth.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
     console.log("wrong password")
-  } catch(err){
+  } catch (err) {
     console.log("log in")
     log_in = true
   }
-  if(log_in != true){
+  if (log_in != true) {
     return
   }
 
@@ -157,32 +171,40 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     password: account_info.proxy_password,
   });
 
-  await page2.goto(giveway_rules.link)
-  const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
-  const regex = /@[a-zA-Z-.-_]{0,}/g
-  var matches = []
-  var match = regex.exec(description)
-  while (match != null) {
-    matches.push(match[0])
-    match = regex.exec(description)
+  try {
+    await page2.goto(giveway_rules.link)
+    const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
+    const regex = /@[a-zA-Z-.-_]{0,}/g
+    var matches = []
+    var match = regex.exec(description)
+    while (match != null) {
+      matches.push(match[0])
+      match = regex.exec(description)
+    }
+    let user_to_follow = []
+    var mention_without_dupicate = Array.from(new Set(matches))
+    for (i = 0; i < mention_without_dupicate.length; i++) {
+      let a = mention_without_dupicate[i].replace("@", "")
+      user_to_follow.push(a)
+    }
+    console.log(mention_without_dupicate)
+    console.log(user_to_follow)
+  } catch (e) {
+    console.log("Can't fetch description", e.message);
   }
-  let user_to_follow = []
-  var mention_without_dupicate = Array.from(new Set(matches))
-  for (i = 0 ; i < mention_without_dupicate.length ; i++){
-    let a = mention_without_dupicate[i].replace("@","")
-     user_to_follow.push(a)
-  }
-  console.log(mention_without_dupicate)
-  console.log(user_to_follow)
   console.log("new page")
   await page2.waitFor(5000)
 
 
   if (giveway_rules.need_like) {
     // NEED LIKE //LUCAS
-    await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button")
-    console.log("liked")
-    await page2.waitFor(2000)
+    try {
+      await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button")
+      console.log("liked")
+      await page2.waitFor(2000)
+    } catch (e) {
+      console.log("Cant like", e.message);
+    }
   }
 
   if (giveway_rules.tag_friend) {
@@ -197,13 +219,17 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     })
     let message = random_screen_name.join(" ") + " " + giveway_rules.text_to_add
     if (message.length > 0) {
+      try{
       await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span._15y0l > button")
       await page2.focus("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea")
       await page2.keyboard.type(message)
       await page2.waitFor(3000)
       await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
       console.log("commented")
-      await page2.waitFor(2000)
+      await page2.waitFor(2000)}
+      catch (e) {
+        console.log("Can't comment", e.message);
+      }
       //COMMENT MESSAGE //LUCAS
       console.log(message)
     }
@@ -211,9 +237,14 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
 
   if (giveway_rules.follow_provider) {
+    try{
     await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
     console.log("subsciber")
     await page2.waitFor(2000)
+  }
+  catch (e) {
+    console.log("Can't follow provider", e.message);
+    }
     // FOLOW PROVIDER //LUCAS
 
   }
@@ -226,16 +257,16 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
         username: account_info.proxy_username,
         password: account_info.proxy_password,
       });
-      await page.goto("https://www.instagram.com/"+mention)
+      await page.goto("https://www.instagram.com/" + mention)
       try {
         const elemText = await page.$eval("#react-root > section > main > div > header > section > div.Y2E37 > button", elem => elem.innerText)
         console.log("already subscribed to : " + mention)
-      } catch(err){
+      } catch (err) {
         //await page.click("#react-root > section > main > div > header > section > div.Y2E37 > button")
         const [button_login] = await page.$x("//button[contains(., 'Follow')]");
         console.log(button_login);
         await button_login.click();
-        console.log("subsciber to : "+mention)
+        console.log("subsciber to : " + mention)
       }
       //FOLOW USER //LUCAS
     }
