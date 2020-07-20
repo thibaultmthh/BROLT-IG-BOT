@@ -115,7 +115,6 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   screen_names = users_DS.get_All_screen_name()[0]
   let giveway_rules = giveway_data[1]
-  let user_screen_name = user[0]
   let account_info = user[2]
 
   const browser = await puppeteer.launch({
