@@ -114,7 +114,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   }
 
   screen_names = users_DS.get_All_screen_name()[0]
-  giveway_rules = giveway_data[1]
+  let giveway_rules = giveway_data[1]
+  let user_screen_name = user[0]
   let account_info = user[2]
 
   const browser = await puppeteer.launch({
@@ -135,7 +136,9 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   try {
     await page_auth.goto("https://www.instagram.com/")
   } catch (e) {
-    console.log("Cant connect", e.message);
+    console.log("Cant connect"+ e.message);
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect"+ e.message])
+    return
   }
 
   await page_auth.waitFor(1000)
@@ -151,17 +154,18 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     })
   } catch (e) {
     console.log("Cant find connextion form", e.message);
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form"+ e.message])
+    return
+
   }
 
   try {
     const elemText = await page_auth.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
     console.log("wrong password")
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Wrong password")
+
   } catch (err) {
     console.log("log in")
-    log_in = true
-  }
-  if (log_in != true) {
-    return
   }
 
 
@@ -191,6 +195,9 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     console.log(user_to_follow)
   } catch (e) {
     console.log("Can't fetch description", e.message);
+    notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't fetch description"+ e.message])
+    return
+
   }
   console.log("new page")
   await page2.waitFor(5000)
@@ -204,6 +211,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       await page2.waitFor(2000)
     } catch (e) {
       console.log("Cant like", e.message);
+      notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant like"+ e.message])
+
     }
   }
 
@@ -229,6 +238,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       await page2.waitFor(2000)}
       catch (e) {
         console.log("Can't comment", e.message);
+        notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't comment"+ e.message])
+
       }
       //COMMENT MESSAGE //LUCAS
       console.log(message)
