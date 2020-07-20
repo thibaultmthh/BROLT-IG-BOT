@@ -4,7 +4,62 @@
   "description": "increase your chances of winning prizes of instagram giveaways",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "electron-builder",
+    "test": "node ."
+  },
+  "build": {
+    "appId": "SEIG BOT BETA",
+    "publish": {
+      "provider": "github",
+      "url": "https://github.com/thibaultmthh/SEIG-BOT-UPDATE",
+      "owner": "thibaultmthh",
+      "repo": "SEIG-BOT-UPDATE"
+    },
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS"
+    }
+  },
+  "dependencies": {
+    "@cryptlex/lexactivator": "^3.9.4",
+    "electron-reload": "^1.5.0",
+    "electron-store": "^5.1.1",
+    "electron-updater": "^4.3.1",
+    "jquery": "^3.5.1",
+    "puppeteer": "^5.1.0",
+    "puppeteer-extra": "^3.1.12",
+    "puppeteer-extra-plugin-stealth": "^2.4.13",
+    "request": "^2.88.2",
+    "twitter-lite": "^0.11.0"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "^22.6.0"
   },
   "author": "Thibault Lucas Marius Tanguy",
   "license": "ISC"
