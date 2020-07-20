@@ -14,7 +14,7 @@ function add_account() {
   ipc.send("add_account", {
     proxyhost: $("#proxyhost").val().trim(),
     proxy_username: $("#proxyauth").val().trim().split(':')[0],
-    proxy_password: $("#proxyauth").val().trim().split(':')[1],
+    proxy_password: $("#proxyauth").val().trim().split(':')[1] || "",
     username: $("#twitter_username").val().trim(),
     password: $("#twitter_password").val().trim()
 

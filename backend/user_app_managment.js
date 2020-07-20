@@ -45,6 +45,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
   });
   const page = await browser.newPage();
   //await page.setRequestInterception(true);
+  
   await page.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,

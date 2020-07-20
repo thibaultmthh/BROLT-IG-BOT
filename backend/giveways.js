@@ -88,16 +88,16 @@ puppeteer_comment("https://twitter.com/NetflixFR/status/1283353483534532608", "o
 */
 
 
-
-
-
-
-
-
 async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_ds, unstored_data, notif_ds, settings_ds, last) {
-  let time_between_action = 14000
-  let action_done = 0
-  console.log("take on", user);
+  /*
+  giveway_rules = les donnees du giveways : {
+  link: "",
+  follow_provider: true/false,
+  follow_mentioned: true/false,
+  need_like: true/false,
+  tag_friend: true/false}
+*/
+
 
   if (last == true) {
     giveways_ds.set_done(giveway_data[0]);
@@ -105,7 +105,9 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       unstored_data.set_D("giveways_state", 0)
     }, settings_ds.get_D("cooldown_giveaways") + (13 * 1000))
   }
-  user = users_DS.get_D(user_screen_name)
+  let user = users_DS.get_D(user_screen_name)
+  console.log("take on", user);
+
   if (user == 0) {
     return 0
   }
@@ -113,54 +115,69 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   screen_names = users_DS.get_All_screen_name()[0]
   giveway_rules = giveway_data[1]
   let account_info = user[2]
+
   const browser = await puppeteer.launch({
 
-    //args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
+    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 20,
     headless: false,
     executablePath: getChromiumExecPath()
 
   });
-  const page2 = await browser.newPage()
-  await page2.goto(mydata[0].url)
-  const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
+  const page_auth = await browser.newPage()
+  await page_auth.authenticate({
+    username: account_info.proxy_username,
+    password: account_info.proxy_password,
+  });
+  await page_auth.goto("https://www.instagram.com/")
+  await page_auth.waitFor(1000)
+  // authentifiction
+  await page_auth.focus("input[name='username']")
+  await page_auth.keyboard.type(account_info.username)
+  await page_auth.focus("input[name='password']")
+  await page_auth.keyboard.type(account_info.password)
+  await page_auth.keyboard.press('Enter');
+  await page_auth.waitForNavigation({ waitUntil: 'networkidle0' })
+  try {
+    const elemText = await page_auth.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
+    console.log("wrong password")
+  } catch(err){
+    console.log("log in")
+    log_in = true
+  }
+  if(log_in != true){
+    return
+  }
 
-  const regex = /@[a-zA-Z]{0,}/g
+
+  const page2 = await browser.newPage()
+  await page2.authenticate({
+    username: account_info.proxy_username,
+    password: account_info.proxy_password,
+  });
+
+  await page2.goto(giveway_rules.link)
+  const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
+  const regex = /@[a-zA-Z-.-_]{0,}/g
   var matches = []
   var match = regex.exec(description)
   while (match != null) {
     matches.push(match[0])
     match = regex.exec(description)
   }
-  let user = []
+  let user_to_follow = []
   var mention_without_dupicate = Array.from(new Set(matches))
   for (i = 0 ; i < mention_without_dupicate.length ; i++){
     let a = mention_without_dupicate[i].replace("@","")
-     user.push(a)
+     user_to_follow.push(a)
   }
   console.log(mention_without_dupicate)
-  console.log(user)
+  console.log(user_to_follow)
   console.log("new page")
   await page2.waitFor(5000)
 
-  /*
 
-
-
-
-
-  giveway_rules = les donnees du giveways : {
-  link: "",
-  follow_provider: true/false,
-  follow_mentioned: true/false,
-  need_like: true/false,
-  tag_friend: true/false,
-
-
-}
-
-  */
   if (giveway_rules.need_like) {
     // NEED LIKE //LUCAS
     await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button")
@@ -182,7 +199,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     if (message.length > 0) {
       await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span._15y0l > button")
       await page2.focus("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea")
-      await page2.keyboard.typemessage)
+      await page2.keyboard.type(message)
       await page2.waitFor(3000)
       await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
       console.log("commented")
@@ -201,30 +218,29 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   }
 
-
-
-
-
-  if (mention_without_dupicate.length != 0 && giveway_rules.follow_mentioned) {
-    for (var i in mention_without_dupicate) {
-      let mention = mention_without_dupicate[i]
+  if (user_to_follow.length != 0 && giveway_rules.follow_mentioned) {
+    for (var i in user_to_follow) {
+      let mention = user_to_follow[i]
       const page = await browser.newPage()
+      await page.authenticate({
+        username: account_info.proxy_username,
+        password: account_info.proxy_password,
+      });
       await page.goto("https://www.instagram.com/"+mention)
       try {
-        const elemText = await page.$eval("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button", elem => elem.innerText)
+        const elemText = await page.$eval("#react-root > section > main > div > header > section > div.Y2E37 > button", elem => elem.innerText)
         console.log("already subscribed to : " + mention)
       } catch(err){
-        await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
+        //await page.click("#react-root > section > main > div > header > section > div.Y2E37 > button")
+        const [button_login] = await page.$x("//button[contains(., 'Follow')]");
+        console.log(button_login);
+        await button_login.click();
         console.log("subsciber to : "+mention)
       }
       //FOLOW USER //LUCAS
     }
   }
 
-
 }
-
-
-
 
 module.exports.start_giveway = start_giveway;
