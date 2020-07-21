@@ -1,119 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style0.css">
-    <title>Giveawys</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style0.css">
+  <title>Giveawys</title>
+</head>
 
-  <body>
-    <div class="container-fluid h-100 ">
-      <div class="row h-100">
-        <!--nav-->
-        <div class="navapp col-2  h-100 p-0">
-          <!--logo-->
-          <div class="col-1  w-100 h-25 mw-100">
-            <div class="d-flex align-items-center"><a href="#"><img src="pictures/logor.png " class="w-100" alt="oui"></a></div>
-          </div>
+<body>
+  <div class="container-fluid h-100 ">
+    <div class="haut-truc row" style="height:7%">
+      <div class="logo_div">
+        <img src="pictures/logo.png" alt="logo" class="logo_brolt">
+      </div>
+      <div class="div_choix">
+        <a href="bot_management.html" class="option_haut ml-5">
+          <p>Accounts</p>
+        </a>
+        <a href="Giveaways.html" class="option_haut couleur_bas">
+          <p>Giveaways</p>
+        </a>
+        <a href="Notifications.html" class="option_haut ">
+          <p>Notifications</p>
+        </a>
+        <a href="Settings.html" class="option_haut ">
+          <p>Settings</p>
+        </a>
+      </div>
+      <div class="croix">
+        <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+      </div>
+    </div>
+    <div class="row" style="height:93%">
+      <!--Main-->
+      <div class="col-12 h-100 p-0 main ">
+        <div class="col-1 p-0 w-100 mw-100 haut-main ">
+          <div class="row h-100 w-100 m-0">
+            <div class="col-10 h-100 titre centrer">
+              <h1>Tasks</h1>
+            </div>
+            <div class="col-2 h-100 croix ">
 
-          <!--Menu-->
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover1 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100 ">
-              </div>
-              <a href="App_management.html" class="nav-text centrer h-100 p-2">
-                Apps panel
-
-              </a>
             </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover2 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100">
-              </div>
-              <a href="bot_management.html" class="nav-text centrer h-100 p-2">
-                Bots panel
-              </a>
-            </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover3 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class="couleur h-100">
-              </div>
-              <a href="#" class="nav-text centrer h-100 p-2">
-                Tasks
-              </a>
-            </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover4 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100">
-              </div>
-              <a href="Notifications.html" class="nav-text centrer h-100 p-2">
-                Notifications
-              </a>
-            </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover5 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100">
-              </div>
-              <a href="Settings.html" class="nav-text centrer h-100 p-2">
-                Settings
-              </a>
-            </div>
-          </div>
-          <div class="version">
-            <p id="actual_version">V2.0.1</p>
           </div>
         </div>
+        <div class="col-1 w-100 mw-100  corps">
+          <div class="row h-100 ">
+            <div class="col-4 h-100 ">
+              <div class="container h-100 p-0 pt-3">
+                <div class="container  h-50 droite">
+                  <h2 class="pl-2 pt-2 pb-3">New tasks</h2>
+                  <form>
+                    <div class="form-group pd-4">
+                      <label for="linkInput" class="blanc pl-2">Enter link</label>
+                      <input type="link" class="form-control" id="linkInput" aria-describedby="" placeholder="Enter link">
+                      <small id="emailHelp" class="form-text text-muted pl-2 red"></small>
+                    </div>
+                    <div class="centrer">
+                      <input type="button" class="btn btn-primary" id="btn_valide_giveway" value="Submit" />
 
-        <!--Main-->
-        <div class="col-10 h-100 p-0 main ">
-          <div class="col-1 p-0 w-100 mw-100 haut-main ">
-            <div class="row h-100 w-100 m-0">
-              <div class="col-10 h-100 titre centrer">
-                <h1>Tasks</h1>
-              </div>
-              <div class="col-2 h-100 croix ">
-                <!-- <a href="#"> <img src="pictures/moins.png" alt="" id="min"> </a> -->
-                <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+                    </div>
+
+                  </form>
+                </div>
+
               </div>
             </div>
-          </div>
-          <div class="col-1 w-100 mw-100  corps">
-            <div class="row h-100 ">
-              <div class="col-4 h-100 ">
-                <div class="container h-100 p-0 pt-3">
-                  <div class="container  h-50 droite">
-                    <h2 class="pl-2 pt-2 pb-3">New tasks</h2>
-                    <form>
-                      <div class="form-group pd-4">
-                        <label for="linkInput" class="blanc pl-2">Enter link</label>
-                        <input type="link" class="form-control" id="linkInput" aria-describedby="" placeholder="Enter link">
-                        <small id="emailHelp" class="form-text text-muted pl-2 red"></small>
-                      </div>
-                      <div class="centrer">
-                        <input type="button" class="btn btn-primary" id="btn_valide_giveway" value="Submit" />
+            <div class="col-8 h-100 ">
+              <div class="container h-100 pt-3 pb-4">
+                <div class="container droite h-100 p-0 pl-2 pr-2">
+                  <h2 class="pl-2 pt-2">Recent tasks</h2>
+                  <div class="list">
+                    <div class="cont_liste" id="list_all_giveways">
 
-                      </div>
-
-                    </form>
-                  </div>
-
-                </div>
-              </div>
-              <div class="col-8 h-100 ">
-                <div class="container h-100 pt-3 pb-4">
-                  <div class="container droite h-100 p-0 pl-2 pr-2">
-                    <h2 class="pl-2 pt-2">Recent tasks</h2>
-                    <div class="list">
-                      <div class="cont_liste" id="list_all_giveways">
-
-                        <!-- element liste -->
-                        <!--
+                      <!-- element liste -->
+                      <!--
                       <div class="el-list">
                         <div class="el-liste">
                           <p class="nom">Seig bot</p>
@@ -125,75 +87,75 @@
                   </div>
                 -->
 
-                      </div>
-
                     </div>
 
                   </div>
 
                 </div>
+
               </div>
-              <div class="oui" id="Settings_menu">
-                <a href="#" id="croix_settings"><img src="pictures/croix.png" alt="croix"></a>
-                <h2>Giveaway Options</h2>
-                <div class="container">
-                  <input type="link" class="form-control" id="giveaway_name_form" aria-describedby="" placeholder="Custom giveaway name">
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
-                    <label class="custom-control-label" for="customSwitches">Follow</label>
-                  </div>
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
-                    <label class="custom-control-label" for="customSwitches">Follow mentioned</label>
-                  </div>
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="switch1" checked="">
-                    <label class="custom-control-label" for="switch1">Like</label>
-                  </div>
-
-                  <div class="">
-
-                    <div class="people_to_tag">
-                      <select class="form-control " id="exampleFormControlSelect1">
-                        <option>0</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-
-
-                      </select>
-                      <p>People to tag</p>
-
-                    </div>
-
-                  </div>
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="switch2">
-                    <label class="custom-control-label" for="switch2">Add text</label>
-                  </div>
-                  <input type="link" class="form-control zero" id="hashtagsInput" aria-describedby="" placeholder="Enter the text">
-
-
-                  <div class="centrer pt-3">
-                    <input type="button" class="btn btn-primary" id="add_giveway_btn" value="Start !" />
-                  </div>
+            </div>
+            <div class="oui" id="Settings_menu">
+              <a href="#" id="croix_settings"><img src="pictures/croix.png" alt="croix"></a>
+              <h2>Giveaway Options</h2>
+              <div class="container">
+                <input type="link" class="form-control" id="giveaway_name_form" aria-describedby="" placeholder="Custom giveaway name">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
+                  <label class="custom-control-label" for="customSwitches">Follow</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
+                  <label class="custom-control-label" for="customSwitches">Follow mentioned</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="switch1" checked="">
+                  <label class="custom-control-label" for="switch1">Like</label>
                 </div>
 
+                <div class="">
+
+                  <div class="people_to_tag">
+                    <select class="form-control " id="exampleFormControlSelect1">
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+
+
+                    </select>
+                    <p>People to tag</p>
+
+                  </div>
+
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="switch2">
+                  <label class="custom-control-label" for="switch2">Add text</label>
+                </div>
+                <input type="link" class="form-control zero" id="hashtagsInput" aria-describedby="" placeholder="Enter the text">
+
+
+                <div class="centrer pt-3">
+                  <input type="button" class="btn btn-primary" id="add_giveway_btn" value="Start !" />
+                </div>
               </div>
 
             </div>
+
           </div>
         </div>
       </div>
-  </body>
-  <script type="text/javascript" src="js/giveways_page/giveways_page.js"></script>
-  <script type="text/javascript" src="js/common/ipc.js"></script>
-  <script type="text/javascript" src="js/giveways_page/display_giveways_history.js"></script>
-  <script type="text/javascript" src="js/giveways_page/set_new_giveways.js"></script>
-  <script type="text/javascript" src="js/common/close_minimise.js"></script>
-  <script type="text/javascript" src="js/common/version.js"></script>
+    </div>
+</body>
+<script type="text/javascript" src="js/giveways_page/giveways_page.js"></script>
+<script type="text/javascript" src="js/common/ipc.js"></script>
+<script type="text/javascript" src="js/giveways_page/display_giveways_history.js"></script>
+<script type="text/javascript" src="js/giveways_page/set_new_giveways.js"></script>
+<script type="text/javascript" src="js/common/close_minimise.js"></script>
+<script type="text/javascript" src="js/common/version.js"></script>
 
-  </script>
+</script>
 
 </html>

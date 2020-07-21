@@ -10,76 +10,37 @@
 
 <body>
   <div class="container-fluid h-100 ">
-    <div class="row h-100">
-      <!--nav-->
-      <div class="navapp col-2  h-100 p-0">
-        <!--logo-->
-        <div class="col-1  w-100 h-25 mw-100">
-          <div class="d-flex align-items-center"><a href="#"><img src="pictures/logoj.png " class="w-100" alt="oui"></a></div>
-        </div>
-
-        <!--Menu-->
-        <div class=" col-1 w-100 mw-100 hg10 p-0 hover1 hover-el">
-          <div class="nav-el h-100 w-100">
-            <div class=" h-100 ">
-            </div>
-            <a href="App_management.html" class="nav-text centrer h-100 p-2">
-              Apps panel
-
-            </a>
-          </div>
-        </div>
-        <div class=" col-1 w-100 mw-100 hg10 p-0 hover2 hover-el">
-          <div class="nav-el h-100 w-100">
-            <div class=" h-100">
-            </div>
-            <a href="bot_management.html" class="nav-text centrer h-100 p-2">
-              Bots panel
-            </a>
-          </div>
-        </div>
-        <div class=" col-1 w-100 mw-100 hg10 p-0 hover3 hover-el">
-          <div class="nav-el h-100 w-100">
-            <div class=" h-100">
-            </div>
-            <a href="Giveaways.html" class="nav-text centrer h-100 p-2">
-              Tasks
-            </a>
-          </div>
-        </div>
-        <div class=" col-1 w-100 mw-100 hg10 p-0 hover4 hover-el">
-          <div class="nav-el h-100 w-100">
-            <div class="couleur h-100">
-            </div>
-            <a href="#" class="nav-text centrer h-100 p-2">
-              Notifications
-            </a>
-          </div>
-        </div>
-        <div class=" col-1 w-100 mw-100 hg10 p-0 hover5 hover-el">
-          <div class="nav-el h-100 w-100">
-            <div class=" h-100">
-            </div>
-            <a href="Settings.html" class="nav-text centrer h-100 p-2">
-              Settings
-            </a>
-          </div>
-        </div>
-        <div class="version">
-          <p id="actual_version">V2.0.1</p>
-        </div>
+    <div class="haut-truc row" style="height:7%">
+      <div class="logo_div">
+        <img src="pictures/logo.png" alt="logo" class="logo_brolt">
       </div>
-
-      <!--Main-->
-      <div class="col-10 h-100 p-0 main ">
+      <div class="div_choix">
+        <a href="bot_management.html" class="option_haut ml-5">
+          <p>Accounts</p>
+        </a>
+        <a href="Giveaways.html" class="option_haut ">
+          <p>Giveaways</p>
+        </a>
+        <a href="Notifications.html" class="option_haut couleur_bas">
+          <p>Notifications</p>
+        </a>
+        <a href="Settings.html" class="option_haut ">
+          <p>Settings</p>
+        </a>
+      </div>
+      <div class="croix">
+        <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+      </div>
+    </div>
+    <div class="row" style="height:93%">
+      <div class="col-12 h-100 p-0 main ">
         <div class="col-1 p-0 w-100 mw-100 haut-main ">
           <div class="row h-100 w-100 m-0">
-            <div class="col-10 h-100 titre centrer" >
+            <div class="col-10 h-100 titre centrer">
               <h1>Notifications</h1>
             </div>
             <div class="col-2 h-100 croix ">
               <!-- <a href="#"> <img src="pictures/moins.png" alt="" id="min"> </a> -->
-              <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
             </div>
           </div>
         </div>
@@ -103,8 +64,8 @@
                       </div>
                     </div>
                     <div class="h-90 cont-choix ">
-                        <div class="w-100 h-100 pl-3 pt-3" id="notifs_place">
-                        </div>
+                      <div class="w-100 h-100 pl-3 pt-3" id="notifs_place">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -119,7 +80,7 @@
 <script type="text/javascript" src="js/common/ipc.js"></script>
 
 <script type="text/javascript" src="js/notif_page/pagination.js"></script>
-<script type="text/javascript"src="js/common/close_minimise.js"></script>
+<script type="text/javascript" src="js/common/close_minimise.js"></script>
 <script type="text/javascript" src="js/common/version.js"></script>
 
 </html>

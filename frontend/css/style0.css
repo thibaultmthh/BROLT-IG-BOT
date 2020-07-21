@@ -88,49 +88,49 @@ p {
 }
 
 .hover1:hover {
-  background-color: #0074AB;
+  background-color: #00b490;
   transition: 0.2s;
   color: white;
 }
 
 .hover1 .couleur {
-  background-color: #0074AB;
+  background-color: #00b490;
 }
 
 .hover2:hover {
-  background-color: #28a745;
+  background-color: #00b490;
   transition-duration: 0.3s;
 }
 
 .hover2 .couleur {
-  background-color: #28a745;
+  background-color: #00b490;
 }
 
 .hover3:hover {
-  background-color: #CB0731;
+  background-color: #00b490;
   transition-duration: 0.3s;
 }
 
 .hover3 .couleur {
-  background-color: #CB0731;
+  background-color: #00b490;
 }
 
 .hover4:hover {
-  background-color: #dcd224;
+  background-color: #00b490;
   transition-duration: 0.3s;
 }
 
 .hover4 .couleur {
-  background-color: #dcd224;
+  background-color: #00b490;
 }
 
 .hover5:hover {
-  background-color: #6d6d6d;
+  background-color: #00b490;
   transition-duration: 0.3s;
 }
 
 .hover5 .couleur {
-  background-color: #6d6d6d;
+  background-color: #00b490;
 }
 
 .hover-el:hover a {
@@ -147,18 +147,19 @@ p {
 }
 
 .main .haut-main {
-  height: 13%;
+  height: 8%;
 }
 
 .titre {
   -webkit-app-region: drag;
 }
-h1{
+
+h1 {
   -webkit-app-region: drag;
 }
 
 .croix img {
-  height: 20px;
+  height: 25px;
 }
 
 .croix a {
@@ -178,14 +179,16 @@ h1{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  width: 15%;
+  height: 100%;
 }
 
 .main .corps {
-  height: 87%;
+  height: 90%;
 }
 
 .main .droite {
-  border-radius: 8px;
+  border-radius: 3px;
   background-color: #0e2431;
   position: relative;
 }
@@ -281,6 +284,8 @@ h1{
 .main h1 {
   color: white;
   padding-left: 10px;
+  margin: 0;
+  font-size: 2em;
 }
 
 /*slider*/
@@ -447,23 +452,26 @@ a {
 .el-notifs p {
   padding-bottom: 8px;
 }
-.people_to_tag{
+
+.people_to_tag {
   display: flex;
   justify-content: flex-start;
-  padding-top:10px;
+  padding-top: 10px;
 }
-.people_to_tag p{
-padding-left: 5px;
+
+.people_to_tag p {
+  padding-left: 5px;
 }
-#exampleFormControlSelect1{
+
+#exampleFormControlSelect1 {
   width: 12%;
   padding-left: 0;
-  padding-top:0;
-  padding-bottom:0;
-  height:23px;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 23px;
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
 }
 
 .settings-options p {
@@ -477,28 +485,28 @@ padding-left: 5px;
 .settings-options .key {
   display: flex;
   justify-content: space-between;
-
 }
 
 .settings-options .autour_key {
-  height: 50px;
+  height: 40px;
   margin-left: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 5px;
+  border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: #4f5157;
-  width: 85%;
+  width: 90%;
 }
+
 .settings-options input[type="number"] {
-padding-left: 2px;
-padding-right: 0;
-width: 45px !important;
-height: 20px;
-margin-left: 8px;
-margin-right: 8px;
+  padding-left: 2px;
+  padding-right: 0;
+  width: 45px !important;
+  height: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .settings-options .key button {
@@ -508,56 +516,110 @@ margin-right: 8px;
 .settings-options h2 {
   margin-bottom: 20px;
 }
-.el-goptionsall{
+
+.el-goptionsall {
   margin-bottom: 15px;
   margin-left: 20px;
 }
-.el-goptions{
+
+.el-goptions {
   display: flex;
 }
+
 .el-goptions a {
   margin-left: 20px;
 }
 
-
-.version{
+.version {
   position: absolute;
   bottom: 0;
   right: 0;
 }
-.version{
+
+.version {
   position: absolute;
   bottom: 0;
   right: 0;
   padding-right: 5px;
   padding-bottom: 5px
 }
-#actual_version{
+
+#actual_version {
   color: #9999;
 }
-.button-settings{
+
+.button-settings {
   position: absolute;
   right: 20px;
   bottom: 20px;
 }
-#input_webhooks{
+
+#input_webhooks {
   width: 350px;
   margin-top: 5px;
   height: 30px;
 }
 
-#input-callback{
+#input-callback {
   width: 70%;
 }
 
-#close{
-  margin-top: 5px;
+#close {
+  margin-top: 9px;
 }
-#webhook_div{
+
+#webhook_div {
   width: 45%;
 }
-#test_webhook{
+
+#test_webhook {
   height: 30px;
   margin-top: 5px;
-  padding-top: 2px;;
+  padding-top: 2px;
+
+}
+
+.haut-truc {
+  background-color: #0e2431
+}
+
+.logo_brolt {
+  width: 40px;
+
+}
+
+.option_haut {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  width: 140px;
+  text-align: center;
+  font-size: 1.03em;
+  transition-duration: 0.2s;
+}
+.option_haut p{
+  margin-bottom: 5px;
+}
+
+.logo_div {
+  width: 5%;
+  padding-left: 20px;
+}
+
+.div_choix {
+  width: 80%;
+  display: flex;
+}
+
+.option_haut:hover {
+  background-color: #00b490;
+}
+
+.couleur_bas {
+  border-bottom: 2px solid #00b490;
+}
+
+.btn{
+  box-shadow: none !important;
 }

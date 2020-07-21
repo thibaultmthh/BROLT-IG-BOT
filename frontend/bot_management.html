@@ -1,134 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style0.css">
-    <title>Giveawys</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style0.css">
+  <title>Giveawys</title>
+</head>
 
-  <body>
-    <div class="container-fluid h-100 ">
-      <div class="row h-100">
-        <!--nav-->
-        <div class="navapp col-2  h-100 p-0">
-          <!--logo-->
-          <div class="col-1  w-100 h-25 mw-100">
-            <div class="d-flex align-items-center"><a href="#"><img src="pictures/logov.png " class="w-100" alt="oui"></a></div>
-          </div>
-
-          <!--Menu-->
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover1 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100 ">
-              </div>
-              <a href="App_management.html" class="nav-text centrer h-100 p-2">
-                Apps panel
-
-              </a>
+<body>
+  <div class="container-fluid h-100 ">
+    <div class="haut-truc row" style="height:7%">
+      <div class="logo_div">
+        <img src="pictures/logo.png" alt="logo" class="logo_brolt">
+      </div>
+      <div class="div_choix">
+        <a href="bot_management.html" class="option_haut ml-5 couleur_bas">
+          <p>Accounts</p>
+        </a>
+        <a href="Giveaways.html" class="option_haut ">
+          <p>Giveaways</p>
+        </a>
+        <a href="Notifications.html" class="option_haut ">
+          <p>Notifications</p>
+        </a>
+        <a href="Settings.html" class="option_haut ">
+          <p>Settings</p>
+        </a>
+      </div>
+      <div class="croix">
+        <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+      </div>
+    </div>
+    <div class="row" style="height:93%">
+      <!--Main-->
+      <div class="col-12 h-100 p-0 main ">
+        <div class="col-1 p-0 w-100 mw-100 haut-main " style="-webkit-app-region: drag">
+          <div class="row h-100 w-100 m-0">
+            <div class="col-10 h-100 titre centrer">
+              <h1>Bots panel</h1>
             </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover2 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class="couleur h-100">
-              </div>
-              <a href="#" class="nav-text centrer h-100 p-2">
-                Bots panel
-              </a>
+            <div class="col-2 h-100 croix ">
             </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover3 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class="h-100">
-              </div>
-              <a href="Giveaways.html" class="nav-text centrer h-100 p-2">
-                Tasks
-              </a>
-            </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover4 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100">
-              </div>
-              <a href="Notifications.html" class="nav-text centrer h-100 p-2">
-                Notifications
-              </a>
-            </div>
-          </div>
-          <div class=" col-1 w-100 mw-100 hg10 p-0 hover5 hover-el">
-            <div class="nav-el h-100 w-100">
-              <div class=" h-100">
-              </div>
-              <a href="Settings.html" class="nav-text centrer h-100 p-2">
-                Settings
-              </a>
-            </div>
-          </div>
-          <div class="version">
-            <p id="actual_version">V2.0.1</p>
           </div>
         </div>
+        <div class="col-1 w-100 mw-100  corps">
 
-        <!--Main-->
-        <div class="col-10 h-100 p-0 main ">
-          <div class="col-1 p-0 w-100 mw-100 haut-main " style="-webkit-app-region: drag">
-            <div class="row h-100 w-100 m-0">
-              <div class="col-10 h-100 titre centrer">
-                <h1>Bots panel</h1>
-              </div>
-              <div class="col-2 h-100 croix ">
-                <!-- <a href="#"> <img src="pictures/moins.png" alt="" id="min"> </a> -->
-                <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-1 w-100 mw-100  corps">
-
-            <div class="row h-100">
-              <div class="col-7 w-100 h-100 p-3 pb-4">
-                <div class="container h-100 droite">
-                  <h2 class="pl-2 pt-2">Bots</h2>
-                  <div class="list">
-                    <div class="cont_liste" id="all_bots">
+          <div class="row h-100">
+            <div class="col-7 w-100 h-100 p-3 pb-4">
+              <div class="container h-100 droite">
+                <h2 class="pl-2 pt-2">Bots</h2>
+                <div class="list">
+                  <div class="cont_liste" id="all_bots">
 
 
 
-                    </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="col-5 p-3 ">
-                <div class="container h-100 ">
-                  <div class="h-60 add-new p-2">
-                    <h2 class="pb-2 pl-2">Add new account</h2>
+            <div class="col-5 p-3 ">
+              <div class="container h-100 ">
+                <div class="h-60 add-new p-2">
+                  <h2 class="pb-2 pl-2">Add new account</h2>
 
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="proxyauth" placeholder="Proxy auth (username:password)">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="proxyhost" placeholder="Proxy ip/port (http://xxx.xxx.xxx:0000)">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="twitter_username" placeholder="Twitter username">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="twitter_password" placeholder="Twitter password">
-                      <small id="erreurs" class="form-text text-muted pl-2 w-100 red"></small>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="proxyauth" placeholder="Proxy auth (username:password)">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="proxyhost" placeholder="Proxy ip/port (http://xxx.xxx.xxx:0000)">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="twitter_username" placeholder="Twitter username">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="twitter_password" placeholder="Twitter password">
+                    <small id="erreurs" class="form-text text-muted pl-2 w-100 red"></small>
 
-                    </div>
+                  </div>
 
-                    <p>
-                      <input type="button" name="" class="btn btn-success mb-5" id="btn_new_user" value="Add a new bot">
+                  <p>
+                    <input type="button" name="" class="btn btn-success mb-5" id="btn_new_user" value="Add a new bot">
 
-                    </p>
-                    <!--  <h2 class="pb-2 pl-2">Need twitter account ?</h2>
+                  </p>
+                  <!--  <h2 class="pb-2 pl-2">Need twitter account ?</h2>
                   <p>
                     <input type="button" name="" class="btn btn-success " value="Buy twitter account">
                   </p>-->
-                  </div>
-
                 </div>
 
               </div>
@@ -136,20 +95,21 @@
             </div>
 
           </div>
+
         </div>
       </div>
-  </body>
-  <script type="text/javascript" src="js/common/ipc.js"></script>
-  <script type="text/javascript" src="js/bot_page/display_bot.js"></script>
-  <script>
-    window.$ = window.jQuery = require('jquery');
+    </div>
+</body>
+<script type="text/javascript" src="js/common/ipc.js"></script>
+<script type="text/javascript" src="js/bot_page/display_bot.js"></script>
+<script>
+  window.$ = window.jQuery = require('jquery');
+</script>
 
-  </script>
+<script type="text/javascript" src="js/bot_page/add_bot.js"></script>
 
-  <script type="text/javascript" src="js/bot_page/add_bot.js"></script>
-
-  <script type="text/javascript" src="js/common/close_minimise.js"></script>
-  <script type="text/javascript" src="js/common/version.js"></script>
+<script type="text/javascript" src="js/common/close_minimise.js"></script>
+<script type="text/javascript" src="js/common/version.js"></script>
 
 
 </html>
