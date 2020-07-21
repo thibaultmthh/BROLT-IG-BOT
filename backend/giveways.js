@@ -137,6 +137,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   } catch (e) {
     console.log("Cant connect" + e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
+    await browser.close()
     return
   }
 
@@ -157,6 +158,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   } catch (e) {
     console.log("Cant find connextion form", e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
+    await browser.close()
+
     return
 
   }
@@ -165,6 +168,9 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     const elemText = await page_auth.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
     console.log("wrong password")
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Wrong password"])
+    await browser.close()
+    return
+
 
   } catch (err) {
     console.log("log in")
@@ -197,6 +203,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   } catch (e) {
     console.log("Can't fetch description", e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't fetch description" + e.message])
+    await browser.close()
+
     return
 
   }

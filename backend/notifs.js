@@ -43,6 +43,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   } catch (e) {
     console.log("Cant connect" + e.message);
     //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
+    await browser.close()
     return
   }
 
@@ -64,6 +65,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   } catch (e) {
     console.log("Cant find connextion form", e.message);
     //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
+    await browser.close()
     return
 
   }
@@ -81,7 +83,9 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   } catch (e) {
     console.log("Can't start page 2", e.message);
     await page2.screenshot({path: 'example.png'});
+    await browser.close()
     return
+
 
   }
 

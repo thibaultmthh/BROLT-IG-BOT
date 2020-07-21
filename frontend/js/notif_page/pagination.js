@@ -90,7 +90,7 @@ function display_notif(data) {
     if (notif[2] == displayed && notif[3] != undefined) {
       if (displayed == "error") {
         console.log(notif);
-        message = " @" + notif[1] + " Error -> " + notif[3].errors[0].message
+        message = " @" + notif[1] + " Error -> " + notif[3]
         if (displayed_message.includes(message) == false) {
           displayed_message.push(message);
           console.log(message);
