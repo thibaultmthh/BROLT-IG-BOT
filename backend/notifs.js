@@ -1,134 +1,145 @@
 const Twitter = require("twitter-lite")
 const request = require("request")
+const {
+  v4: uuidv4
+} = require('uuid')
+
+const puppeteer = require('puppeteer-extra')
+
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
 
 
-
-
-function timeConverter(UNIX_timestamp) {
-  var a = new Date(UNIX_timestamp * 1);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + hour + ':' + min;
-  return time;
+function getChromiumExecPath() {
+  return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
 
 
-
-
-
-
-function check_dm(user, users_DS, notif_ds, settings_ds) {
-  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won"];
+async function check(user, users_DS, notif_ds, settings_ds) {
   let perso_id = settings_ds.get_D("perso_id");
   user = users_DS.get_D(user)
-  let api = new Twitter({
-    consumer_key: user[2].consumer_key,
-    consumer_secret: user[2].consumer_secret,
-    access_token_key: user[2].access_token_key,
-    access_token_secret: user[2].access_token_secret
-
-  })
-  api.get("direct_messages/events/list", {
-    count: 6
-  }).then(function(data) {
-    let events = data.events
-    for (var i in events) {
-      event = events[i]
-      if (event.sender_id != user[1]) {
-        let unique_id = event.id
-        let datas = {
-          date: event.created_timestamp,
-          message: event.message_create.message_data.text
-        }
-        notif_ds.add_D([unique_id, user[0], "dm", datas])
-
-        if (datas.message.toLowerCase().includes(keywords[i])) { //webhooks sending
-          let mention_data = {
-            date: timeConverter(datas.date),
-            text: datas.message,
-            by:"",
-            on: user[0],
-            id: unique_id,
-            type: "dm"
-          }
-          request.post('http://api.seigrobotics.com:5000/win_notification', {
-            json: {
-              notif_data: mention_data,
-              user_id: perso_id,
-            }
-          }, (error, res, body) => {})
-        }
-
-      }
-    }
-  }).catch(err => {
-    console.log(err);
-  })
-}
+  let account_info = user[2]
 
 
-function check_mention(user, users_DS, notif_ds, settings_ds) {
-  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won"];
-  user = users_DS.get_D(user)
-  let api = new Twitter({
-    consumer_key: user[2].consumer_key,
-    consumer_secret: user[2].consumer_secret,
-    access_token_key: user[2].access_token_key,
-    access_token_secret: user[2].access_token_secret
+  const browser = await puppeteer.launch({
 
-  })
+    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost,'--window-size=1920,1080','--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'],
+    ignoreHTTPSErrors: true,
+    slowMo: 20,
+    headless: true,
+    executablePath: getChromiumExecPath()
 
-  api.get("statuses/mentions_timeline", {
-    count: 60
-  }).then(function(data) {
+  });
 
-    let all_id = users_DS.get_All_ids()
-    let perso_id = settings_ds.get_D("perso_id");
+  const page_auth = await browser.newPage()
+  await page_auth.authenticate({
+    username: account_info.proxy_username,
+    password: account_info.proxy_password,
+  });
+  try {
+    await page_auth.goto("https://www.instagram.com/")
+  } catch (e) {
+    console.log("Cant connect" + e.message);
+    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
+    return
+  }
 
-    for (var i in data) {
-      mention = data[i]
-      if (mention.user != undefined) {
+  await page_auth.waitFor(1000)
+  // authentifiction
+  try {
+    await page_auth.focus("input[name='username']")
+    await page_auth.keyboard.type(account_info.username)
+    await page_auth.focus("input[name='password']")
+    await page_auth.keyboard.type(account_info.password)
+    await page_auth.keyboard.press('Enter');
+    await page_auth.waitFor(3000)
+    await page_auth.keyboard.press('Enter');
 
-        if (all_id.includes(mention.user.id_str) == false) {
+    await page_auth.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
+    await page_auth.waitFor(800)
+  } catch (e) {
+    console.log("Cant find connextion form", e.message);
+    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
+    return
 
-          notif_ds.add_D([mention.id_str, user[0], "mention", {
-            date: mention.created_at,
-            message: mention.text,
-            send_by: mention.user.screen_name
-          }])
-          if (mention.text.toLowerCase().includes(keywords[i])) {
-            let mention_data = {
-              date: mention.created_at.substring(4, 17),
-              text: mention.text,
-              by: mention.user.screen_name,
-              on: "",
-              id: mention.id,
-              type: "mention"
-            }
-            request.post('http://api.seigrobotics.com:5000/win_notification', {
-              json: {
-                notif_data: mention_data,
-                user_id: perso_id,
-              }
-            }, (error, res, body) => {})
-          }
+  }
+
+  try {
+    var page2 = await browser.newPage()
+    await page2.goto("https://www.instagram.com/direct/inbox/")
+    await page2.waitFor(1000)
+
+    //await page2.click("body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.HoLwm")
+    await page2.click("#react-root > section > div > div._lz6s.Hz2lF > div > div.ctQZg > div > div:nth-child(4) > a")
 
 
+    await page2.waitFor(5000)
+  } catch (e) {
+    console.log("Can't start page 2", e.message);
+    await page2.screenshot({path: 'example.png'});
+    return
 
+  }
+
+  try {
+
+    const elements = await page2.$$(".YFq-A")
+    var keywords = ["mentioned"];
+
+    for (i in elements) {
+      let element = elements[i]
+      let text = await page2.evaluate(element => element.textContent, element);
+      text = text.substring(0, text.length-3)
+      var yes = false;
+      for (var i in keywords) {
+
+        if (text.toLowerCase().includes(keywords[i])) {
+          yes = true;
         }
       }
+      if (yes == true) {
+        notif_ds.add_D([text, user[0], "mention", {
+          //date: mention.created_at,
+          message: text,
+          //send_by: mention.user.screen_name
+        }])
+      }
+      console.log("Mentions", text);
 
     }
+  } catch (e) {
+    console.log("Can't get mention", e.message);
+  }
 
-  }).catch(err => {
-    console.log(err);
-  })
+  try {
+    const elements_x = await page2.$$(".OEMU4")
+    for (i in elements_x) {
+      let element = elements_x[i]
+      let text = await page2.evaluate(element => element.textContent, element);
+      let datas = {
+        //date: event.created_timestamp,
+        message: text
+      }
+      notif_ds.add_D([text, user[0], "dm", datas])
+      console.log("DM", text);
+
+    }
+  } catch (e) {
+    console.log("Can't get DM", e.message);
+  }
+
+  await browser.close()
+  console.log("browser closed")
+
+
+
+
+
+
 
 
 
@@ -148,8 +159,7 @@ function check_all_notifs(users_DS, notif_ds, settings_ds) {
     } else {
       last = false
     }
-    setTimeout(check_dm, delay_between_user_check * i, user, users_DS, notif_ds, settings_ds)
-    setTimeout(check_mention, delay_between_user_check * i + 6000, user, users_DS, notif_ds, settings_ds)
+    setTimeout(check, delay_between_user_check * i, user, users_DS, notif_ds, settings_ds)
 
 
 

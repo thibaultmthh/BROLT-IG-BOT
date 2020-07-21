@@ -101,15 +101,15 @@ function display_notif(data) {
       }
       if (displayed == "mention") {
         console.log(notif);
-        message = notif[3].date.substring(4, 17) + " @" + notif[3].send_by + " send -> " + notif[3].message
+        message = "@" + notif[1] + " --> " + notif[3].message
         let p_text = bold_chaine(message)
 
         main_div.appendChild(p_text)
         console.log(message);
       }
       if (displayed == "dm") {
-        date = timeConverter(notif[3].date)
-        message = date + " @" + notif[1] + " --> " + notif[3].message
+        //date = timeConverter(notif[3].date)
+        message = notif[3].message
         let p_text = bold_chaine(message)
         console.log(message);
         main_div.appendChild(p_text)

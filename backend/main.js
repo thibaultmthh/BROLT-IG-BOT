@@ -216,7 +216,7 @@ function main() {
     setInterval(start_giveway, 4000, giveways_ds, users_DS, unstored_data, notif_ds, settings_ds)
     notif_ds.clear_All()
     check_all_notifs(users_DS, notif_ds,settings_ds)
-    setInterval(check_all_notifs, 240000, users_DS, notif_ds, settings_ds)
+    setInterval(check_all_notifs, 360000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
 
 

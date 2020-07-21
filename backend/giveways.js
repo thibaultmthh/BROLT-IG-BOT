@@ -187,13 +187,12 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       matches.push(match[0])
       match = regex.exec(description)
     }
-    let user_to_follow = []
+    var user_to_follow = []
     var mention_without_dupicate = Array.from(new Set(matches))
     for (i = 0; i < mention_without_dupicate.length; i++) {
       let a = mention_without_dupicate[i].replace("@", "")
       user_to_follow.push(a)
     }
-    console.log(mention_without_dupicate)
     console.log(user_to_follow)
   } catch (e) {
     console.log("Can't fetch description", e.message);
@@ -201,7 +200,6 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     return
 
   }
-  console.log("new page")
   await page2.waitFor(5000)
 
 
@@ -209,7 +207,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     // NEED LIKE //LUCAS
     try {
       await page2.click("#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button")
-      console.log("liked")
+      console.log("Liked")
       await page2.waitFor(2000)
     } catch (e) {
       console.log("Cant like", e.message);
@@ -223,7 +221,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     let random_screen_name = []
     let all_screen_name = shuffle(users_DS.get_All_screen_name())
     all_screen_name.forEach(function(item) {
-      console.log(random_screen_name.length, giveway_rules.nb_friend_to_tag)
+      //console.log(random_screen_name.length, giveway_rules.nb_friend_to_tag)
       if (item != user_screen_name && random_screen_name.length < giveway_rules.nb_friend_to_tag) {
         random_screen_name.push("@" + item)
       }
@@ -236,7 +234,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
         await page2.keyboard.type(message)
         await page2.waitFor(3000)
         await page2.click("#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button")
-        console.log("commented")
+        console.log("Comented")
         await page2.waitFor(2000)
       } catch (e) {
         console.log("Can't comment", e.message);
@@ -252,7 +250,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
   if (giveway_rules.follow_provider) {
     try {
       await page2.click("#react-root > section > main > div > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.bY2yH > button")
-      console.log("subsciber")
+      console.log("Subscribe")
       await page2.waitFor(2000)
     } catch (e) {
       console.log("Can't follow provider", e.message);
@@ -275,10 +273,16 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
         console.log("already subscribed to : " + mention)
       } catch (err) {
         //await page.click("#react-root > section > main > div > header > section > div.Y2E37 > button")
-        const [button_login] = await page.$x("//button[contains(., 'Follow')]");
-        console.log(button_login);
-        await button_login.click();
-        console.log("subsciber to : " + mention)
+        try {
+          const [button_login] = await page.$x("//button[contains(., 'Follow')]");
+          console.log(button_login);
+          await button_login.click();
+          console.log("subsciber to : " + mention)
+        }
+        catch (e){
+          console.log("Can't follow ", mention );
+        }
+
       }
       //FOLOW USER //LUCAS
     }
