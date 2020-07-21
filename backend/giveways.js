@@ -107,7 +107,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     }, settings_ds.get_D("cooldown_giveaways") + (13 * 1000))
   }
   let user = users_DS.get_D(user_screen_name)
-  console.log("take on", user);
+  console.log("---take on", user_screen_name, "---");
 
   if (user == 0) {
     return 0
@@ -122,7 +122,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 20,
-    headless: false,
+    headless: true,
     executablePath: getChromiumExecPath()
 
   });
