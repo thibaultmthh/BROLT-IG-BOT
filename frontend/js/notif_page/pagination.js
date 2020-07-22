@@ -1,8 +1,35 @@
 var btn_Dm = document.getElementById("Btn_Dm")
 var btn_Mentions = document.getElementById("Btn_Mentions")
 var btn_errors = document.getElementById("Btn_Errors")
-
 var soulig_en_cours = btn_Dm
+
+var menu = document.getElementById("Menu_notif")
+var easter = document.getElementById("easter")
+
+
+menu.addEventListener("mouseenter", function() {
+  // on met l'accent sur la cible de mouseenter
+  easter.style.display = "block"
+
+  // on réinitialise la couleur après quelques instants
+  setTimeout(function() {
+    easter.style.display = "none" ;
+  },600);
+}, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function changer_jaune(btn) {

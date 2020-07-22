@@ -22,6 +22,14 @@ body, html {
   height: 55%;
 }
 
+.h-10 {
+  height: 10%;
+}
+
+.h-90 {
+  height: 90%;
+}
+
 .nopad {
   padding: 0;
 }
@@ -55,7 +63,7 @@ p {
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -152,6 +160,7 @@ p {
 
 .titre {
   -webkit-app-region: drag;
+  font-size: 2em;
 }
 
 h1 {
@@ -184,7 +193,7 @@ h1 {
 }
 
 .main .corps {
-  height: 90%;
+  height: 100%;
 }
 
 .main .droite {
@@ -474,7 +483,7 @@ a {
   justify-content: center;
 }
 
-.settings-options p {
+p {
   color: white;
 }
 
@@ -482,22 +491,30 @@ a {
   margin-bottom: 30px;
 }
 
-.settings-options .key {
+.key {
+  position: relative;
   display: flex;
   justify-content: space-between;
 }
 
-.settings-options .autour_key {
+.autour_key {
   height: 40px;
   margin-left: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 60px;
+  padding-right: 40px;
   border-radius: 3px;
+  margin-right: 100px;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
-  background: #4f5157;
-  width: 90%;
+  border: 2px solid #00b490;
+  width: 750px;
+  ;
+}
+
+.autour_key p {
+  font-size: 1.2em;
 }
 
 .settings-options input[type="number"] {
@@ -549,6 +566,7 @@ a {
 }
 
 .button-settings {
+  display: flex;
   position: absolute;
   right: 20px;
   bottom: 20px;
@@ -576,7 +594,6 @@ a {
   height: 30px;
   margin-top: 5px;
   padding-top: 2px;
-
 }
 
 .haut-truc {
@@ -585,7 +602,6 @@ a {
 
 .logo_brolt {
   width: 40px;
-
 }
 
 .option_haut {
@@ -598,7 +614,8 @@ a {
   font-size: 1.03em;
   transition-duration: 0.2s;
 }
-.option_haut p{
+
+.option_haut p {
   margin-bottom: 5px;
 }
 
@@ -620,6 +637,155 @@ a {
   border-bottom: 2px solid #00b490;
 }
 
-.btn{
+.btn {
   box-shadow: none !important;
+}
+
+.menu_notif {
+  width: 8px;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background-color: #00b490;
+  transition-duration: 0.5s;
+}
+
+.menu_notif:hover {
+  width: 200px;
+}
+
+.notif_option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  height: 80px;
+  font-size: 1.2em;
+}
+
+.notif_option:hover {
+  background-color: #00b411;
+}
+
+.titre_notif {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  height: 80px;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn {
+  box-shadow: none !important;
+}
+
+.ml-3, .mx-3 {
+  margin-left: 1rem !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #00b490;
+  border-color: #00b490;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #049074 !important;
+  border-color: #049074 !important;
+}
+
+.btn-primary:focus {
+  color: #fff;
+  background-color: #049074 !important;
+  border-color: #049074 !important;
+}
+
+.btn-primary:active {
+  color: #fff;
+  background-color: #038168 !important;
+  border-color: #038168 !important;
+}
+
+#btn_save_settings {
+  width: 90px !important;
+}
+
+#easter {
+  opacity: 0.3;
+}
+
+.btn-orange {
+  background-color: #961414;
+  color: white;
+  width: 120px;
+  padding-top: 0px;
+  height: 25px !important;
+}
+
+.btn-orange:hover {
+  background-color: #851414;
+  color: white;
+}
+
+.btn-orange:active {
+  background-color: #791414;
+  color: white;
+}
+
+.bandeau_notif {
+  display: flex;
+}
+
+.bandeau_notif div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bandeau_notif p {
+  color: #00b490;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.notifs_place {
+  overflow: auto;
+  padding-top: 15px;
+}
+
+.nom_compte {
+  width: 175px;
+  padding-left: 20px;
+}
+
+.texte {
+  width: 775px;
+  padding-left: 20px;
+}
+
+.date_notif {
+  width: 102px;
+  padding-left: 20px;
+}
+
+.message_notif {
+  display: flex;
+  height: 32px;
+}
+.text_notif{
+  padding-top: 8px !important;
+}
+.haut_notif{
+  display: flex;
+  justify-content: space-between;
+}
+.btn_notif{
+  height: 30px;
+  padding-top:px;;
+  width: 180px;
 }
