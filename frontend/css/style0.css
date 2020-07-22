@@ -720,11 +720,14 @@ p {
 }
 
 .btn-orange {
-  background-color: #961414;
+  background-color: #96141400 ;
+;
   color: white;
   width: 120px;
   padding-top: 0px;
+  border: 2px solid #961414;
   height: 25px !important;
+  font-size: 0.9em;
 }
 
 .btn-orange:hover {
