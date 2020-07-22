@@ -786,6 +786,6 @@ p {
 }
 .btn_notif{
   height: 30px;
-  padding-top:2px;;
-
+  padding-top:px;;
+  width: 180px;
 }
