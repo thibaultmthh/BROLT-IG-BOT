@@ -66,65 +66,6 @@ class Users_DS extends Store {
 }
 
 
-class App_DS extends Store {
-  constructor() {
-    super()
-    this.data_name = "app_list"
-    this.datas = this.get(this.data_name) || [] // [name, {tokens(json), bot_on_it}, ...]
-    console.log(this.datas);
-    //this.datas = [["a"],["b"],["be"]]
-
-  }
-  get_D(user_screen_name) {
-    for (var index_user in this.datas) {
-      if (this.datas.hasOwnProperty(index_user)) {
-        if (this.datas[index_user][0] == user_screen_name) {
-          return this.datas[index_user]
-        }
-      }
-    }
-  }
-  get_All(){return this.datas}
-  get_All_app_name(){let responce=[];  for (var index_user in this.datas){responce.push(this.datas[index_user][0])} return responce }
-
-  add_D(user_datas) {
-
-    if (user_datas.length == 1){return 0}
-    if (this.get_D(user_datas[0]) === undefined) {
-      this.datas.push(user_datas)
-    } else {
-
-      for (var index_user in this.datas) {
-        if (this.datas.hasOwnProperty(index_user)) {
-          if (this.datas[index_user][0] == user_datas[0]) {
-            this.datas[index_user] = user_datas
-          }
-        }
-      }
-    }
-
-    this.set(this.data_name, this.datas)
-  }
-
-  remove_D(user_screen_name) {
-    if (this.get_D(user_screen_name) === undefined) {
-
-    } else {
-
-      for (var index_user in this.datas) {
-        if (this.datas.hasOwnProperty(index_user)) {
-          if (this.datas[index_user][0] == user_screen_name) {
-            this.datas.splice(index_user, 1)
-          }
-        }
-      }
-    }
-
-    this.set(this.data_name, this.datas)
-  }
-
-}
-
 
 
 class Giveways_DS extends Store {
@@ -387,7 +328,6 @@ class Unstored_DS{
 module.exports.Settings_DS = Settings_DS
 module.exports.Giveways_DS = Giveways_DS
 module.exports.Users_DS = Users_DS
-module.exports.App_DS = App_DS
 
 module.exports.Notif_DS = Notif_DS;
 module.exports.Unstored_DS = Unstored_DS;
