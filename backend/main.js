@@ -28,7 +28,6 @@ const {
 } = require("./user_app_managment.js")
 const {
   Users_DS,
-  App_DS,
   Giveways_DS,
   Settings_DS,
   Unstored_DS,
@@ -53,7 +52,6 @@ const users_DS = new Users_DS()
 const giveways_ds = new Giveways_DS()
 const notif_ds = new Notif_DS()
 const settings_ds = new Settings_DS()
-const app_ds = new App_DS()
 
 
 const {
