@@ -22,7 +22,8 @@
       "category": "your.app.category.type"
     },
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 110,
           "y": 150
         },
@@ -53,7 +54,8 @@
     "puppeteer": "^5.1.0",
     "puppeteer-extra": "^3.1.12",
     "puppeteer-extra-plugin-stealth": "^2.4.13",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "twitter-lite": "^0.14.0"
   },
   "devDependencies": {
     "electron": "latest",

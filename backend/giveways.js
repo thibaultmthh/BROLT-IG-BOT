@@ -152,9 +152,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     await page_auth.waitFor(3000)
     await page_auth.keyboard.press('Enter');
 
-    await page_auth.waitForNavigation({
-      waitUntil: 'networkidle0'
-    })
+    await page_auth.waitFor(10000)
   } catch (e) {
     console.log("Cant find connextion form", e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
