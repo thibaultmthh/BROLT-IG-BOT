@@ -35,106 +35,69 @@
     <div class="row" style="height:93%">
       <!--Main-->
       <div class="col-12 h-100 p-0 main ">
-        <div class="col-1 w-100 mw-100  corps">
-          <div class="row h-100 ">
-            <div class="col-4 h-100 ">
-              <div class="container h-100 p-0 pt-3">
-                <div class="container  h-50 droite">
-                  <h2 class="pl-2 pt-2 pb-3">New tasks</h2>
-                  <form>
-                    <div class="form-group pd-4">
-                      <label for="linkInput" class="blanc pl-2">Enter link</label>
-                      <input type="link" class="form-control" id="linkInput" aria-describedby="" placeholder="Enter link">
-                      <small id="emailHelp" class="form-text text-muted pl-2 red"></small>
-                    </div>
-                    <div class="centrer">
-                      <input type="button" class="btn btn-primary" id="btn_valide_giveway" value="Submit" />
+        <div class="col-1 w-100 mw-100 pt-4 corps">
+          <div class="h-90 pb-3 pr-2 pl-2 ">
+            <div class="cont_tasks h-100">
 
-                    </div>
-
-                  </form>
-                </div>
-
-              </div>
             </div>
-            <div class="col-8 h-100 ">
-              <div class="container h-100 pt-3 pb-4">
-                <div class="container droite h-100 p-0 pl-2 pr-2">
-                  <h2 class="pl-2 pt-2">Recent tasks</h2>
-                  <div class="list">
-                    <div class="cont_liste" id="list_all_giveways">
-
-                      <!-- element liste -->
-                      <!--
-                      <div class="el-list">
-                        <div class="el-liste">
-                          <p class="nom">Seig bot</p>
-                          <p class="red">await</p>
-
-
-
-                    </div>
-                  </div>
-                -->
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
+          </div>
+          <div class="display-flex justify-content-center h-10 ">
+            <div class="display-flex">
+              <p class="mt-1">Add a new task</p>
+              <input type="link" class="form-control ml-4" id="linkInput" aria-describedby="" placeholder="Enter link">
+              <button type="button" class="btn " id="btn_valide_giveway" name="button">Submit</button>
             </div>
-            <div class="oui" id="Settings_menu">
-              <a href="#" id="croix_settings"><img src="pictures/croix.png" alt="croix"></a>
-              <h2>Giveaway Options</h2>
-              <div class="container">
-                <input type="link" class="form-control" id="giveaway_name_form" aria-describedby="" placeholder="Custom giveaway name">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
-                  <label class="custom-control-label" for="customSwitches">Follow</label>
-                </div>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
-                  <label class="custom-control-label" for="customSwitches">Follow mentioned</label>
-                </div>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="switch1" checked="">
-                  <label class="custom-control-label" for="switch1">Like</label>
-                </div>
+          </div>
 
-                <div class="">
-
-                  <div class="people_to_tag">
-                    <select class="form-control " id="exampleFormControlSelect1">
-                      <option>0</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-
-
-                    </select>
-                    <p>People to tag</p>
-
-                  </div>
-
-                </div>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="switch2">
-                  <label class="custom-control-label" for="switch2">Add text</label>
-                </div>
-                <input type="link" class="form-control zero" id="hashtagsInput" aria-describedby="" placeholder="Enter the text">
-
-
-                <div class="centrer pt-3">
-                  <input type="button" class="btn btn-primary" id="add_giveway_btn" value="Start !" />
-                </div>
+          <div class="oui" id="Settings_menu">
+            <a href="#" id="croix_settings"><img src="pictures/croix.png" alt="croix"></a>
+            <h2>Giveaway Options</h2>
+            <div class="container">
+              <input type="link" class="form-control" id="giveaway_name_form" aria-describedby="" placeholder="Custom giveaway name">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
+                <label class="custom-control-label" for="customSwitches">Follow</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
+                <label class="custom-control-label" for="customSwitches">Follow mentioned</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switch1" checked="">
+                <label class="custom-control-label" for="switch1">Like</label>
               </div>
 
+              <div class="">
+
+                <div class="people_to_tag">
+                  <select class="form-control " id="exampleFormControlSelect1">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+
+
+                  </select>
+                  <p>People to tag</p>
+
+                </div>
+
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switch2">
+                <label class="custom-control-label" for="switch2">Add text</label>
+              </div>
+              <input type="link" class="form-control zero" id="hashtagsInput" aria-describedby="" placeholder="Enter the text">
+
+
+              <div class="centrer pt-3">
+                <input type="button" class="btn btn-primary" id="add_giveway_btn" value="Start !" />
+              </div>
             </div>
 
           </div>
+
         </div>
       </div>
     </div>

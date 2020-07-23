@@ -321,20 +321,6 @@ h1 {
   left: 65%;
 }
 
-.main #btn_valide_giveway {
-  background-color: #bf4949 !important;
-  border-color: #bf4949 !important;
-}
-
-.main #btn_valide_giveway:hover {
-  background-color: #ad4242 !important;
-  border-color: #ad4242 !important;
-}
-
-.main #btn_valide_giveway:focus {
-  box-shadow: 0 0 0 0.2rem rgba(191, 73, 73, .5);
-}
-
 .main h2 {
   font-size: 26px;
 }
@@ -641,6 +627,10 @@ p {
   box-shadow: none !important;
 }
 
+.form-control {
+  box-shadow: none !important;
+}
+
 .menu_notif {
   width: 8px;
   position: absolute;
@@ -701,8 +691,8 @@ p {
 
 .btn-primary:focus {
   color: #fff;
-  background-color: #049074 !important;
-  border-color: #049074 !important;
+  background-color: #00b490;
+  border-color: #00b490;
 }
 
 .btn-primary:active {
@@ -720,8 +710,8 @@ p {
 }
 
 .btn-orange {
-  background-color: #96141400 ;
-;
+  background-color: #96141400;
+  ;
   color: white;
   width: 120px;
   padding-top: 0px;
@@ -759,36 +749,90 @@ p {
 .notifs_place {
   overflow: auto;
   padding-top: 15px;
+  border: 2px solid #00b490;
+  border-radius: 2px;
 }
 
 .nom_compte {
   width: 175px;
   padding-left: 20px;
+  overflow: hidden;
+}
+
+.notifs_place .nom_compte p {
+  color: green;
 }
 
 .texte {
   width: 775px;
+  overflow: hidden;
   padding-left: 20px;
 }
 
 .date_notif {
   width: 102px;
   padding-left: 20px;
+  overflow: hidden;
 }
 
 .message_notif {
   display: flex;
-  height: 32px;
+  height: 37px;
+  overflow: hidden;
 }
-.text_notif{
+
+.text_notif {
   padding-top: 8px !important;
 }
-.haut_notif{
+
+.haut_notif {
   display: flex;
   justify-content: space-between;
 }
-.btn_notif{
+
+.btn_notif {
   height: 30px;
-  padding-top:px;;
   width: 180px;
+}
+
+#linkInput {
+  width: 300px; !important;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: 2px solid #00b490;
+  background-color: #fff0;
+  border-right-width: 1px !important;
+  color: white;
+}
+
+#linkInput:focus {
+  color: white
+}
+
+.display-flex {
+  display: flex;
+}
+
+#btn_valide_giveway {
+  padding-top: 4px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 38px;
+  border-left-width: 1px !important;
+  border: 2px solid #00b490;
+}
+
+#btn_valide_giveway:hover {
+  background-color: #00b490 !important;
+  border-color: #00b490 !important;
+}
+
+#btn_valide_giveway:active {
+  color: #fff;
+  background-color: #038168 !important;
+  border-color: #038168 !important;
+}
+.cont_tasks{
+    border: 2px solid #00b490;
+    border-radius: 2px;
 }
