@@ -786,7 +786,7 @@ p {
 
 .message_notif {
   display: flex;
-  height: 37px;
+  height: 50px;
   overflow: hidden;
 }
 
@@ -947,4 +947,71 @@ p {
 }
 #btn_new_user:active{
   border-color: #038168;
+}
+
+
+.modal {
+
+  padding-top: 150px;
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 2;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content-account {
+  border: 2px solidd #00b490 ;
+  height: 70%;
+  position: relative;
+  border-radius: 2px;
+  background: #0e1e27;
+  margin: auto;
+  padding: 0;
+  width: 45%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.3s;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+
+}
+
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -50px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }

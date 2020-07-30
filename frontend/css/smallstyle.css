@@ -1,10 +1,8 @@
-
-
 *, *::after, *::before {
-	-webkit-user-select: none;
-	-webkit-user-drag: none;
-	-webkit-app-region: no-drag;
-	cursor: default;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+  cursor: default;
 }
 
 body, html {
@@ -12,12 +10,14 @@ body, html {
   width: 450px;
 }
 
-.nopad{
+.nopad {
   padding: 0
 }
-.nomarg{
+
+.nomarg {
   margin: 0;
 }
+
 .blue {
   background: blue;
 }
@@ -26,23 +26,56 @@ body, html {
   color: #CB0731 !important;
 }
 
-
 .yellow {
   background: yellow;
 }
-.app{
-    background: #0e2431;
+
+.app {
+  background: #0e2431;
+  border: 3px solid #00b490;
+  display: flex;
 }
-.logo{
+
+.logo {
   padding-left: 9px;
   padding-right: 9px;
 }
 
-.bord{
+.bord {
   height: 30%;
 }
-.btn{
+
+.btn {
   margin-top: 15px;
   background: #0074AB;
   margin-left: 40px;
+  box-shadow: none !important;
+}
+
+.centrer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#btn_valider_key:hover {
+  color: #fff;
+  background-color: #01a786 !important;
+  border-color: #01a786 !important;
+}
+#btn_valider_key {
+  background-color: #fff0;
+  margin-top: 10px;
+  border: 2px solid #00b490;
+	color: white;
+	height: 30px;
+	padding-top: 0px;
+	margin-top: 20px;
+}
+
+#btn_valider_key:active {
+  border-color: #038168;
+}
+#activation_input{
+	outline: none !important;
+	margin-top: 70px;
 }
