@@ -35,3 +35,22 @@ otherCheckbox.onchange = function() {
 };
 
 //
+
+
+
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("btn_valide_giveway");
+
+btn.addEventListener("click", function() {
+  console.log("okkk");
+  modal.style.display = "block";
+})
+
+window.onclick = function(event) {
+  console.log("oui");
+
+  if (event.target == modal) {
+    console.log(event.target);
+    modal.style.display = "none";
+  }
+}
