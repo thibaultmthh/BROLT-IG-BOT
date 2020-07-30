@@ -67,7 +67,7 @@ function timeConverter(UNIX_timestamp) {
 }
 
 function bold_chaine(chaine) {
-  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won"];
+  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won", "tinumi389"];
   var yes = false;
   for (var i in keywords) {
 
@@ -76,29 +76,21 @@ function bold_chaine(chaine) {
     }
   }
   if (yes) {
-    var text = document.createElement("b");
-    text.appendChild(document.createTextNode(chaine));
-    var node = document.createElement("p");
-    console.log(node)
-    node.appendChild(text);
+    text = "<b>" + chaine + "</b>"
 
   } else {
-    var node = document.createElement("p");
-    node.appendChild(document.createTextNode(chaine));
+    text = chaine
   }
-  console.log(node, yes)
-  return node
+  return text
 }
 
 
 function display_notif(data) {
-  let main_div = document.getElementById('notifs_place')
-  main_div.innerHTML = ""
+  let main_div = $("#notifs_place")
+  main_div.empty()
   let displayed_message = []
   for (var i in data) {
     notif = data[i]
-    //console.log(notif);
-    console.log(displayed, notif[2]);
 
     if (notif[2] == displayed && notif[3] != undefined) {
       if (displayed == "error") {
@@ -106,17 +98,28 @@ function display_notif(data) {
         message = " @" + notif[1] + " Error -> " + notif[3]
         if (displayed_message.includes(message) == false) {
           displayed_message.push(message);
-          console.log(message);
-          let p_text = bold_chaine(message)
-          main_div.appendChild(p_text)
+          main_div.append("<p>" + messages + "</p>")
         } else {}
       }
       if (displayed == "mention") {
-        console.log(notif);
-        message = "@" + notif[1] + " --> " + notif[3].message
-        let p_text = bold_chaine(message)
+        let p_text = bold_chaine(notif[3].message)
+        let div = "<div class='message_notif'>" +
+          "                    <div class='nom_compte couleur_win'>" +
+          "                      <p>" + notif[1] + "</p>" +
+          "                    </div>" +
+          "                    <div class='texte'>" +
+          "                      <p>" + p_text + "</p>" +
+          "                    </div>" +
+          "                    <div class='date_notif'>" +
+          "                      <p></p>" +
+          "                    </div>" +
+          "                  </div>"
+        main_div.append(div)
 
-        main_div.appendChild(p_text)
+
+
+
+
         console.log(message);
       }
       if (displayed == "dm") {
@@ -124,7 +127,7 @@ function display_notif(data) {
         message = notif[3].message
         let p_text = bold_chaine(message)
         console.log(message);
-        main_div.appendChild(p_text)
+        main_div.append("<p>" + p_text + "</p>")
       }
     }
 
