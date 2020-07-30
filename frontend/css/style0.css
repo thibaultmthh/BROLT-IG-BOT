@@ -34,6 +34,14 @@ body, html {
   padding: 0;
 }
 
+.w-65 {
+  width: 65%;
+}
+
+.w-35 {
+  width: 35%;
+}
+
 .nomarg {
   margin: 0;
 }
@@ -587,7 +595,8 @@ p {
 }
 
 .logo_brolt {
-  width: 36px;
+  width: 50px;
+  margin-top: 2px;
 }
 
 .option_haut {
@@ -607,7 +616,7 @@ p {
 
 .logo_div {
   width: 5%;
-  padding-left: 20px;
+  padding-left: 25px;
 }
 
 .div_choix {
@@ -655,7 +664,7 @@ p {
 }
 
 .notif_option:hover {
-  background-color: #00b411;
+  background-color: #038168;
 }
 
 .titre_notif {
@@ -685,8 +694,8 @@ p {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #049074 !important;
-  border-color: #049074 !important;
+  background-color: #01a786 !important;
+  border-color: #01a786 !important;
 }
 
 .btn-primary:focus {
@@ -797,7 +806,6 @@ p {
 
 #linkInput {
   width: 300px;
-   !important;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   border: 2px solid #00b490;
@@ -883,11 +891,60 @@ p {
 }
 
 .del_task {
-  top: 1px;;
+  top: 1px;
+  ;
   right: 5px;
   height: 18px;
   position: absolute;
 }
-.del_task:hover{
+
+.del_task:hover {
   opacity: 0.5
+}
+
+.border_brolt {
+  border: 2px solid #00b490;
+}
+
+.option_add {
+  margin-bottom: 15px;
+}
+
+.option_add p {
+  font-size: 1.2em;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.option_add input[type="text"] {
+  background-color: #fff0;
+  height: 30px;
+  padding-top: 4px;
+}
+
+.option_add input[type="text"]:focus {
+  border-color: #00b490;
+  color: white;
+}
+
+.Insta_input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Insta_input input {
+  width: 49%;
+}
+
+#proxyauth {
+  margin-bottom: 10px;
+}
+
+#btn_new_user {
+  background-color: #fff0;
+  margin-top: 10px;
+  border: 2px solid #00b490 ;
+}
+#btn_new_user:active{
+  border-color: #038168;
 }
