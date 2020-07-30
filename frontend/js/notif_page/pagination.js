@@ -13,8 +13,8 @@ menu.addEventListener("mouseenter", function() {
 
   // on réinitialise la couleur après quelques instants
   setTimeout(function() {
-    easter.style.display = "none" ;
-  },600);
+    easter.style.display = "none";
+  }, 600);
 }, false);
 
 
@@ -25,24 +25,10 @@ menu.addEventListener("mouseenter", function() {
 
 
 
-
-
-
-
-
-
-
-function changer_jaune(btn) {
-  soulig_en_cours.classList.remove("jaune");
-  btn.classList.add("jaune");
-  soulig_en_cours = btn
-}
-
 function get_notif() {
   ipc.send("get_list_notif", "")
 }
 
-changer_jaune(btn_Dm);
 var displayed = "dm"
 
 get_notif()
@@ -50,18 +36,18 @@ setInterval(get_notif, 15000)
 
 btn_Mentions.addEventListener("click", function(event) {
   soulig_en_cours.classList.remove("jaune");
-  changer_jaune(btn_Mentions);
+  //changer_jaune(btn_Mentions);
   displayed = "mention"
   get_notif()
 })
 btn_Dm.addEventListener("click", function(event) {
-  changer_jaune(btn_Dm);
+  //changer_jaune(btn_Dm);
   displayed = "dm"
   get_notif()
 })
 
 btn_errors.addEventListener("click", function(event) {
-  changer_jaune(btn_errors);
+  //changer_jaune(btn_errors);
   displayed = "error"
   get_notif()
 })
@@ -112,7 +98,7 @@ function display_notif(data) {
   for (var i in data) {
     notif = data[i]
     //console.log(notif);
-    console.log(displayed,notif[2] );
+    console.log(displayed, notif[2]);
 
     if (notif[2] == displayed && notif[3] != undefined) {
       if (displayed == "error") {
@@ -123,8 +109,7 @@ function display_notif(data) {
           console.log(message);
           let p_text = bold_chaine(message)
           main_div.appendChild(p_text)
-        } else {
-        }
+        } else {}
       }
       if (displayed == "mention") {
         console.log(notif);
