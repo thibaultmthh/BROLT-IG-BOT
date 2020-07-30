@@ -75,13 +75,8 @@ function bold_chaine(chaine) {
       yes = true;
     }
   }
-  if (yes) {
-    text = "<b>" + chaine + "</b>"
 
-  } else {
-    text = chaine
-  }
-  return text
+  return yes
 }
 
 
@@ -102,13 +97,21 @@ function display_notif(data) {
         } else {}
       }
       if (displayed == "mention") {
-        let p_text = bold_chaine(notif[3].message)
+        let yes = bold_chaine(notif[3].message)
+        if (yes) {
+          text = "<b>" + notif[3].message + "</b>"
+          class_username = "couleur_win"
+
+        } else {
+          text = notif[3].message
+          class_username = ""
+        }
         let div = "<div class='message_notif'>" +
-          "                    <div class='nom_compte couleur_win'>" +
-          "                      <p>" + notif[1] + "</p>" +
+          "                    <div class='nom_compte '>" +
+          "                      <p class= " + class_username + ">" + notif[1] + "</p>" +
           "                    </div>" +
           "                    <div class='texte'>" +
-          "                      <p>" + p_text + "</p>" +
+          "                      <p>" + text + "</p>" +
           "                    </div>" +
           "                    <div class='date_notif'>" +
           "                      <p></p>" +
@@ -123,11 +126,27 @@ function display_notif(data) {
         console.log(message);
       }
       if (displayed == "dm") {
-        //date = timeConverter(notif[3].date)
-        message = notif[3].message
-        let p_text = bold_chaine(message)
-        console.log(message);
-        main_div.append("<p>" + p_text + "</p>")
+        let yes = bold_chaine(notif[3].message)
+        if (yes) {
+          text = "<b>" + notif[3].message + "</b>"
+          class_username = "couleur_win"
+
+        } else {
+          text = notif[3].message
+          class_username = ""
+        }
+        let div = "<div class='message_notif'>" +
+          "                    <div class='nom_compte '>" +
+          "                      <p class= " + class_username + ">" + notif[1] + "</p>" +
+          "                    </div>" +
+          "                    <div class='texte'>" +
+          "                      <p>" + text + "</p>" +
+          "                    </div>" +
+          "                    <div class='date_notif'>" +
+          "                      <p></p>" +
+          "                    </div>" +
+          "                  </div>"
+        main_div.append(div)
       }
     }
 
