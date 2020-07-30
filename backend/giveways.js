@@ -149,10 +149,22 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     await page_auth.focus("input[name='password']")
     await page_auth.keyboard.type(account_info.password)
     await page_auth.keyboard.press('Enter');
-    await page_auth.waitFor(3000)
-    await page_auth.keyboard.press('Enter');
+    try {
+      await page_auth.waitForNavigation({
+        waitUntil: 'networkidle0'
+      })
+    } catch (e) {
+      await page_auth.waitFor(3000)
+      await page_auth.keyboard.press('Enter');
+      await page_auth.waitForNavigation({
+        waitUntil: 'networkidle0'
+      })
+      await page_auth.waitFor(800)
+    }
 
-    await page_auth.waitFor(10000)
+
+
+
   } catch (e) {
     console.log("Cant find connextion form", e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
@@ -284,9 +296,8 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
           console.log(button_login);
           await button_login.click();
           console.log("subsciber to : " + mention)
-        }
-        catch (e){
-          console.log("Can't follow ", mention );
+        } catch (e) {
+          console.log("Can't follow ", mention);
         }
 
       }

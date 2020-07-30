@@ -58,10 +58,21 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     await page_auth.waitFor(3000)
     await page_auth.keyboard.press('Enter');
 
-    await page_auth.waitForNavigation({
-      waitUntil: 'networkidle0'
-    })
-    await page_auth.waitFor(800)
+    try{
+      await page_auth.waitForNavigation({
+        waitUntil: 'networkidle0'
+      })
+    }
+    catch (e){
+      await page_auth.waitFor(3000)
+      await page_auth.keyboard.press('Enter');
+      await page_auth.waitForNavigation({
+        waitUntil: 'networkidle0'
+      })
+      await page_auth.waitFor(800)
+
+    }
+
   } catch (e) {
     console.log("Cant find connexion form", e.message);
     //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
