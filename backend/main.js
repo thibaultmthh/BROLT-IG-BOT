@@ -298,10 +298,9 @@ function main() {
 
   ipc.on("win_notification", (event, data) => {
     let notif_data = data
-
-
   })
 
+  ipc.on("clear_notif", (event, data)=>{notif_ds.clear_All()})
 
 
   //settings window
