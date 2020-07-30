@@ -30,6 +30,14 @@ body, html {
   height: 90%;
 }
 
+.h-15 {
+  height: 15%;
+}
+
+.h-70 {
+  height: 70%;
+}
+
 .nopad {
   padding: 0;
 }
@@ -641,7 +649,7 @@ p {
 }
 
 .menu_notif {
-  width: 8px;
+  width: 15px;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -658,7 +666,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 10px;
+  padding-left: 15px;
   height: 80px;
   font-size: 1.2em;
 }
@@ -943,16 +951,15 @@ p {
 #btn_new_user {
   background-color: #fff0;
   margin-top: 10px;
-  border: 2px solid #00b490 ;
+  border: 2px solid #00b490;
 }
-#btn_new_user:active{
+
+#btn_new_user:active {
   border-color: #038168;
 }
 
-
 .modal {
-
-  padding-top: 150px;
+  padding-top: 100px;
   display: none;
   /* Hidden by default */
   position: fixed;
@@ -975,21 +982,20 @@ p {
 
 /* Modal Content */
 .modal-content-account {
-  border: 2px solidd #00b490 ;
-  height: 70%;
+  border: 2px solidd #00b490;
+  height: 80%;
   position: relative;
-  border-radius: 2px;
+  border-radius: 5px;
   background: #0e1e27;
   margin: auto;
   padding: 0;
-  width: 45%;
+  width: 60%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.3s;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
-
 }
 
 @-webkit-keyframes animatetop {
@@ -1014,4 +1020,43 @@ p {
     top: 0;
     opacity: 1
   }
+}
+
+.el_accounts {
+  height: 48px;
+  border-bottom: 2px solid #00b490;
+}
+
+.el_account {
+  display: flex;
+  justify-content: space-around;
+}
+
+.el_account div {
+  width: 33%;
+  overflow: hidden;
+  text-align: center;
+}
+
+#liste_account {
+  overflow: auto;
+}
+
+.haut_modal {
+  border-bottom: 2px solid #00b490;
+}
+
+#add_giveway_btn {
+  width: 90px;
+  margin-top: 0;
+  height: 33px;
+  padding-top: 3px;
+}
+.bas_modal{
+  display: flex;
+  justify-content: center;
+}
+
+.couleur_win{
+  color: red;
 }

@@ -17,22 +17,14 @@ slider.oninput = function() {
     output.innerHTML = a;
 }
 */
-var btn_croix = document.getElementById("croix_settings")
+
 var menu = document.getElementById("Settings_menu")
-console.log(btn_croix);
-btn_croix.addEventListener("click", function (event) {console.log("fermeture du S.A.S ...");menu.classList.remove("je");
-})
+
 
 var otherCheckbox = document.getElementById('switch2');
 var otherText = document.getElementById('hashtagsInput');
 
-otherCheckbox.onchange = function() {
-  if(otherCheckbox.checked) {
-      otherText.classList.remove("zero")
-  } else {
-    otherText.classList.add("zero")
-  }
-};
+
 
 //
 
