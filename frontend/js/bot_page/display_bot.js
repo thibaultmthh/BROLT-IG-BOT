@@ -2,18 +2,17 @@ function get_bot_list() {
   ipc.send("get_bot_list", "")
 }
 get_bot_list()
-setInterval(get_bot_list, 10000)
+setInterval(get_bot_list, 40000)
 
 var user_displayed = []
 
 
 
 function delete_acc(event) {
-  acc = event.path[0].id
+  console.log(event);
+  acc = event.target.id
   //console.log(acc);
   ipc.send("delete_account", acc)
-  user_displayed = []
-  document.getElementById('all_bots').innerHTML = ""
   get_bot_list()
 }
 
@@ -26,6 +25,7 @@ function display_bot_list(data) {
   console.log(data);
   main_div = $('#liste_account')
   main_div.empty()
+  user_displayed = []
   for (var i in data) {
     botname = data[i][0]
     proxyhost = data[i][2].proxyhost
@@ -40,11 +40,13 @@ function display_bot_list(data) {
         "                    <div class=''>" +
         "                      <p>" + proxyhost + "</p>" +
         "                    </div>" +
-        "                    <div class=''>" +
-        "                      <p>DELETE</p>" +
+        "                    <div class='btn_delete'>" +
+        "                      <p id='" + botname + "' class=''>DELETE</p>" +
         "                    </div>" +
         "                  </div>" +
         "                </div>"
+
+
       /*
       btn.addEventListener("click", function(event) {
         event.preventDefault();
@@ -54,6 +56,10 @@ function display_bot_list(data) {
       main_div.append(div)
     }
   }
+  $(".btn_delete").on("click", (event) => {
+    event.preventDefault();
+    delete_acc(event);
+  })
 }
 
 
