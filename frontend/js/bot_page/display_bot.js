@@ -63,8 +63,14 @@ ipc.on("bot_list", (event, data) => {
 })
 
 
+var modal = document.getElementById("modal-error")
+window.onclick = function(event) {
 
-
+  if (event.target == modal) {
+    console.log(event.target);
+    modal.style.display = "none";
+  }
+}
 
 
 

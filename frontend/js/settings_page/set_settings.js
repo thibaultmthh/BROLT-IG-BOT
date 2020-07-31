@@ -47,9 +47,10 @@ btn_delete_key.addEventListener("click", (event) => {
     console
   })
 })
-btn_test_webhooks.addEventListener("click", (event)=> {event.preventDefault();
+btn_test_webhooks.addEventListener("click", (event) => {
+  event.preventDefault();
   ipc.send("set_webhook", input_webhooks.value)
-  
+
 })
 
 function send_settings() {
@@ -71,34 +72,42 @@ function send_settings() {
 
 
 
+}
+
+ipc.on("all_settings", function(event, data) {
+  console.log(data);
+})
+
+
+
+btn_save_settings.addEventListener('click', function(event) {
+  event.preventDefault();
+  console.log("oooo");
+  send_settings()
+})
+
+btn_reset_settings.addEventListener('click', function(event) {
+  event.preventDefault();
+  task_cooldown.value = 190;
+  acc_cooldown.value = 50;
+  input_webhooks.value = "";
+  send_settings()
+})
+
+
+
+
+var modal = document.getElementById("modal-error")
+window.onclick = function(event) {
+
+  if (event.target == modal) {
+    console.log(event.target);
+    modal.style.display = "none";
   }
-
-  ipc.on("all_settings", function(event, data) {
-    console.log(data);
-  })
-
-
-
-  btn_save_settings.addEventListener('click', function(event) {
-    event.preventDefault();
-    console.log("oooo");
-    send_settings()
-  })
-
-  btn_reset_settings.addEventListener('click', function(event) {
-    event.preventDefault();
-    task_cooldown.value = 190;
-    acc_cooldown.value = 50;
-    input_webhooks.value = "";
-    send_settings()
-  })
+}
 
 
 
 
 
-
-
-
-
-  //
+//

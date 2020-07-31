@@ -23,7 +23,7 @@ var menu = document.getElementById("Settings_menu")
 
 var otherCheckbox = document.getElementById('switch2');
 var otherText = document.getElementById('hashtagsInput');
-
+var modal_error = document.getElementById("modal-error")
 
 
 //
@@ -39,9 +39,12 @@ btn.addEventListener("click", function() {
 })
 
 window.onclick = function(event) {
-  console.log("oui");
 
   if (event.target == modal) {
+    console.log(event.target);
+    modal.style.display = "none";
+  }
+  if (event.target == modal-error) {
     console.log(event.target);
     modal.style.display = "none";
   }

@@ -23,10 +23,11 @@ function add_account() {
 
 
 
-
-
 ipc.on("new_user_state", (event, data) => {
-  document.getElementById("erreurs").textContent = data.message // // TODO: tangy fais ton truc
+  let modal = document.getElementById("myModal-error");
+  let error_div = document.getElementById("error")
+  error_div.textContent = data.message
+  modal.style.display = "block";
   if (data.type == "success") {
     $("#proxyhost").empty(),
       $("#proxyauth").empty(),

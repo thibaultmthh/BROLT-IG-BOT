@@ -163,4 +163,13 @@ ipc.on("list_notif", (event, data) => {
 get_notif()
 
 
+var modal = document.getElementById("modal-error")
+window.onclick = function(event) {
+
+  if (event.target == modal) {
+    console.log(event.target);
+    modal.style.display = "none";
+  }
+}
+
 //
