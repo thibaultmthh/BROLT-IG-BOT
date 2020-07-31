@@ -25,6 +25,13 @@ body, html {
 .h-10 {
   height: 10%;
 }
+.h-80 {
+  height: 80%;
+}
+
+.h-20 {
+  height: 20%;
+}
 
 .h-90 {
   height: 90%;
@@ -405,8 +412,12 @@ h1 {
   margin-top: 5px;
 }
 
-#hashtagsInput {
-  transition: .5s ease;
+textarea {
+  resize: none;
+  margin-top: 10px;
+  width: 70%;
+  outline: none !important;
+  border-radius: 3px;
 }
 
 .zero {
@@ -467,7 +478,6 @@ a {
 .people_to_tag {
   display: flex;
   justify-content: flex-start;
-  padding-top: 10px;
 }
 
 .people_to_tag p {
@@ -776,8 +786,6 @@ p {
   overflow: hidden;
 }
 
-
-
 .texte {
   width: 775px;
   overflow: hidden;
@@ -978,6 +986,27 @@ p {
   /* Black w/ opacity */
 }
 
+.modal-error {
+  padding-top: 200px;
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 2;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /* Modal Content */
 .modal-content-account {
   border: 2px solidd #00b490;
@@ -994,6 +1023,25 @@ p {
   animation-name: animatetop;
   animation-duration: 0.3s;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+  color: white;
+}
+
+.modal-content-error {
+  border: 2px solidd #00b490;
+  height: 40%;
+  position: relative;
+  border-radius: 5px;
+  background: #0e1e27;
+  margin: auto;
+  padding: 0;
+  width: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.3s;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
 @-webkit-keyframes animatetop {
@@ -1045,38 +1093,62 @@ p {
 }
 
 #add_giveway_btn {
-  width: 90px;
+  width: 100px;
   margin-top: 0;
   height: 33px;
   padding-top: 3px;
 }
-.bas_modal{
+
+.bas_modal {
   display: flex;
   justify-content: center;
 }
 
-.couleur_win{
+.couleur_win {
   color: red;
 }
+
 .custom-control-input:checked~.custom-control-label::before {
-    color: #fff;
-    border-color: #00b490 !important;
-    background-color: #00b490 !important;
-      box-shadow: none !important;
+  color: #fff;
+  border-color: #00b490 !important;
+  background-color: #00b490 !important;
+  box-shadow: none !important;
 }
+
 .custom-control-input:checked~.custom-control-label::before {
   outline: none;
   box-shadow: none !important;
 }
-.input_brolt{
-    background-color: #fff0;
-    height: 35px;
-    padding-top: 4px;
-    border:  2px solid #00b490;
-  }
 
-  .input_brolt:focus {
-    border-color: #00b490;
-    color: white;
-    background-color: #fff0;
-  }
+.input_brolt {
+  background-color: #fff0;
+  height: 35px;
+  padding-top: 4px;
+  border: 2px solid #00b490;
+  width: 350px;
+  margin-bottom: 10px;
+}
+
+.input_brolt:focus {
+  border-color: #00b490;
+  color: white;
+  background-color: #fff0;
+}
+
+#giveaway_name_form {
+  margin-bottom: 20px;
+}
+
+.custom-switch {
+  margin-top: 8px;
+}
+
+textarea {
+  background-color: #fff0;
+  padding-left: 5px;
+  margin-top: 15px;
+  color: white;
+}
+#error{
+  color: red;
+}

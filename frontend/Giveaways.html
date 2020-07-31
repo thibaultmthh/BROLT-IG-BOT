@@ -9,57 +9,73 @@
 </head>
 
 <body>
+  <div id="myModal" class="modal-error">
 
+
+    <div class="modal-content-error">
+      <div class="h-20 text-align-center">
+        <h3>Error</h3>
+      </div>
+      <div class="h-80 p-4">
+        <p id="error"></p>
+      </div>
+      <p></p>
+    </div>
+  </div>
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content-account">
-      <div class="h-15 haut_modal  text-align-center">
+      <div class="h-15 haut_modal  text-align-center mb-2">
         <p class="titre">Add a new giveaway</p>
       </div>
-      <div class="h-70 pt-3">
-        <div class="container">
+      <div class="h-70 pt-2">
+        <div class="display-flex justify-content-center">
           <input type="link" class="form-control input_brolt" id="giveaway_name_form" aria-describedby="" placeholder="Custom giveaway name">
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
-            <label class="custom-control-label" for="customSwitches">Follow</label>
+        </div>
+        <div class="container display-flex">
+          <div class="w-50 pl-2">
+
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="follow_provider_switch" checked="">
+              <label class="custom-control-label" for="follow_provider_switch">Follow</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
+              <label class="custom-control-label" for="follow_mentioned_switch">Follow mentioned</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="switch1" checked="">
+              <label class="custom-control-label" for="switch1">Like</label>
+            </div>
           </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="follow_mentioned_switch" checked="">
-            <label class="custom-control-label" for="customSwitches">Follow mentioned</label>
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="switch1" checked="">
-            <label class="custom-control-label" for="switch1">Like</label>
-          </div>
+          <div class="w-50 pl-2" style="padding-top:8px;">
+            <div class="">
 
-          <div class="">
-
-            <div class="people_to_tag">
-              <select class="form-control " id="exampleFormControlSelect1">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <div class="people_to_tag">
+                <select class="form-control " id="exampleFormControlSelect1">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
 
 
-              </select>
-              <p>People to tag</p>
+                </select>
+                <p>People to tag</p>
+
+              </div>
 
             </div>
+            <textarea name="name" class="border_brolt " rows="3" cols="40" placeholder="Text to add" id="hashtagsInput "></textarea>
+          </div>
 
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="switch2">
-            <label class="custom-control-label" for="switch2">Add text</label>
-          </div>
-          <input type="link" class="form-control zero" id="hashtagsInput" aria-describedby="" placeholder="Enter the text">
+
 
         </div>
       </div>
       <div class="h-15">
-        <div class=" bas_modal pt-3">
+        <div class=" bas_modal pt-1">
           <input type="button" class="btn btn-primary" id="add_giveway_btn" value="Start !" />
         </div>
       </div>
@@ -99,24 +115,28 @@
         <div class="col-1 w-100 mw-100 pt-4 corps">
           <div class="h-90 pb-3 pr-2 pl-2 ">
             <div class="cont_tasks h-100 pt-3 pr- pl-3">
-              <!--
+
               <div class="ligne_el_tasks">
                 <div class="task_el waiting">
-                  <div class="task_el_haut">
+                  <div class="h-15 text-align-center">
+                    <p>Name of the giveaways</p>
+                  </div>
+                  <div class="h-70">
                     <div class="display-flex h-100 ">
+                      <div class="del_task">
+                        <a href="#"> <img src="pictures/croix.png" alt="croix" id=""> </a>
+                      </div>
                       <div class="h-100 w-50">
-                        <img src="pictures/test_image.png" alt="">
+
                       </div>
                       <div class="h-100 w-50 center text-align-center centrer">
                         <p>Waiting</p>
                       </div>
-                      <div class="del_task">
-                        <a href="#"> <img src="pictures/croix.png" alt="croix" id=""> </a>
-                      </div>
+
                     </div>
                   </div>
-                  <div class="bas_el_haut centrer text-align-center">
-                    <p class="mt-4">5454s remaining </p>
+                  <div class="h-15 centrer text-align-center">
+                    <p class="">5454s remaining </p>
                   </div>
 
                 </div>
@@ -151,7 +171,7 @@
 
                 </div>
               </div>
-            -->
+
 
 
 
