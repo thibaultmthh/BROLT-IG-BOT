@@ -26,13 +26,13 @@ function add_account() {
 
 
 ipc.on("new_user_state", (event, data) => {
-  document.getElementById("erreurs").textContent = data.message
-  if (data.type== "success" ){
+  document.getElementById("erreurs").textContent = data.message // // TODO: tangy fais ton truc
+  if (data.type == "success") {
     $("#proxyhost").empty(),
-    $("#proxyauth").empty(),
-    $("#proxyauth").empty(),
-    $("#twitter_username").empty(),
-    $("#twitter_password").empty()
+      $("#proxyauth").empty(),
+      $("#proxyauth").empty(),
+      $("#twitter_username").empty(),
+      $("#twitter_password").empty()
 
   }
 })
