@@ -24,45 +24,36 @@ function delete_acc(event) {
 
 function display_bot_list(data) {
   console.log(data);
-  main_div = document.getElementById('all_bots')
-
+  main_div = $('#liste_account')
+  main_div.empty()
   for (var i in data) {
     botname = data[i][0]
-    bot_app = data[i][2].app_name
-
+    proxyhost = data[i][2].proxyhost
+    proxyhost = proxyhost.substring(0, proxyhost.length - 5)
     if (user_displayed.includes(botname) == false) {
-        user_displayed.push(botname);
-
-    let div1 = document.createElement("div")
-    div1.classList.add("el-list")
-    let div2 = document.createElement("div")
-    div2.classList.add("el-liste")
-    div1.appendChild(div2)
-    let p1 = document.createElement("p")
-    p1.classList.add("nom_bot")
-    p1.textContent = botname
-    div2.appendChild(p1)
-
-    let p2 = document.createElement("p")
-    p2.classList.add("nom_bot_app")
-    p2.textContent = bot_app
-    div2.appendChild(p2)
-
-    let div3 = document.createElement("div")
-    div3.classList.add("btn-group")
-    div3.classList.add("mr-2")
-    div2.appendChild(div3)
-    let btn = document.createElement("button")
-    btn.classList.add("btn")
-    btn.classList.add("btn-danger")
-    btn.classList.add("testcao")
-    btn.textContent = "delete"
-    btn.id = botname
-    btn.addEventListener("click",function(event) {event.preventDefault();delete_acc(event);})
-
-    div3.appendChild(btn)
-    main_div.appendChild(div1)
-  }}
+      user_displayed.push(botname);
+      let div = " <div class='el_accounts centrer'> " +
+        "                  <div class='el_account '>" +
+        "                    <div class=''>" +
+        "                      <p>" + botname + "</p>" +
+        "                    </div>" +
+        "                    <div class=''>" +
+        "                      <p>" + proxyhost + "</p>" +
+        "                    </div>" +
+        "                    <div class=''>" +
+        "                      <p>DELETE</p>" +
+        "                    </div>" +
+        "                  </div>" +
+        "                </div>"
+      /*
+      btn.addEventListener("click", function(event) {
+        event.preventDefault();
+        delete_acc(event);
+      })
+      */
+      main_div.append(div)
+    }
+  }
 }
 
 
