@@ -23,7 +23,7 @@ var menu = document.getElementById("Settings_menu")
 
 var otherCheckbox = document.getElementById('switch2');
 var otherText = document.getElementById('hashtagsInput');
-var modal_error = document.getElementById("modal-error")
+var modal_error = document.getElementById("myModal-error")
 
 
 //
@@ -31,12 +31,8 @@ var modal_error = document.getElementById("modal-error")
 
 
 var modal = document.getElementById("myModal");
-var btn = document.getElementById("btn_valide_giveway");
 
-btn.addEventListener("click", function() {
-  console.log("okkk");
-  modal.style.display = "block";
-})
+
 
 window.onclick = function(event) {
 
@@ -44,8 +40,8 @@ window.onclick = function(event) {
     console.log(event.target);
     modal.style.display = "none";
   }
-  if (event.target == modal-error) {
+  if (event.target == modal_error) {
     console.log(event.target);
-    modal.style.display = "none";
+    modal_error.style.display = "none";
   }
 }

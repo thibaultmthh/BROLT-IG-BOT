@@ -2,7 +2,6 @@ var btn_Dm = document.getElementById("Btn_Dm")
 var btn_Mentions = document.getElementById("Btn_Mentions")
 var btn_errors = document.getElementById("Btn_Errors")
 var soulig_en_cours = btn_Dm
-
 var menu = document.getElementById("Menu_notif")
 var easter = document.getElementById("easter")
 
@@ -163,7 +162,7 @@ ipc.on("list_notif", (event, data) => {
 get_notif()
 
 
-var modal = document.getElementById("modal-error")
+var modal = document.getElementById("myModal-error")
 window.onclick = function(event) {
 
   if (event.target == modal) {

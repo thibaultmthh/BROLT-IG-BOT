@@ -6,53 +6,68 @@ const {
 
 
 
+function createError(errorText) {
+  let modalError = document.getElementById("myModal-error")
+  let errorTextP = document.getElementById('error')
+  errorTextP.textContent = errorText
+  modalError.style.display = "block";
+
+}
 
 function send_giveway_link() {
   let value = document.getElementById('linkInput').value.trim()
-
+  console.log(value);
   let error_place = document.getElementById('emailHelp')
-  error_place.textContent = "Checking..."
+  createError("Checking...")
   if (value != "") {
     let regex = new RegExp('instagram.com');
     console.log(regex);
     if (regex.test(value) != true) {
-      error_place.textContent = "Please enter a valid instagram link"
+      createError("Please enter a valid instagram link")
       console.log(value);
       return
     }
-    request.get(value, (error, res, body) => {
+    console.log("aa");
+    request.get(value,(error, res, body) => {
+      console.log("res.statusCode");
       if (error) {
-        error_place.textContent = error.message
+        createError(error.message)
         return
       }
       if (res.statusCode != 200) {
-        error_place.textContent = res.statusCode.toString() + " Error"
+        createError(res.statusCode.toString() + " Error")
         return
       }
       if (res.statusCode == 200) {
         display_giveway_info("")
+        let modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
       }
     })
-
+    console.log("asa");
   } else {
-    error_place.textContent = "Please specify a giveaway"
+    createError("Please specify a giveaway")
   }
 
 }
 
 var btn_valide_giveway = document.getElementById('btn_valide_giveway')
-btn_valide_giveway.addEventListener("click", (event)=>{event.preventDefault();send_giveway_link()})
+btn_valide_giveway.addEventListener("click", (event) => {
+  event.preventDefault();
+  send_giveway_link()
+})
 
 
 
 function validate_giveway_info(data) {
   let user_to_follow = []
   let link = document.getElementById('linkInput').value.trim()
-  if (link ==""){
+  if (link == "") {
     return
   }
   let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
-  if (giveaway_name == ""){
+  if (giveaway_name == "") {
     giveaway_name = "Instagram giveaway"
   }
 
@@ -79,13 +94,15 @@ function validate_giveway_info(data) {
     tag_friend: tag_friend,
     nb_friend_to_tag: nb_friend_to_tag,
     provider_screen_name: giveaway_name,
-    link: link}]
+    link: link
+  }]
 
   ipc.send("add_new_giveway", data_to_send)
 
   //remet tout les truc en place :
   var menu = document.getElementById("Settings_menu")
-  menu.classList.remove("je")
+  let modal = document.getElementById("myModal");
+  modal.style.display = "none";
   document.getElementById('linkInput').value = ""
   setTimeout(refresh_all, 100)
 
@@ -98,18 +115,10 @@ function validate_giveway_info(data) {
 function display_giveway_info(data) {
   if (data.errors != undefined) {
     let error_place = document.getElementById('emailHelp')
-    error_place.textContent = data.errors[0].message
+    createError(data.errors[0].message)
   } else {
     //remmet les truc en place
-    let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
-    giveaway_name.textContent = ""
-    let error_place = document.getElementById('emailHelp');
-    error_place.textContent = ""
-    document.getElementById("hashtagsInput").value = ""
-    tag_friend = document.getElementById("switch2").checked = false
 
-    var menu = document.getElementById("Settings_menu")
-    menu.classList.add("je")
     /*
     let main_div = document.getElementById('list_to_follow')
     main_div.innerHTML = ""
