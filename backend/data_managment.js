@@ -20,6 +20,7 @@ class Users_DS extends Store {
     console.log(user_screen_name, "no found in database");
     return 0
   }
+  
 
   get_All(){return this.datas}
   get_All_screen_name(){let responce=[];  for (var index_user in this.datas){responce.push(this.datas[index_user][0])} return responce }

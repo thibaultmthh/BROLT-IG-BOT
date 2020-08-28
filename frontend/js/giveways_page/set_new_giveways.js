@@ -11,41 +11,57 @@ function createError(errorText) {
   let errorTextP = document.getElementById('error')
   errorTextP.textContent = errorText
   modalError.style.display = "block";
+}
 
+function wait(text) {
+  let wait = document.getElementById("waitNotif")
+  let texts = document.getElementById("waitText")
+  texts.textContent = text
+  wait.style.display = "flex"
+}
+
+function stopWait() {
+  let wait = document.getElementById("waitNotif")
+  wait.style.display = "none"
 }
 
 function send_giveway_link() {
   let value = document.getElementById('linkInput').value.trim()
   console.log(value);
   let error_place = document.getElementById('emailHelp')
-  createError("Checking...")
+
   if (value != "") {
-    let regex = new RegExp('instagram.com');
+    wait("Checking...")
+    let regex = new RegExp('https://www.instagram.com/p/');
     console.log(regex);
     if (regex.test(value) != true) {
       createError("Please enter a valid instagram link")
       console.log(value);
+      stopWait();
       return
     }
-    console.log("aa");
-    request.get(value,(error, res, body) => {
-      console.log("res.statusCode");
+    request.get(value, (error, res, body) => {
+      console.log(res);
       if (error) {
         createError(error.message)
+        stopWait()
         return
       }
       if (res.statusCode != 200) {
         createError(res.statusCode.toString() + " Error")
+        stopWait();
         return
       }
       if (res.statusCode == 200) {
+        stopWait();
         display_giveway_info("")
         let modal = document.getElementById("myModal");
         modal.style.display = "block";
 
       }
+
     })
-    console.log("asa");
+
   } else {
     createError("Please specify a giveaway")
   }

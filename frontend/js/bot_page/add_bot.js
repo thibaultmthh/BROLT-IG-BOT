@@ -23,11 +23,31 @@ function add_account() {
 
 
 
+function wait(text) {
+  let wait = document.getElementById("waitNotif")
+  let texts = document.getElementById("waitText")
+  texts.textContent = text
+  wait.style.display = "flex"
+}
+
+function stopWait() {
+  let wait = document.getElementById("waitNotif")
+  wait.style.display = "none"
+}
+
 ipc.on("new_user_state", (event, data) => {
   let modal = document.getElementById("myModal-error");
   let error_div = document.getElementById("error")
-  error_div.textContent = data.message
-  modal.style.display = "block";
+  if (data.message ="Wait ..."){
+    wait(data.message)
+  }
+  else{
+    stopWait()
+    error_div.textContent = data.message
+    console.log(data.message);
+    modal.style.display = "block";
+  }
+
   if (data.type == "success") {
     $("#proxyhost").empty(),
       $("#proxyauth").empty(),

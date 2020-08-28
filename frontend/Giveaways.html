@@ -9,6 +9,9 @@
 </head>
 
 <body>
+
+
+
   <div id="myModal-error" class="modal-error">
 
 
@@ -86,111 +89,117 @@
 
 
 
-  <div class="container-fluid h-100 ">
-    <div class="haut-truc row" style="height:7%">
-      <div class="logo_div">
-        <img src="pictures/logo.png" alt="logo" class="logo_brolt">
-      </div>
-      <div class="div_choix">
-        <a href="bot_management.html" class="option_haut ml-5">
-          <p>Accounts</p>
-        </a>
-        <a href="Giveaways.html" class="option_haut couleur_bas">
-          <p>Giveaways</p>
-        </a>
-        <a href="Notifications.html" class="option_haut ">
-          <p>Notifications</p>
-        </a>
-        <a href="Settings.html" class="option_haut ">
-          <p>Settings</p>
-        </a>
-      </div>
-      <div class="croix">
-        <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
-      </div>
+
+    <div class="centrer" id="waitNotif">
+      <p id="waitText"></p>
     </div>
-    <div class="row" style="height:93%">
-      <!--Main-->
-      <div class="col-12 h-100 p-0 main ">
-        <div class="col-1 w-100 mw-100 pt-4 corps">
-          <div class="h-90 pb-3 pr-2 pl-2 ">
-            <div class="cont_tasks h-100 pt-3 pr- pl-3" id="cont_tasks">
+    <div class="container-fluid h-100 relative">
 
-              <div class="ligne_el_tasks">
-                <div class="task_el waiting">
-                  <div class="h-15 text-align-center">
-                    <p>Name of the giveaways</p>
-                  </div>
-                  <div class="h-70">
-                    <div class="display-flex h-100 ">
-                      <div class="del_task">
-                         <img src="pictures/croix.png" alt="croix" id="">
-                      </div>
-                      <div class="h-100 w-50">
-                        <img src="pictures/test_image.png" alt="" style="height:80%; margin-top:10px;">
-                      </div>
-                      <div class="h-100 w-50 center text-align-center centrer">
-                        <p>Waiting</p>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div class="h-15 centrer text-align-center">
-                    <p class="">5454s remaining </p>
-                  </div>
-
-                </div>
-                <div class="task_el waiting">
-                </div>
-                <div class="task_el waiting">
-                </div>
-                <div class="task_el waiting">
-                </div>
-              </div>
-              <div class="ligne_el_tasks">
-                <div class="task_el running">
-                </div>
-                <div class="task_el ">
-                </div>
-                <div class="task_el ">
-                </div>
-                <div class="task_el ">
-                </div>
-              </div>
-              <div class="ligne_el_tasks">
-                <div class="task_el ">
-
-                </div>
-                <div class="task_el ">
-
-                </div>
-                <div class="task_el ">
-
-                </div>
-                <div class="task_el ">
-
-                </div>
-              </div>
-
-
-
-
-
-            </div>
-          </div>
-          <div class="display-flex justify-content-center h-10 ">
-            <div class="display-flex">
-              <p class="mt-1">Add a new task</p>
-              <input type="link" class="form-control ml-4" id="linkInput" aria-describedby="" placeholder="Enter link">
-              <button type="button" class="btn " id="btn_valide_giveway" name="button">Submit</button>
-            </div>
-          </div>
-
-
-
+      <div class="haut-truc row" style="height:7%">
+        <div class="logo_div">
+          <img src="pictures/logo.png" alt="logo" class="logo_brolt">
+        </div>
+        <div class="div_choix">
+          <a href="bot_management.html" class="option_haut ml-5">
+            <p>Accounts</p>
+          </a>
+          <a href="Giveaways.html" class="option_haut couleur_bas">
+            <p>Giveaways</p>
+          </a>
+          <a href="Notifications.html" class="option_haut ">
+            <p>Notifications</p>
+          </a>
+          <a href="Settings.html" class="option_haut ">
+            <p>Settings</p>
+          </a>
+        </div>
+        <div class="croix">
+          <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
         </div>
       </div>
-    </div>
+      <div class="row" style="height:93%">
+        <!--Main-->
+        <div class="col-12 h-100 p-0 main ">
+          <div class="col-1 w-100 mw-100 pt-4 corps">
+            <div class="h-90 pb-3 pr-2 pl-2 ">
+              <div class="cont_tasks h-100 pt-3 pr- pl-3" id="cont_tasks">
+
+                <div class="ligne_el_tasks">
+                  <div class="task_el waiting">
+                    <div class="h-15 text-align-center">
+                      <p>Name of the giveaways</p>
+                    </div>
+                    <div class="h-70">
+                      <div class="display-flex h-100 ">
+                        <div class="del_task">
+                          <img src="pictures/croix.png" alt="croix" id="">
+                        </div>
+                        <div class="h-100 w-50">
+                          <img src="pictures/test_image.png" alt="" style="height:80%; margin-top:10px;">
+                        </div>
+                        <div class="h-100 w-50 center text-align-center centrer">
+                          <p>Waiting</p>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="h-15 centrer text-align-center">
+                      <p class="">5454s remaining </p>
+                    </div>
+
+                  </div>
+                  <div class="task_el waiting">
+                  </div>
+                  <div class="task_el waiting">
+                  </div>
+                  <div class="task_el waiting">
+                  </div>
+                </div>
+                <div class="ligne_el_tasks">
+                  <div class="task_el running">
+                  </div>
+                  <div class="task_el ">
+                  </div>
+                  <div class="task_el ">
+                  </div>
+                  <div class="task_el ">
+                  </div>
+                </div>
+                <div class="ligne_el_tasks">
+                  <div class="task_el ">
+
+                  </div>
+                  <div class="task_el ">
+
+                  </div>
+                  <div class="task_el ">
+
+                  </div>
+                  <div class="task_el ">
+
+                  </div>
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+            <div class="display-flex justify-content-center h-10 ">
+              <div class="display-flex">
+                <p class="mt-1">Add a new task</p>
+                <input type="link" class="form-control ml-4" id="linkInput" aria-describedby="" placeholder="Enter link">
+                <button type="button" class="btn " id="btn_valide_giveway" name="button">Submit</button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+  </div>
 </body>
 <script type="text/javascript" src="js/giveways_page/giveways_page.js"></script>
 <script type="text/javascript" src="js/common/ipc.js"></script>
