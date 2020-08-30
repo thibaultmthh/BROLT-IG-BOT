@@ -4,7 +4,7 @@ var btn_errors = document.getElementById("Btn_Errors")
 var soulig_en_cours = btn_Dm
 var menu = document.getElementById("Menu_notif")
 var easter = document.getElementById("easter")
-
+var titre = document.getElementById("titreNotif")
 
 menu.addEventListener("mouseenter", function() {
   // on met l'accent sur la cible de mouseenter
@@ -13,14 +13,21 @@ menu.addEventListener("mouseenter", function() {
   // on réinitialise la couleur après quelques instants
   setTimeout(function() {
     easter.style.display = "none";
-  }, 600);
+  }, 800);
 }, false);
 
 
 
+function createError(errorText) {
+  let modalError = document.getElementById("myModal-error")
+  let errorTextP = document.getElementById('error')
+  errorTextP.textContent = errorText
+  modalError.style.display = "block";
+}
 
-
-
+easter.addEventListener("click", function (){
+  createError("I think you found something  Type: !EatserFinder in our discord for something cool  ;)")
+})
 
 
 
@@ -29,6 +36,7 @@ function get_notif() {
 }
 
 var displayed = "dm"
+titre.textContent= "Messages"
 
 get_notif()
 setInterval(get_notif, 15000)
@@ -37,17 +45,20 @@ btn_Mentions.addEventListener("click", function(event) {
   soulig_en_cours.classList.remove("jaune");
   //changer_jaune(btn_Mentions);
   displayed = "mention"
+  titre.textContent= "Mentions "
   get_notif()
 })
 btn_Dm.addEventListener("click", function(event) {
   //changer_jaune(btn_Dm);
   displayed = "dm"
+  titre.textContent= "Messages"
   get_notif()
 })
 
 btn_errors.addEventListener("click", function(event) {
   //changer_jaune(btn_errors);
   displayed = "error"
+  titre.textContent= "Error"
   get_notif()
 })
 

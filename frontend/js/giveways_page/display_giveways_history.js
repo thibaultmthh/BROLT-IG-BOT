@@ -58,6 +58,11 @@ function update_display_giveway(event, data) {
       delTask.classList.add("del_task")
       let croix = document.createElement("img")
       croix.src ="pictures/croix.png"
+      croix.id = giveway[0]
+      croix.addEventListener("click", function(event) {
+        event.preventDefault();
+        delete_giveways(event);
+      })
       delTask.appendChild(croix)
       contDisplay.appendChild(delTask)
       // image
@@ -67,8 +72,8 @@ function update_display_giveway(event, data) {
       image.src ="pictures/test_image.png"
       image.style ="height:80%; margin-top:10px;"
       divImage.appendChild(image)
-      divImage.classList.add("h-100")
-      divImage.classList.add("w-15")
+
+      divImage.classList="w-15 h-100"
       contDisplay.appendChild(divImage)
 
       //reste

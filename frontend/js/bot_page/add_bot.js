@@ -1,11 +1,16 @@
 const shell = require('electron').shell;
 
-var last = Math.floor(Date.now() / 1000)
+var last = 0
+console.log(last);
 
 function add_account() {
-
+console.log(last);
   var now = Math.floor(Date.now() / 1000)
-  if (now - last < 4) {
+  if (now - last < 20) {
+    let modal = document.getElementById("myModal-error");
+    let error_div = document.getElementById("error")
+      error_div.textContent = "Please wait 20 seconds"
+      modal.style.display = "block";
     console.log("not");
     return 0
   }
@@ -29,7 +34,13 @@ function wait(text) {
   texts.textContent = text
   wait.style.display = "flex"
 }
-
+function done(text) {
+  let wait = document.getElementById("doneNotif")
+  wait.style.display = "flex"
+  setTimeout(function() {
+    wait.style.display = "none";
+  }, 3000);
+}
 function stopWait() {
   let wait = document.getElementById("waitNotif")
   wait.style.display = "none"
@@ -38,8 +49,12 @@ function stopWait() {
 ipc.on("new_user_state", (event, data) => {
   let modal = document.getElementById("myModal-error");
   let error_div = document.getElementById("error")
-  if (data.message ="Wait ..."){
+  if (data.message =="Wait ..."){
     wait(data.message)
+  }
+  else if (data.message =="successfully added"){
+    done("a")
+    stopWait()
   }
   else{
     stopWait()

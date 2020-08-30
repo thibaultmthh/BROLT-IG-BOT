@@ -67,7 +67,7 @@ function send_settings() {
     "key": "webhook_url",
     "data": input_webhooks.value
   })
-  ipc.send("set_webhook", input_webhooks.value)
+  //ipc.send("set_webhook", input_webhooks.value)
 
 
 

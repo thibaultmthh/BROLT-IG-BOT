@@ -184,13 +184,10 @@ p {
 }
 
 .titre {
-  -webkit-app-region: drag;
   font-size: 2em;
 }
 
-h1 {
-  -webkit-app-region: drag;
-}
+h1 {}
 
 .croix img {
   height: 25px;
@@ -642,6 +639,7 @@ p {
 .div_choix {
   width: 80%;
   display: flex;
+  -webkit-app-region: drag;
 }
 
 .option_haut:hover {
@@ -1184,7 +1182,7 @@ textarea {
   position: relative;
 }
 
-#waitNotif {
+#waitNotif, #doneNotif {
   display: none;
   z-index: 100;
   position: absolute;
@@ -1203,6 +1201,10 @@ textarea {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7);
 }
 
-#waitNotif p {
+#waitNotif p, #doneNotif p {
   color: black;
+}
+
+#doneNotif {
+  background-color: green
 }
