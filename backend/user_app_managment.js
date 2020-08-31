@@ -35,7 +35,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 14,
-    headless: false,
+    headless: true,
     executablePath: getChromiumExecPath()
 
   });
@@ -45,7 +45,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
   });
   const page = await browser.newPage();
   //await page.setRequestInterception(true);
-  
+
   await page.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,
@@ -71,6 +71,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     await page.keyboard.press('Enter');
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
     await page.waitFor(1000)
+    console.log("ok");
     try {
       const elemText = await page.$eval("#react-root > section > main > article > div.rgFsT > div:nth-child(1) > h1", elem => elem.innerText)
       console.log("wrong password")

@@ -103,7 +103,7 @@ function display_notif(data) {
         message = " @" + notif[1] + " Error -> " + notif[3]
         if (displayed_message.includes(message) == false) {
           displayed_message.push(message);
-          main_div.append("<p>" + messages + "</p>")
+          main_div.append("<p>" + message + "</p>")
         } else {}
       }
       if (displayed == "mention") {

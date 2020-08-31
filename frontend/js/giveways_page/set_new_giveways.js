@@ -101,26 +101,41 @@ function validate_giveway_info(data) {
     var tag_friend = true
   }
 
-  let data_to_send = [uuidv4(), {
-    user_to_follow: user_to_follow,
-    follow_provider: follow_provider,
-    follow_mentioned: follow_mentioned,
-    text_to_add: text_to_add,
-    need_like: need_like,
-    tag_friend: tag_friend,
-    nb_friend_to_tag: nb_friend_to_tag,
-    provider_screen_name: giveaway_name,
-    link: link
-  }]
+  request.get(link, (error, res, body) => {
 
-  ipc.send("add_new_giveway", data_to_send)
+    let el = document.createElement('html');
+    el.innerHTML = body
+    console.log(el);
+    var img = el.querySelector('meta[property="og:image"]').content;
 
-  //remet tout les truc en place :
-  var menu = document.getElementById("Settings_menu")
-  let modal = document.getElementById("myModal");
-  modal.style.display = "none";
-  document.getElementById('linkInput').value = ""
-  setTimeout(refresh_all, 100)
+    //let image = list.querySelectorAll("img")
+    //var urlPicture = image.src
+    console.log(img);
+    let data_to_send = [uuidv4(), {
+      user_to_follow: user_to_follow,
+      follow_provider: follow_provider,
+      follow_mentioned: follow_mentioned,
+      text_to_add: text_to_add,
+      need_like: need_like,
+      tag_friend: tag_friend,
+      nb_friend_to_tag: nb_friend_to_tag,
+      provider_screen_name: giveaway_name,
+      link: link,
+      pictures_url: img
+    }]
+
+    ipc.send("add_new_giveway", data_to_send)
+
+    //remet tout les truc en place :
+    var menu = document.getElementById("Settings_menu")
+    let modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    document.getElementById('linkInput').value = ""
+    setTimeout(refresh_all, 100)
+
+  })
+
+
 
 
 

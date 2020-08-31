@@ -2,7 +2,7 @@ function get_bot_list() {
   ipc.send("get_bot_list", "")
 }
 get_bot_list()
-setInterval(get_bot_list, 40000)
+setInterval(get_bot_list, 4000)
 
 var user_displayed = []
 

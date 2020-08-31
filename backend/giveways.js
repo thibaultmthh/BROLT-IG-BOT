@@ -122,7 +122,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 20,
-    headless: true,
+    headless: false,
     executablePath: getChromiumExecPath()
 
   });
