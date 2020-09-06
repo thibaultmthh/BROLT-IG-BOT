@@ -213,8 +213,8 @@ function main() {
     setInterval(security, 200000)
     setInterval(start_giveway, 4000, giveways_ds, users_DS, unstored_data, notif_ds, settings_ds)
     notif_ds.clear_All()
-    check_all_notifs(users_DS, notif_ds,settings_ds)
-    setInterval(check_all_notifs, 360000, users_DS, notif_ds, settings_ds)
+    check_all_notifs(users_DS, notif_ds, settings_ds)
+    setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
 
 
@@ -300,7 +300,9 @@ function main() {
     let notif_data = data
   })
 
-  ipc.on("clear_notif", (event, data)=>{notif_ds.clear_All()})
+  ipc.on("clear_notif", (event, data) => {
+    notif_ds.clear_All()
+  })
 
 
   //settings window
