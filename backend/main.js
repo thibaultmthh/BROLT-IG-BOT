@@ -321,69 +321,43 @@ function main() {
     settings_ds.add_D(data.key, data.data)
   })
 
-  ipc.on("set_webhook", (event, data) => {
-    console.log("set_webhook");
-    let perso_id = settings_ds.get_D("perso_id");
-    let webhook_url = data;
-    request.post('http://api.seigrobotics.com:5000/set_webhook', {
-      json: {
-        webhook_url: webhook_url,
-        user_id: perso_id,
-      }
-    }, (error, res, body) => {})
-    let mention_data = {
-      date: "28/10/2015",
-      text: "That test was successfully failed",
-      by: "Marty",
-      on: "",
-      id: "test_webhook",
-      type: "mention"
-    }
-    request.post('http://api.seigrobotics.com:5000/win_notification', {
-      json: {
-        notif_data: mention_data,
-        user_id: perso_id,
-      }
-    }, (error, res, body) => {})
+
+  ipc.on("remove_key", (event, data) => {
+    settings_ds.add_D("key", "No key")
   })
-}
-
-ipc.on("remove_key", (event, data) => {
-  settings_ds.add_D("key", "No key")
-})
 
 
-autoUpdater.on('update-downloaded', (ev, info) => {
-  // Wait 5 seconds, then quit and install
-  // In your application, you don't need to wait 5 seconds.
-  // You could call autoUpdater.quitAndInstall(); immediately
-  setTimeout(function() {
-    autoUpdater.quitAndInstall();
-  }, 5000)
-})
+  autoUpdater.on('update-downloaded', (ev, info) => {
+    // Wait 5 seconds, then quit and install
+    // In your application, you don't need to wait 5 seconds.
+    // You could call autoUpdater.quitAndInstall(); immediately
+    setTimeout(function() {
+      autoUpdater.quitAndInstall();
+    }, 5000)
+  })
 
-app.on('ready', function() {
-  autoUpdater.checkForUpdates();
-});
-autoUpdater.on('checking-for-update', () => {
-  console.log("check");
-})
-autoUpdater.on('update-available', (ev, info) => {
-  console.log("update avaliav");
-})
-autoUpdater.on('update-not-available', (ev, info) => {
-  console.log("non avaliable update");
-})
-autoUpdater.on('error', (ev, err) => {
-  console.log("error in updater ");
-})
+  app.on('ready', function() {
+    autoUpdater.checkForUpdates();
+  });
+  autoUpdater.on('checking-for-update', () => {
+    console.log("check");
+  })
+  autoUpdater.on('update-available', (ev, info) => {
+    console.log("update avaliav");
+  })
+  autoUpdater.on('update-not-available', (ev, info) => {
+    console.log("non avaliable update");
+  })
+  autoUpdater.on('error', (ev, err) => {
+    console.log("error in updater ");
+  })
 
-app.whenReady().then(main)
-// Quit when all windows are closed.
-app.on('window-all-closed', function() {
-  if (process.platform !== 'darwin') app.quit()
-})
+  app.whenReady().then(main)
+  // Quit when all windows are closed.
+  app.on('window-all-closed', function() {
+    if (process.platform !== 'darwin') app.quit()
+  })
 
-app.on('activate', function() {
-  if (BrowserWindow.getAllWindows().length === 0) main()
-})
+  app.on('activate', function() {
+    if (BrowserWindow.getAllWindows().length === 0) main()
+  })
