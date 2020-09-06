@@ -1,15 +1,45 @@
-const Twitter = require("twitter-lite")
-//const Twitter = require('twit')
+const request = require('request');
 
 var url = require("url")
 var querystring = require('querystring');
 
 
 const puppeteer = require('puppeteer-extra')
-
 // add stealth plugin and use defaults (all evasion techniques)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
+
+
+function get_giveway_info(url, mainWindow) {
+  request.get(url, (error, res, body) => {
+    console.log(res.statusCode);
+    if (error) {
+      mainWindow.webContents.send("giveway_info", {
+        error: error.message
+      })
+
+    } else if (res.statusCode != 200) {
+      if (res.statusCode == 404) {
+        mainWindow.webContents.send("giveway_info", {
+          error: "404 No found, wrong link or private pic"
+        })
+
+      } else {
+        mainWindow.webContents.send("giveway_info", {
+          error: res.statusCode.toString() + " Error"
+        })
+      }
+    } else {
+      mainWindow.webContents.send("giveway_info", {
+        body: body
+      })
+    }
+  })
+
+
+}
+
+
 
 
 function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_ds) {
@@ -309,4 +339,5 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
 }
 
+module.exports.get_giveway_info = get_giveway_info
 module.exports.start_giveway = start_giveway;

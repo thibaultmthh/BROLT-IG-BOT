@@ -1,5 +1,3 @@
-const request = require('request');
-
 const {
   v4: uuidv4
 } = require('uuid');
@@ -33,34 +31,16 @@ function send_giveway_link() {
   if (value != "") {
     wait("Checking...")
     let regex = new RegExp('https://www.instagram.com/p/');
-    console.log(regex);
     if (regex.test(value) != true) {
       createError("Please enter a valid instagram link")
       console.log(value);
       stopWait();
       return
     }
-    request.get(value, (error, res, body) => {
-      console.log(res);
-      if (error) {
-        createError(error.message)
-        stopWait()
-        return
-      }
-      if (res.statusCode != 200) {
-        createError(res.statusCode.toString() + " Error")
-        stopWait();
-        return
-      }
-      if (res.statusCode == 200) {
-        stopWait();
-        display_giveway_info("")
-        let modal = document.getElementById("myModal");
-        modal.style.display = "block";
 
-      }
+    ipc.send("get_giveway_info", value)
 
-    })
+
 
   } else {
     createError("Please specify a giveaway")
@@ -72,6 +52,7 @@ var btn_valide_giveway = document.getElementById('btn_valide_giveway')
 btn_valide_giveway.addEventListener("click", (event) => {
   event.preventDefault();
   send_giveway_link()
+  console.log("send");
 })
 
 
@@ -101,39 +82,36 @@ function validate_giveway_info(data) {
     var tag_friend = true
   }
 
-  request.get(link, (error, res, body) => {
+  let el = document.createElement('html');
+  el.innerHTML = data.body
+  console.log(el);
+  var img = el.querySelector('meta[property="og:image"]').content;
+  //let image = list.querySelectorAll("img")
+  //var urlPicture = image.src
+  console.log(img);
+  let data_to_send = [uuidv4(), {
+    user_to_follow: user_to_follow,
+    follow_provider: follow_provider,
+    follow_mentioned: follow_mentioned,
+    text_to_add: text_to_add,
+    need_like: need_like,
+    tag_friend: tag_friend,
+    nb_friend_to_tag: nb_friend_to_tag,
+    provider_screen_name: giveaway_name,
+    link: link,
+    pictures_url: img
+  }]
 
-    let el = document.createElement('html');
-    el.innerHTML = body
-    console.log(el);
-    var img = el.querySelector('meta[property="og:image"]').content;
+  ipc.send("add_new_giveway", data_to_send)
 
-    //let image = list.querySelectorAll("img")
-    //var urlPicture = image.src
-    console.log(img);
-    let data_to_send = [uuidv4(), {
-      user_to_follow: user_to_follow,
-      follow_provider: follow_provider,
-      follow_mentioned: follow_mentioned,
-      text_to_add: text_to_add,
-      need_like: need_like,
-      tag_friend: tag_friend,
-      nb_friend_to_tag: nb_friend_to_tag,
-      provider_screen_name: giveaway_name,
-      link: link,
-      pictures_url: img
-    }]
+  //remet tout les truc en place :
+  var menu = document.getElementById("Settings_menu")
+  let modal = document.getElementById("myModal");
+  modal.style.display = "none";
+  document.getElementById('linkInput').value = ""
+  setTimeout(refresh_all, 100)
 
-    ipc.send("add_new_giveway", data_to_send)
 
-    //remet tout les truc en place :
-    var menu = document.getElementById("Settings_menu")
-    let modal = document.getElementById("myModal");
-    modal.style.display = "none";
-    document.getElementById('linkInput').value = ""
-    setTimeout(refresh_all, 100)
-
-  })
 
 
 
@@ -144,10 +122,15 @@ function validate_giveway_info(data) {
 
 
 function display_giveway_info(data) {
-  if (data.errors != undefined) {
-    let error_place = document.getElementById('emailHelp')
-    createError(data.errors[0].message)
+  stopWait();
+
+  console.log(data);
+  if (data.error != undefined) {
+
+    createError(data.error)
   } else {
+    let modal = document.getElementById("myModal");
+    modal.style.display = "block";
     //remmet les truc en place
 
     /*
@@ -184,6 +167,7 @@ function display_giveway_info(data) {
   var add_giveway_btn = document.getElementById("add_giveway_btn")
   add_giveway_btn.addEventListener("click", (event) => {
     event.preventDefault();
+    console.log("valisade");
     validate_giveway_info(data)
   })
 
@@ -192,6 +176,7 @@ function display_giveway_info(data) {
 
 
 ipc.on("giveway_info", (event, data) => {
+  console.log("recu", data);
   display_giveway_info(data);
 })
 

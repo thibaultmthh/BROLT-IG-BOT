@@ -61,32 +61,38 @@ const {
   LexStatusCodes
 } = require("@cryptlex/lexactivator")
 
+const L1s = LexActivator
+const L2s = PermissionFlags
+const L3s = LexActivatorException
+const L4s = LexStatusCodes
+
+const P1s = "QUE1RDYwMzI3RjgyMUY3NzMyMzA3NjFCQjZEOEZBODc=.UA4uJIjYlfSKxtU8WTi8REPfX3p65GdZB2SCu+zNk9NBNPRuWRiiJ/RuxJ6qFQuC/Uk69pmZP63UvlFS3KJxmmoctcq+tFrXpVHY5DiN0vh7Vk+egyqj3BIhChNNe0Ci3mks/KP3Dpv43sUii6yqxw7M1av+nw37CAnzvy/8/eBLCvpEf6lazFxRMj7uPeblbfh20K2XwnFsscJVsJgv8nR+jBbKENxxMeqko/pcTho8VEYaDOMX/rpgtehvvq/e2jea3LcUIL9rgyLcYLYuuARvIHyJQv88oEWR9FzpXcnJBm9leajmJn1+6iVdodu6od3Za5cxrsdwAwrnhe6DpN1NfUcJ46l6l31IDU5qafaB3W+7dT23PkinvMebqQsidcLai8jwCAGUoLADLdnRb5qsY22G4LvG/Qneq5gVjvgQD9TxNxOSjmvI10jlkBxrms8swxBEFw8G/AtY7J2V+ZbWFyQ9sL4ud8kwspbhSFPgpCFzFYQWmhuIzUpat6ay5bqE0zstzcdGsRfGDgT4XXliXzwIOpaWmBxQyMw/5QnoKWTH87TdT8WKAzS63reVtFaRVF795jOh1+RxZ+T2FISMBXMSUophA9Cd6sF5nb+RTTYEfeATyR1TqvhYW5Gq8ZO1wJyRzP2Zq4BpYQ9g+6ZbToIO2NQiVsycfb9ExwYyJDMjc2T5e0N850pkuhh8aOi95m+E7KiAuCfnw4a7IczE1gNoxEduMX+9c4Ksc/Y="
+const P2s = "af7666e0-7824-41db-b0c7-de632c438d13"
+const okkp = P1s
+const okks = P2s
+
 function activate2(key, settings_ds) {
-  return [1, 'License activated successfully!'];
-  if (key == "") {
-    key = settings_ds.get_D("key")
-  }
+  key = settings_ds.get_D("key")
 
-  LexActivator.SetProductData("MTQ3RkFBQ0VCNTU0NUIwNUNENjhFMjNFRDc2NDJCMDk=.oiGuXjPN/rPHtoFGk8jXtc3nSXmtG8vQGpdx+wTgjt4K0vd3gZ5LLRn0lC03ZUS3pLUxOPDjJ7rtAPOp3bAcAO85ZFNZohbYBFDfrPFLa4lDSY3hZqay+C1fZ6myE+dyIKDIzw9AvPmSX+nxXp9YCNxNmtp3BAWiuy+GNMOVh17lB0BHhJV5dFMPRqEhzi5xc/R+QeZ3nXRMD1GyKypdN5z8sJRImw/G6oshiCXYOLqElRNCGrlOY7uiAU1sYqxtVDIzLvNkfUCmCSD3xEdEe2TKEQZ7ioH8g/d60xkszywMCehaPBw8n5ySfQAai+xwaSc+BZjV8529KuUWS7Bqkeb4wSWaJBqp1m4Dxz8S/6PHBgT3vncdoU6Th2gRcdq8GFAMaekTMH0qTD0s0gA0/yR3cOvjCPGISMZZC/e6miKsDNLBSSOBBpS90/PVFUC/oZyGeUx6P9vW3SPYbDXAZnz90Sj0/epPlYspS0EbXouDyHfcOlAAEq7fgU54l0p7ukkqi56XJOKZu7TD8dYi+kyRtP9P4/PP5EMHQXrJeYfW8MV3CCCpEBCMo76U3Z9fsjPiCVf+LSzj1CbUqg7QUg1kyfZqOYU0IAVFShdjUngQCvEOfA3JNMxs/opksGqZVj8hDGTuwGKD3WW+ciKjJEISndzr6xZ2nKuKBVKDpd/aFh0LeiXSxw4kwcj917LPMqut5M6HzW/dRTQEWHIHIM3ZWQ+wVaJhy+ViGMGoSOs=");
-  LexActivator.SetProductId("09caaf9b-d55d-45dd-8f09-665a070098ac", PermissionFlags.LA_USER);
+  L1s.SetProductData(okkp);
+  L1s.SetProductId(okks, L2s.LA_USER);
   try {
-    LexActivator.SetLicenseKey(key);
-    LexActivator.SetActivationMetadata('key1', 'value1');
-    const status = LexActivator.ActivateLicense();
-    if (LexStatusCodes.LA_OK == status) {
+    L1s.SetLicenseKey(key);
+    L1s.SetActivationMetadata('key1', 'value1');
+    const status = L1s.ActivateLicense();
+    if (L4s.LA_OK == status) {
       settings_ds.add_D("key", key)
-      return [1, 'License activated successfully!'];
+      return [1, ''];
 
-    } else if (LexStatusCodes.LA_EXPIRED == status) {
-      return [0, 'License activated successfully but has expired!'];
-    } else if (LexStatusCodes.LA_SUSPENDED == status) {
-      return [0, 'License activated successfully but has been suspended!'];
+    } else if (L4s.LA_EXPIRED == status) {
+      return [0, ''];
+    } else if (L4s.LA_SUSPENDED == status) {
+      return [0, ''];
     }
   } catch (error) {
     return [0, error.message, error.code];
   }
 }
-
 
 /*
 var server = http.createServer(function(req, res) {
@@ -252,7 +258,7 @@ function main() {
 
   //set new giveways
   ipc.on("get_giveway_info", (event, data) => {
-    get_giveway_info(data, app_ds, mainWindow)
+    get_giveway_info(data, mainWindow)
   })
 
   ipc.on("add_new_giveway", (event, data) => {
@@ -341,6 +347,10 @@ function main() {
     }, (error, res, body) => {})
   })
 }
+
+ipc.on("remove_key", (event, data) => {
+  settings_ds.add_D("key", "No key")
+})
 
 
 autoUpdater.on('update-downloaded', (ev, info) => {
