@@ -2,7 +2,7 @@ function get_bot_list() {
   ipc.send("get_bot_list", "")
 }
 get_bot_list()
-setInterval(get_bot_list, 40000)
+setInterval(get_bot_list, 4000)
 
 var user_displayed = []
 
@@ -30,6 +30,9 @@ function display_bot_list(data) {
     botname = data[i][0]
     proxyhost = data[i][2].proxyhost
     proxyhost = proxyhost.substring(0, proxyhost.length - 5)
+    if (proxyhost == ""){
+      proxyhost= "No Proxy"
+    }
     if (user_displayed.includes(botname) == false) {
       user_displayed.push(botname);
       let div = " <div class='el_accounts centrer'> " +
@@ -41,7 +44,7 @@ function display_bot_list(data) {
         "                      <p>" + proxyhost + "</p>" +
         "                    </div>" +
         "                    <div class='btn_delete'>" +
-        "                      <p id='" + botname + "' class=''>DELETE</p>" +
+        "                      <p id='" + botname + "' class='btn btn-orange ml-3'>Delete</p>" +
         "                    </div>" +
         "                  </div>" +
         "                </div>"
@@ -69,9 +72,8 @@ ipc.on("bot_list", (event, data) => {
 })
 
 
-var modal = document.getElementById("modal-error")
+var modal = document.getElementById("myModal-error")
 window.onclick = function(event) {
-
   if (event.target == modal) {
     console.log(event.target);
     modal.style.display = "none";

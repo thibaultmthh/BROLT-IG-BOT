@@ -27,10 +27,11 @@ ipc.on("all_settings", (event, data) => {
   clef_affichage.textContent = data.key;
   task_cooldown.value = data.cooldown_giveaways / 1000;
   acc_cooldown.value = data.cooldown_account / 1000, key_x = data.key
-  input_webhooks.value = data.webhook_url
+//  input_webhooks.value = data.webhook_url
 })
 ipc.send("get_settings")
 var btn_delete_key = document.getElementById("btn_delete_key")
+/*
 btn_delete_key.addEventListener("click", (event) => {
   event.preventDefault();
   ipc.send("set_settings", {
@@ -47,12 +48,13 @@ btn_delete_key.addEventListener("click", (event) => {
     console
   })
 })
+
 btn_test_webhooks.addEventListener("click", (event) => {
   event.preventDefault();
   ipc.send("set_webhook", input_webhooks.value)
 
 })
-
+*/
 function send_settings() {
   console.log(task_cooldown.value * 1000);
   ipc.send("set_settings", {
@@ -63,11 +65,13 @@ function send_settings() {
     "key": "cooldown_account",
     "data": (acc_cooldown.value * 1000)
   })
+  /*
   ipc.send("set_settings", {
     "key": "webhook_url",
     "data": input_webhooks.value
   })
-  ipc.send("set_webhook", input_webhooks.value)
+  */
+  //ipc.send("set_webhook", input_webhooks.value)
 
 
 
@@ -88,8 +92,8 @@ btn_save_settings.addEventListener('click', function(event) {
 
 btn_reset_settings.addEventListener('click', function(event) {
   event.preventDefault();
-  task_cooldown.value = 190;
-  acc_cooldown.value = 50;
+  task_cooldown.value = 90;
+  acc_cooldown.value = 10;
   input_webhooks.value = "";
   send_settings()
 })

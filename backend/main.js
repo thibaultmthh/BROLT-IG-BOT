@@ -152,8 +152,10 @@ function security() {
 function app_window() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 1000,
+    //width: 1400,
+    //height: 1000,
+    height: 600,
+    width: 1100,
     frame: false,
     movable: true,
     backgroundColor: "#091821",
