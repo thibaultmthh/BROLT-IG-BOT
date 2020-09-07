@@ -327,38 +327,37 @@ function main() {
   })
 
 
-  autoUpdater.on('update-downloaded', (ev, info) => {
-    // Wait 5 seconds, then quit and install
-    // In your application, you don't need to wait 5 seconds.
-    // You could call autoUpdater.quitAndInstall(); immediately
-    setTimeout(function() {
-      autoUpdater.quitAndInstall();
-    }, 5000)
-  })
 
-  app.on('ready', function() {
-    autoUpdater.checkForUpdates();
-  });
-  autoUpdater.on('checking-for-update', () => {
-    console.log("check");
-  })
-  autoUpdater.on('update-available', (ev, info) => {
-    console.log("update avaliav");
-  })
-  autoUpdater.on('update-not-available', (ev, info) => {
-    console.log("non avaliable update");
-  })
-  autoUpdater.on('error', (ev, err) => {
-    console.log("error in updater ");
-  })
-
-  app.whenReady().then(main)
-  // Quit when all windows are closed.
-  app.on('window-all-closed', function() {
-    if (process.platform !== 'darwin') app.quit()
-  })
-
-  app.on('activate', function() {
-    if (BrowserWindow.getAllWindows().length === 0) main()
-  })
 }
+app.on('ready', function() {
+  autoUpdater.checkForUpdates();
+});
+
+autoUpdater.on('update-downloaded', (ev, info) => {
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 5 seconds.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  //setTimeout(function() {      autoUpdater.quitAndInstall();    }, 5000)
+})
+autoUpdater.on('checking-for-update', () => {
+  console.log("check");
+})
+autoUpdater.on('update-available', (ev, info) => {
+  console.log("update avaliav");
+})
+autoUpdater.on('update-not-available', (ev, info) => {
+  console.log("non avaliable update");
+})
+autoUpdater.on('error', (ev, err) => {
+  console.log("error in updater ");
+})
+
+app.whenReady().then(main)
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') app.quit()
+})
+
+app.on('activate', function() {
+  if (BrowserWindow.getAllWindows().length === 0) main()
+})
