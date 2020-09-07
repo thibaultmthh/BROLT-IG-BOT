@@ -35,7 +35,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 14,
-    headless: true,
+    headless: false,
     executablePath: getChromiumExecPath()
 
   });
@@ -86,6 +86,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
         type: "success",
         message: "successfully added"
       });
+      await page.waitFor(30000)
       data_to_add = [account_info.username, "user_id_ups", account_info]
       users_DS.add_D(data_to_add)
     }

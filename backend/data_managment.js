@@ -20,11 +20,25 @@ class Users_DS extends Store {
     console.log(user_screen_name, "no found in database");
     return 0
   }
-  
 
-  get_All(){return this.datas}
-  get_All_screen_name(){let responce=[];  for (var index_user in this.datas){responce.push(this.datas[index_user][0])} return responce }
-  get_All_ids(){let responce=[];  for (var index_user in this.datas){responce.push(this.datas[index_user][1])} return responce }
+
+  get_All() {
+    return this.datas
+  }
+  get_All_screen_name() {
+    let responce = [];
+    for (var index_user in this.datas) {
+      responce.push(this.datas[index_user][0])
+    }
+    return responce
+  }
+  get_All_ids() {
+    let responce = [];
+    for (var index_user in this.datas) {
+      responce.push(this.datas[index_user][1])
+    }
+    return responce
+  }
 
 
   add_D(user_datas) {
@@ -88,10 +102,14 @@ class Giveways_DS extends Store {
       }
     }
   }
-  get_All(){return this.datas}
+  get_All() {
+    return this.datas
+  }
 
   add_D(giveway_id, datas) {
-    if (datas == null){return 1}
+    if (datas == null) {
+      return 1
+    }
     if (this.get_D(giveway_id) === undefined) {
       this.datas.push([giveway_id, datas, 0, Math.floor(Date.now() / 1000)])
       console.log("giveways add", giveway_id, datas);
@@ -161,9 +179,9 @@ class Giveways_DS extends Store {
     this.set(this.data_name, this.datas)
   }
 
-  clear_running(){
+  clear_running() {
     let running = this.get_running()
-    for (var i in running){
+    for (var i in running) {
       let e = running[i][0]
       this.set_done(e)
 
@@ -233,8 +251,13 @@ class Notif_DS extends Store {
 
 
 
-  get_All(){return this.datas}
-  clear_All(){this.datas = [];this.set(this.data_name, this.datas)}
+  get_All() {
+    return this.datas
+  }
+  clear_All() {
+    this.datas = [];
+    this.set(this.data_name, this.datas)
+  }
 
   add_D(datas_notif) {
     if (this.get_D(datas_notif[0]) === undefined) {
@@ -256,35 +279,37 @@ class Settings_DS extends Store {
     super()
     this.data_default = {
       "key": "",
-      "cooldown_giveaways":190000,
-      "cooldown_account":50000,
+      "cooldown_giveaways": 190000,
+      "cooldown_account": 50000,
       "webhook_url": ""
     }
     this.data_name = "setings"
     this.datas = this.get(this.data_name) || this.data_default // [screen_name, tokens(json), ...]
     console.log(this.datas);
-    if (this.datas.cooldown_giveaways === undefined){
+    if (this.datas.cooldown_giveaways === undefined) {
       this.datas.cooldown_giveaways = this.data_default.cooldown_giveaways
     }
-    if (this.datas.cooldown_account === undefined){
+    if (this.datas.cooldown_account === undefined) {
       this.datas.cooldown_account = this.data_default.cooldown_account
     }
-    if (this.datas.webhook_url === undefined){
+    if (this.datas.webhook_url === undefined) {
       this.datas.webhook_url = this.data_default.webhook_url
     }
     this.set(this.data_name, this.datas)
     //this.datas = [["a"],["b"],["be"]]
 
   }
-  get_All() {return this.datas;}
+  get_All() {
+    return this.datas;
+  }
 
   get_D(key) {
     return this.datas[key]
   }
 
   add_D(key, data) {
-      this.datas[key] = data
-      this.set(this.data_name, this.datas)
+    this.datas[key] = data
+    this.set(this.data_name, this.datas)
 
   }
 
@@ -296,12 +321,12 @@ class Settings_DS extends Store {
 }
 
 
-class Unstored_DS{
+class Unstored_DS {
   constructor() {
     this.datas = {
       "ready": false,
       "version": "2.0.0",
-      "giveways_state":0,
+      "giveways_state": 0,
 
 
 
