@@ -78,4 +78,5 @@ body, html {
 #activation_input{
 	outline: none !important;
 	margin-top: 70px;
+  width: 100%;
 }
