@@ -1,4 +1,3 @@
-const Twitter = require("twitter-lite")
 const request = require("request")
 const {
   v4: uuidv4
@@ -25,7 +24,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
   const browser = await puppeteer.launch({
 
-    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost,'--window-size=1920,1080','--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'],
+    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost, '--window-size=1920,1080', '--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'],
     ignoreHTTPSErrors: true,
     slowMo: 20,
     headless: true,
@@ -58,12 +57,11 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     await page_auth.waitFor(3000)
     await page_auth.keyboard.press('Enter');
 
-    try{
+    try {
       await page_auth.waitForNavigation({
         waitUntil: 'networkidle0'
       })
-    }
-    catch (e){
+    } catch (e) {
       await page_auth.waitFor(3000)
       await page_auth.keyboard.press('Enter');
       await page_auth.waitForNavigation({
@@ -93,7 +91,9 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     await page2.waitFor(5000)
   } catch (e) {
     console.log("Can't start page 2", e.message);
-    await page2.screenshot({path: 'example.png'});
+    await page2.screenshot({
+      path: 'example.png'
+    });
     await browser.close()
     return
 
@@ -108,7 +108,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     for (i in elements) {
       let element = elements[i]
       let text = await page2.evaluate(element => element.textContent, element);
-      text = text.substring(0, text.length-3)
+      text = text.substring(0, text.length - 3)
       var yes = false;
       for (var i in keywords) {
 

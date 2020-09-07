@@ -11,7 +11,6 @@ const {
 } = require("electron-updater");
 
 //module perso
-const Twitter = require("twitter-lite")
 
 //http modules
 var http = require('http');

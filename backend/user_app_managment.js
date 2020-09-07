@@ -1,4 +1,3 @@
-const Twitter = require("twitter-lite")
 var http = require('http')
 var url = require("url")
 var querystring = require('querystring')
@@ -15,8 +14,9 @@ puppeteer.use(StealthPlugin())
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 function getChromiumExecPath() {
-    return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
+  return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
 async function auto_add_acc(account_info, users_DS, mainWindow) {
@@ -63,13 +63,15 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
   }
   try {
     await page.waitFor(1000)
-  // authentifiction
+    // authentifiction
     await page.focus("input[name='username']")
     await page.keyboard.type(account_info.username)
     await page.focus("input[name='password']")
     await page.keyboard.type(account_info.password)
     await page.keyboard.press('Enter');
-    await page.waitForNavigation({ waitUntil: 'networkidle0' })
+    await page.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
     await page.waitFor(1000)
     console.log("ok");
     try {
@@ -79,7 +81,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
         type: "error",
         message: "Password incorect "
       });
-    } catch(err){
+    } catch (err) {
       mainWindow.webContents.send("new_user_state", {
         type: "success",
         message: "successfully added"
