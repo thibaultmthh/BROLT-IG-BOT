@@ -34,6 +34,7 @@ body, html {
   background: #0e2431;
   border: 2px solid #00b490;
   display: flex;
+  padding-right: 5px;
 }
 
 .logo {
@@ -79,4 +80,7 @@ body, html {
 	outline: none !important;
 	margin-top: 70px;
   width: 100%;
+}
+body{
+
 }
