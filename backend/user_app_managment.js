@@ -34,7 +34,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
 
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
-    slowMo: 14,
+    slowMo: 22,
     headless: false,
     executablePath: getChromiumExecPath()
 
