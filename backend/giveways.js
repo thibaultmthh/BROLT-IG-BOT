@@ -40,9 +40,11 @@ function get_giveway_info(url, mainWindow) {
 }
 
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-
-function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_ds) {
+async function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_ds) {
   if (unstored_data.get_D("giveways_state") != 0) {
     return 1
   }
@@ -63,15 +65,16 @@ function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, settings_
   giveways_ds.set_running(giveway_data[0])
   for (var i in all_user) {
     user = all_user[i]
-    if (i == all_user.length - 1) {
-      last = true
-    } else {
-      last = false
-    }
-    setTimeout(take_giveway, delay_between_participate * i, giveway_data, user, users_DS, giveways_ds, unstored_data, notif_ds, settings_ds, last)
+
+    await take_giveway(giveway_data, user, users_DS, giveways_ds, unstored_data, notif_ds, settings_ds)
+    await sleep(delay_between_participate)
 
 
   }
+  giveways_ds.set_done(giveway_data[0]);
+  setTimeout(function() {
+    unstored_data.set_D("giveways_state", 0)
+  }, settings_ds.get_D("cooldown_giveaways") + (13 * 1000))
 }
 
 
@@ -130,12 +133,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 */
 
 
-  if (last == true) {
-    giveways_ds.set_done(giveway_data[0]);
-    setTimeout(function() {
-      unstored_data.set_D("giveways_state", 0)
-    }, settings_ds.get_D("cooldown_giveaways") + (13 * 1000))
-  }
+
   let user = users_DS.get_D(user_screen_name)
   console.log("---take on", user_screen_name, "---");
 

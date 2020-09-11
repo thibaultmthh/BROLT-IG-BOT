@@ -3,17 +3,18 @@ var giveway_displayed = []
 function get_update_display_giveway() {
   ipc.send("get_all_giveways", "get")
 }
-function yesno(response){
+
+function yesno(response) {
   console.log(
     response
   );
-  if (response == true){
+  if (response == true) {
     return "Yes"
-  }
-  else{
+  } else {
     return "No"
   }
 }
+
 function update_display_giveway(event, data) {
   console.log(data);
   data = data.reverse()
@@ -50,7 +51,7 @@ function update_display_giveway(event, data) {
       let div_name = document.createElement("div")
       div_name.classList.add("h-15")
       div_name.classList.add("text-align-center")
-      div_name.style ="overflow: hidden;"
+      div_name.style = "overflow: hidden;"
       let text2 = document.createElement("p");
       text2.textContent = giveway[1].provider_screen_name
       div_name.appendChild(text2)
@@ -67,7 +68,7 @@ function update_display_giveway(event, data) {
       let delTask = document.createElement("div")
       delTask.classList.add("del_task")
       let croix = document.createElement("img")
-      croix.src ="pictures/croix.png"
+      croix.src = "pictures/croix.png"
       croix.id = giveway[0]
       croix.addEventListener("click", function(event) {
         event.preventDefault();
@@ -79,16 +80,16 @@ function update_display_giveway(event, data) {
 
       let divImage = document.createElement("div")
       let image = document.createElement("img")
-      image.src =giveway[1].pictures_url
-      image.style ="height:80%; margin-top:10px;"
+      image.src = giveway[1].pictures_url
+      image.style = "height:80%; margin-top:10px;"
       divImage.appendChild(image)
 
-      divImage.classList="w-15 h-100"
+      divImage.classList = "w-15 h-100"
       contDisplay.appendChild(divImage)
 
       //reste
       let divStatus = document.createElement("div")
-      divStatus.classList ="h-100 w-50 center text-align-center centrer"
+      divStatus.classList = "h-100 w-50 center text-align-center centrer"
       let pStatus = document.createElement("p")
       divStatus.appendChild(pStatus)
       contDisplay.appendChild(divStatus)
@@ -103,7 +104,7 @@ function update_display_giveway(event, data) {
       contbas.classList.add("centrer")
       contbas.classList.add("text-align-center")
       let secondsRemaining = document.createElement("p")
-      secondsRemaining.textContent = "Like: "+yesno(giveway[1].need_like)+" , Tag friends: "+ yesno(giveway[1].tag_friend)
+      secondsRemaining.textContent = "Like: " + yesno(giveway[1].need_like) + " , Tag friends: " + yesno(giveway[1].tag_friend)
       contbas.appendChild(secondsRemaining)
       fist_div.appendChild(contbas)
 
@@ -113,8 +114,8 @@ function update_display_giveway(event, data) {
       if (giveway[2] == 1) {
         pStatus.textContent = "Done"
       } else if ((giveway[2] == 2)) {
-        pStatus.textContent = "running"
-        fist_div.classList.add("Running")
+        pStatus.textContent = "Running"
+        fist_div.classList.add("running")
       } else {
         fist_div.classList.add("waiting")
         pStatus.textContent = "Waiting"

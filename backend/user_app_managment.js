@@ -82,11 +82,22 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
         message: "Password incorect "
       });
     } catch (err) {
+      await page.waitFor(1000)
+      let regex1 = new RegExp('two_factor');
+      let regex2 = new RegExp('challenge');
+      let url = page.url()
+      if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
+        await page.waitFor(30000)
+        if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
+          return
+        }
+
+      }
+
       mainWindow.webContents.send("new_user_state", {
         type: "success",
         message: "successfully added"
       });
-      await page.waitFor(30000)
       data_to_add = [account_info.username, "user_id_ups", account_info]
       users_DS.add_D(data_to_add)
     }
