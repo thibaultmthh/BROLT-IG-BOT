@@ -87,9 +87,13 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
       let regex2 = new RegExp('challenge');
       let url = page.url()
       if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
-        await page.waitFor(30000)
+        await page.waitFor(100000)
         if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
-          return
+          mainWindow.webContents.send("new_user_state", {
+      type: "error",
+      message: err.message
+    });
+    await browser.close()
         }
 
       }
