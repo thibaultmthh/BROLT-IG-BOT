@@ -22,7 +22,8 @@
       "category": "your.app.category.type"
     },
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 110,
           "y": 150
         },
@@ -46,6 +47,7 @@
   },
   "dependencies": {
     "@cryptlex/lexactivator": "^3.9.4",
+    "discord-rich-presence": "^0.0.8",
     "electron-reload": "^1.5.0",
     "electron-store": "^5.1.1",
     "electron-updater": "^4.3.1",

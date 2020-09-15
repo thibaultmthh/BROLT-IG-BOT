@@ -207,6 +207,7 @@ function activation_windows() {
 }
 
 
+const client = require('discord-rich-presence')('754734272463765686');
 
 
 
@@ -223,6 +224,17 @@ function main() {
     check_all_notifs(users_DS, notif_ds, settings_ds)
     setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
+
+
+    client.updatePresence({
+      state: 'Winning Giveaways ...',
+      details: '1.0.0',
+      startTimestamp: Date.now(),
+      largeImageKey: 'brolt_blue_1_',
+      smallImageKey: 'brainlet_4',
+      instance: true,
+
+    });
 
 
   }
