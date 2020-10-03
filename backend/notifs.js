@@ -99,7 +99,6 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
 
   }
-
   try {
 
     const elements = await page2.$$(".YFq-A")
@@ -131,7 +130,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   }
 
   try {
-    const elements_x = await page2.$$(".OEMU4")
+    const elements_x = await page2.$$(".se6yk.qyrsm")
     for (i in elements_x) {
       let element = elements_x[i]
       let text = await page2.evaluate(element => element.textContent, element);
@@ -139,12 +138,43 @@ async function check(user, users_DS, notif_ds, settings_ds) {
         //date: event.created_timestamp,
         message: text
       }
+
       notif_ds.add_D([text, user[0], "dm", datas])
       console.log("DM", text);
 
     }
   } catch (e) {
     console.log("Can't get DM", e.message);
+  }
+
+  try {
+    await page2.screenshot({
+      path: 'example.png'
+    });
+    await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
+    await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
+
+    await page2.screenshot({
+      path: 'example2.png'
+    });
+    const elements_y = await page2.$$(".se6yk")
+
+
+
+    for (i in elements_y) {
+      let element = elements_y[i]
+      let text = await page2.evaluate(element => element.textContent, element);
+      let datas = {
+        //date: event.created_timestamp,
+        message: text
+      }
+
+      notif_ds.add_D([text, user[0], "dm", datas])
+      console.log("DM", text);
+
+    }
+  } catch (e) {
+    console.log("Can't get asked DM", e.message);
   }
 
   await browser.close()

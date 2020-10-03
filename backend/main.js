@@ -354,7 +354,7 @@ autoUpdater.on('checking-for-update', () => {
   console.log("check");
 })
 autoUpdater.on('update-available', (ev, info) => {
-  console.log("update avaliav");
+  console.log("update available");
 })
 autoUpdater.on('update-not-available', (ev, info) => {
   console.log("non avaliable update");

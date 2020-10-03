@@ -133,7 +133,7 @@ function display_notif(data) {
 
 
 
-        console.log(message);
+    
       }
       if (displayed == "dm") {
         let yes = bold_chaine(notif[3].message)
