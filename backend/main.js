@@ -227,14 +227,13 @@ function main() {
 
 
     client.updatePresence({
-      state: 'Winning Giveaways ...',
-      details: '1.0.0',
+      //state: 'Winning Giveaways ...',
+      details: '1.0.2',
       startTimestamp: Date.now(),
       largeImageKey: 'brolt_blue_1_',
       instance: true,
 
     });
-
 
   }
 
