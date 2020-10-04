@@ -572,9 +572,7 @@ p {
   padding-bottom: 5px
 }
 
-#actual_version {
-  color: #9999;
-}
+
 
 .button-settings {
   display: flex;
@@ -1207,4 +1205,11 @@ textarea {
 
 #doneNotif {
   background-color: green
+}
+#actual_version{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  opacity: 0.8
+  
 }

@@ -231,7 +231,6 @@ function main() {
       details: '1.0.0',
       startTimestamp: Date.now(),
       largeImageKey: 'brolt_blue_1_',
-      smallImageKey: 'brainlet_4',
       instance: true,
 
     });
