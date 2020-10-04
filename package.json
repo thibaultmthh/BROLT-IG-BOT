@@ -1,6 +1,6 @@
 {
   "name": "brolt-instagram-bot",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "increase your chances of winning prizes of instagram giveaways",
   "main": "backend/main.js",
   "scripts": {
@@ -14,9 +14,9 @@
     "appId": "Brolt IG BOT",
     "publish": {
       "provider": "github",
-      "url": "https://github.com/thibaultmthh/SEIG-BOT-UPDATE",
+      "url": "https://github.com/thibaultmthh/BROLT-IG-UPDATE",
       "owner": "thibaultmthh",
-      "repo": "SEIG-BOT-UPDATE"
+      "repo": "BROLT-IG-UPDATE"
     },
     "mac": {
       "category": "your.app.category.type"
