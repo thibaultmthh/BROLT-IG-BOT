@@ -43,7 +43,7 @@ function send_giveway_link() {
 
 
   } else {
-    createError("Please specify a giveaway")
+    createError("Please specify a post")
   }
 
 }
@@ -65,7 +65,7 @@ function validate_giveway_info(data) {
   }
   let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
   if (giveaway_name == "") {
-    giveaway_name = "Instagram giveaway"
+    giveaway_name = "Instagram task"
   }
 
   let follow_provider = document.getElementById("follow_provider_switch").checked
