@@ -11,7 +11,6 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     console.log("Cant connect" + e.message);
     notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
     await browser.close()
-
     return
   }
 
