@@ -284,6 +284,24 @@ function main() {
     auto_add_acc(data, users_DS, mainWindow)
   })
 
+
+  ipc.on("add_multiple_accounts", (event, data) => {
+    console.log("add multiple accounts", );
+    //import jquery-csv     http://github.com/evanplaice/jquery-csv/
+    var csv_accounts = $.csv.toObjects(csv):
+
+    for (let i = 0; i < csv_accounts.length; i++) {
+      data = {username:csv_accounts[i].username,
+              password:csv_accounts[i].password,
+              proxy_username:csv_accounts[i].proxy_username,
+              proxy_password:csv_accounts[i].proxy_password};
+
+      auto_add_acc(data, users_DS, mainWindow)
+      //wait between each account
+    }
+  })
+
+
   ipc.on("get_all_app_name", (event, data) => {
     mainWindow.webContents.send("all_app_name", app_ds.get_All_app_name())
   })
