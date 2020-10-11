@@ -255,7 +255,6 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
     }
   }
-  await page_auth.waitFor(2000)
   await browser.close()
 
 }

@@ -1,6 +1,8 @@
 var http = require('http')
 var url = require("url")
 var querystring = require('querystring')
+const fs = require('fs').promises;
+
 
 const puppeteer = require('puppeteer-extra')
 
@@ -44,8 +46,6 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     message: "Wait ..."
   });
   const page = await browser.newPage();
-  //await page.setRequestInterception(true);
-
   await page.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,
@@ -63,6 +63,10 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
   }
   try {
     await page.waitFor(1000)
+    const [button_accept] = await page.$x("//button[contains(., 'Accept')]"); //click on save info
+    if (button_accept) {
+      await button_accept.click();
+    }
     // authentifiction
     await page.focus("input[name='username']")
     await page.keyboard.type(account_info.username)
@@ -90,10 +94,10 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
         await page.waitFor(100000)
         if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
           mainWindow.webContents.send("new_user_state", {
-      type: "error",
-      message: err.message
-    });
-    await browser.close()
+            type: "error",
+            message: err.message
+          });
+          await browser.close()
         }
 
       }
@@ -106,10 +110,17 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
       users_DS.add_D(data_to_add)
     }
 
-    mainWindow.webContents.send("new_user_state", {
-      type: "success",
-      message: "successfully added"
-    });
+    const [button_save] = await page.$x("//button[contains(., 'Save Info')]"); //click on save info
+    if (button_save) {
+      await button_save.click();
+    }
+    await page.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
+    const cookies = await page.cookies();
+    await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+    await page.waitFor(400)
+
     await browser.close()
   } catch (err) {
     mainWindow.webContents.send("new_user_state", {

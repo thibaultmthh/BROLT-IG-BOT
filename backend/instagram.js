@@ -1,10 +1,47 @@
+const fs = require('fs').promises;
+
+
+
 async function login(browser, account_info, notif_ds, user_screen_name) {
   console.log("In login");
+
   const page_auth = await browser.newPage()
   await page_auth.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,
   });
+
+
+  const cookiesString = await fs.readFile('./cookies/cookies_' + user_screen_name + '.json');
+  var cookies = JSON.parse(cookiesString);
+  await page_auth.setCookie(...cookies);
+  try {
+    page_auth.goto("https://www.instagram.com/direct/inbox/")
+    await page_auth.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
+    let url = page_auth.url()
+    let regex1 = new RegExp('accounts');
+    if (regex1.test(url)) {
+
+    } else {
+      console.log("successfully logged in with cookies");
+      var cookies_2 = await page_auth.cookies();
+      await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies_2, null, 2));
+      return
+    }
+
+  } catch (e) {
+    console.log(e.message)
+  }
+
+
+
+
+
+
+
+
   try {
     await page_auth.goto("https://www.instagram.com/")
   } catch (e) {

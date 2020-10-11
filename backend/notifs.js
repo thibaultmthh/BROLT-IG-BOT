@@ -39,7 +39,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
   });
 
-  await login(browser, account_info, notif_ds, user)
+  await login(browser, account_info, notif_ds, account_info.username)
 
 
   try {
