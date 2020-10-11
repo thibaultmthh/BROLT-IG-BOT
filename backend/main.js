@@ -178,7 +178,7 @@ function app_window() {
   // and load the index.html of the app.
   mainWindow.loadFile('./frontend/Giveaways.html')
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   return mainWindow
 }
@@ -207,6 +207,7 @@ function activation_windows() {
 }
 
 
+const client = require('discord-rich-presence')('754734272463765686');
 
 
 
@@ -224,6 +225,15 @@ function main() {
     setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
 
+
+    client.updatePresence({
+      //state: 'Winning Giveaways ...',
+      details: '1.0.2',
+      startTimestamp: Date.now(),
+      largeImageKey: 'brolt_blue_1_',
+      instance: true,
+
+    });
 
   }
 
@@ -336,13 +346,13 @@ autoUpdater.on('update-downloaded', (ev, info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
-  //setTimeout(function() {      autoUpdater.quitAndInstall();    }, 5000)
+  setTimeout(function() {      autoUpdater.quitAndInstall();    }, 5000)
 })
 autoUpdater.on('checking-for-update', () => {
   console.log("check");
 })
 autoUpdater.on('update-available', (ev, info) => {
-  console.log("update avaliav");
+  console.log("update available");
 })
 autoUpdater.on('update-not-available', (ev, info) => {
   console.log("non avaliable update");
