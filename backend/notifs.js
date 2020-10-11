@@ -2,6 +2,13 @@ const request = require("request")
 const {
   v4: uuidv4
 } = require('uuid')
+const {
+  login,
+  like,
+  follow
+} = require("./instagram.js")
+
+
 
 const puppeteer = require('puppeteer-extra')
 
@@ -32,52 +39,8 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
   });
 
-  const page_auth = await browser.newPage()
-  await page_auth.authenticate({
-    username: account_info.proxy_username,
-    password: account_info.proxy_password,
-  });
-  try {
-    await page_auth.goto("https://www.instagram.com/")
-  } catch (e) {
-    console.log("Cant connect" + e.message);
-    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
-    await browser.close()
-    return
-  }
+  await login(browser, account_info, notif_ds, user)
 
-  await page_auth.waitFor(1000)
-  // authentifiction
-  try {
-    await page_auth.focus("input[name='username']")
-    await page_auth.keyboard.type(account_info.username)
-    await page_auth.focus("input[name='password']")
-    await page_auth.keyboard.type(account_info.password)
-    await page_auth.keyboard.press('Enter');
-    await page_auth.waitFor(3000)
-    await page_auth.keyboard.press('Enter');
-
-    try {
-      await page_auth.waitForNavigation({
-        waitUntil: 'networkidle0'
-      })
-    } catch (e) {
-      await page_auth.waitFor(3000)
-      await page_auth.keyboard.press('Enter');
-      await page_auth.waitForNavigation({
-        waitUntil: 'networkidle0'
-      })
-      await page_auth.waitFor(800)
-
-    }
-
-  } catch (e) {
-    console.log("Cant find connexion form", e.message);
-    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
-    await browser.close()
-    return
-
-  }
 
   try {
     var page2 = await browser.newPage()
