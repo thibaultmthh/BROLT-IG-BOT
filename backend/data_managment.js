@@ -243,17 +243,14 @@ class Notif_DS extends Store {
 
 
   is_w_sent(text) {
-    console.log("Text is : ", text);
-    console.log("list is : ", this.webhook_sent)
+
     for (var index_user in this.webhook_sent) {
       if (this.webhook_sent.hasOwnProperty(index_user)) {
         if (this.webhook_sent[index_user] == text) {
-          console.log("Return true");
           return true
         }
       }
     }
-    console.log("Return false");
 
     return false
 

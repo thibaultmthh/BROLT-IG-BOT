@@ -44,7 +44,9 @@ const {
 const {
   check_all_notifs
 } = require("./notifs.js")
-
+const {
+  open_dm_page
+} = require("./instagram.js")
 //declaration classes perso
 const unstored_data = new Unstored_DS()
 const users_DS = new Users_DS()
@@ -221,9 +223,10 @@ function main() {
     setInterval(security, 200000)
     setInterval(start_giveway, 4000, giveways_ds, users_DS, unstored_data, notif_ds, settings_ds)
     notif_ds.clear_All()
-    check_all_notifs(users_DS, notif_ds, settings_ds)
+    //check_all_notifs(users_DS, notif_ds, settings_ds)
     setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
+    //    open_dm_page(users_DS, notif_ds, "jeantoinelebg")
 
 
     client.updatePresence({
@@ -310,6 +313,9 @@ function main() {
   //display all bots
   ipc.on("get_bot_list", (event, data) => {
     mainWindow.webContents.send("bot_list", users_DS.get_All())
+  })
+  ipc.on("check_dm", (event, data) => {
+    open_dm_page(users_DS, notif_ds, data)
   })
   ipc.on("delete_account", (event, data) => {
     users_DS.remove_D(data)
