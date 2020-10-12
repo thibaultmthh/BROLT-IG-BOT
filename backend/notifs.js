@@ -8,6 +8,25 @@ const {
   follow
 } = require("./instagram.js")
 
+const {
+  Webhook,
+  MessageBuilder
+} = require('discord-webhook-node');
+
+
+
+function win_message(chaine) {
+  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won", "tinumi389"];
+  var yes = false;
+  for (var i in keywords) {
+
+    if (chaine.toLowerCase().includes(keywords[i])) {
+      yes = true;
+    }
+  }
+
+  return yes
+}
 
 
 const puppeteer = require('puppeteer-extra')
@@ -84,6 +103,32 @@ async function check(user, users_DS, notif_ds, settings_ds) {
           message: text,
           //send_by: mention.user.screen_name
         }])
+        let text_check = text + user[0]
+        if (notif_ds.is_w_sent(text_check) && win_message(text)) {
+          console.log("webhook sent");
+          let webhook_url = settings_ds.get_All().webhook_url
+          const hook = new Webhook(webhook_url);
+          const embed = new MessageBuilder()
+            .setTitle('New Instagram win')
+            //.setAuthor('Brolt Tools. Instagram ')
+            .addField('Text', text)
+            .addField('Receive on ', user[0])
+            .setColor('#00b0f4')
+            .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+            //.setDescription('Oh look a description :)')
+            .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+            .setTimestamp();
+
+          hook.send(embed);
+          notif_ds.w_sent(text_check)
+        } else {
+          console.log(text);
+          console.log("Sent :", !notif_ds.is_w_sent(text));
+          console.log("win :", win_message(text));
+
+        }
+
+
       }
       console.log("Mentions", text);
 
@@ -103,6 +148,31 @@ async function check(user, users_DS, notif_ds, settings_ds) {
       }
 
       notif_ds.add_D([text, user[0], "dm", datas])
+      let text_check = text + user[0]
+
+      if (!notif_ds.is_w_sent(text_check)) {
+        console.log("webhook sent");
+        let webhook_url = settings_ds.get_All().webhook_url
+        const hook = new Webhook(webhook_url);
+        const embed = new MessageBuilder()
+          .setTitle('New Instagram Direct Message Not aprouved')
+          //.setAuthor('Brolt Tools. Instagram ')
+          .addField('Text', text)
+          .addField('Receive on ', user[0])
+          .setColor('#00b0f4')
+          .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          //.setDescription('Oh look a description :)')
+          .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          .setTimestamp();
+
+        hook.send(embed);
+        notif_ds.w_sent(text_check)
+      } else {
+        console.log(text);
+        console.log("Sent :", !notif_ds.is_w_sent(text));
+        console.log("win :", win_message(text));
+
+      }
       console.log("DM", text);
 
     }
@@ -131,8 +201,32 @@ async function check(user, users_DS, notif_ds, settings_ds) {
         //date: event.created_timestamp,
         message: text
       }
+      let text_check = text + user[0]
 
       notif_ds.add_D([text, user[0], "dm", datas])
+      if (!notif_ds.is_w_sent(text_check)) {
+        console.log("webhook sent");
+        let webhook_url = settings_ds.get_All().webhook_url
+        const hook = new Webhook(webhook_url);
+        const embed = new MessageBuilder()
+          .setTitle('New Instagram Direct Message ')
+          //.setAuthor('Brolt Tools. Instagram ')
+          .addField('Text', text)
+          .addField('Receive on ', user[0])
+          .setColor('#00b0f4')
+          .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          //.setDescription('Oh look a description :)')
+          .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          .setTimestamp();
+
+        hook.send(embed);
+        notif_ds.w_sent(text_check)
+      } else {
+        console.log(text);
+        console.log("Sent :", !notif_ds.is_w_sent(text));
+        console.log("win :", win_message(text));
+
+      }
       console.log("DM", text);
 
     }

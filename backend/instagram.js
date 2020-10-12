@@ -1,5 +1,14 @@
 const fs = require('fs').promises;
 
+const puppeteer = require('puppeteer-extra')
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
+
+function getChromiumExecPath() {
+  return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
+}
+
 
 
 async function login(browser, account_info, notif_ds, user_screen_name) {
@@ -135,7 +144,9 @@ async function follow(browser, account_info, mention, notif_ds, user_screen_name
 
 }
 
+function open_dm_page(users_DS, user_screen_name) {
 
+}
 
 
 
