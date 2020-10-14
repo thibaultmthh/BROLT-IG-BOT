@@ -21,7 +21,7 @@ function getChromiumExecPath() {
   return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
-async function auto_add_acc(account_info, users_DS, mainWindow) {
+async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
   /*
   account_info = {
   proxyhost: "http://proxy.com:5555",
@@ -37,7 +37,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 30,
-    headless: false,
+    headless: settings_ds.get_D("input_headless"),
     executablePath: getChromiumExecPath()
 
   });

@@ -85,7 +85,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
     const elements = await page2.$$(".YFq-A")
     var keywords = ["mentioned"];
-
+    console.log("partie 1");
     for (i in elements) {
       let element = elements[i]
       let text = await page2.evaluate(element => element.textContent, element);
@@ -121,16 +121,9 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
           hook.send(embed);
           notif_ds.w_sent(text_check)
-        } else {
-          console.log(text);
-          console.log("Sent :", !notif_ds.is_w_sent(text));
-          console.log("win :", win_message(text));
-
         }
 
-
       }
-      console.log("Mentions", text);
 
     }
   } catch (e) {
@@ -138,8 +131,10 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   }
 
   try {
+    console.log("Partie 2");
     const elements_x = await page2.$$(".se6yk.qyrsm")
     for (i in elements_x) {
+      console.log(i);
       let element = elements_x[i]
       let text = await page2.evaluate(element => element.textContent, element);
       let datas = {
@@ -167,11 +162,6 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
         hook.send(embed);
         notif_ds.w_sent(text_check)
-      } else {
-        console.log(text);
-        console.log("Sent :", !notif_ds.is_w_sent(text));
-        console.log("win :", win_message(text));
-
       }
       console.log("DM", text);
 
@@ -180,16 +170,17 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     console.log("Can't get DM", e.message);
   }
 
+
+
+
+
+
   try {
-    await page2.screenshot({
-      path: 'example.png'
-    });
+    console.log("partie 3");
     await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
     await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
 
-    await page2.screenshot({
-      path: 'example2.png'
-    });
+
     const elements_y = await page2.$$(".se6yk")
 
 
@@ -221,11 +212,6 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
         hook.send(embed);
         notif_ds.w_sent(text_check)
-      } else {
-        console.log(text);
-        console.log("Sent :", !notif_ds.is_w_sent(text));
-        console.log("win :", win_message(text));
-
       }
       console.log("DM", text);
 
@@ -252,7 +238,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
 function check_all_notifs(users_DS, notif_ds, settings_ds) {
   var all_user = users_DS.get_All_screen_name()
-  var delay_between_user_check = 14000
+  var delay_between_user_check = 30000
 
   for (var i in all_user) {
     user = all_user[i]

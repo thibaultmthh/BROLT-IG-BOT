@@ -8,6 +8,7 @@ const {
 var task_cooldown = document.getElementById("exampleInputPassword1")
 var acc_cooldown = document.getElementById("exampleInputPassword2")
 var input_webhook = document.getElementById("input_webhook")
+var input_headless = document.getElementById("input_headless")
 
 var btn_save_settings = document.getElementById("btn_save_settings")
 
@@ -32,6 +33,7 @@ ipc.on("all_settings", (event, data) => {
   task_cooldown.value = data.cooldown_giveaways / 1000;
   acc_cooldown.value = data.cooldown_account / 1000, key_x = data.key
   input_webhook.value = data.webhook_url
+  input_headless.checked = data.input_headless
 })
 ipc.send("get_settings")
 var btn_delete_key = document.getElementById("btn_delete_key")
@@ -74,6 +76,11 @@ function send_settings() {
     "key": "webhook_url",
     "data": input_webhook.value
   })
+  ipc.send("set_settings", {
+    "key": "input_headless",
+    "data": input_headless.checked
+  })
+  console.log("value : ", input_headless.checked);
 
   //ipc.send("set_webhook", input_webhooks.value)
   const hook = new Webhook(input_webhook.value);
@@ -91,21 +98,21 @@ function send_settings() {
   hook.send(embed);
 
   /*
-  const hook = new Webhook("https://discordapp.com/api/webhooks/765250687667142657/AubLlF5lBKS_LSovRJwMASOZgvY_prow--UR2OkwZrpj9BLgCo51LhvkPqPlSXfeUFJ6");
-  const embed = new MessageBuilder()
-    .setTitle('New brolt notif')
-    //.setAuthor('Brolt Tools. Instagram ')
-    .addField('Date', 'this is inline', true)
-    .addField('Receive on ', 'this is not inline')
-    .setColor('#00b0f4')
-    .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
-    .setDescription('Oh look a description :)')
-    .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
-    .setTimestamp();
+    const hook = new Webhook("https://discordapp.com/api/webhooks/765250687667142657/AubLlF5lBKS_LSovRJwMASOZgvY_prow--UR2OkwZrpj9BLgCo51LhvkPqPlSXfeUFJ6");
+    const embed = new MessageBuilder()
+      .setTitle('New brolt notif')
+      //.setAuthor('Brolt Tools. Instagram ')
+      .addField('Date', 'this is inline', true)
+      .addField('Receive on ', 'this is not inline')
+      .setColor('#00b0f4')
+      .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+      .setDescription('Oh look a description :)')
+      .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+      .setTimestamp();
 
-  hook.send(embed);
-  console.log("sent");
-*/
+    hook.send(embed);
+    console.log("sent");
+  */
 
 
   /*

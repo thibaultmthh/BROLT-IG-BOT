@@ -223,7 +223,7 @@ function main() {
     setInterval(security, 200000)
     setInterval(start_giveway, 4000, giveways_ds, users_DS, unstored_data, notif_ds, settings_ds)
     notif_ds.clear_All()
-    //check_all_notifs(users_DS, notif_ds, settings_ds)
+    check_all_notifs(users_DS, notif_ds, settings_ds)
     setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
     //    open_dm_page(users_DS, notif_ds, "jeantoinelebg")
@@ -284,7 +284,7 @@ function main() {
   //bot managment window (add new user)
   ipc.on("add_account", (event, data) => {
     console.log("go add", data);
-    auto_add_acc(data, users_DS, mainWindow)
+    auto_add_acc(data, users_DS, mainWindow, settings_ds)
   })
 
 
@@ -301,7 +301,7 @@ function main() {
         proxy_password: csv_accounts[i].proxy_password
       };
 
-      auto_add_acc(data, users_DS, mainWindow)
+      auto_add_acc(data, users_DS, mainWindow, settings_ds)
       //wait between each account
     }
   })

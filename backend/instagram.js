@@ -30,7 +30,6 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
       waitUntil: 'networkidle0'
     })
     let url = page_auth.url()
-    console.log(url);
     let regex1 = new RegExp('accounts');
     if (regex1.test(url)) {
 
