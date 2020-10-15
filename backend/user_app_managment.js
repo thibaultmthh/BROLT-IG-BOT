@@ -167,15 +167,36 @@ async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, setting
 
       //console.log(row.proxyhost==undefined);
 
-      if (row.proxyhost==undefined || row.proxy_username==undefined || row.proxy_password==undefined) {
+      if (row.proxyhost==undefined) {
         data = {
           proxyhost: "",
+          proxy_username: data.proxy_username,
+          proxy_password: data.proxy_password,
+          username: row.username,
+          password: row.password
+        }
+      }
+
+      if (row.proxy_username==undefined) {
+        data = {
+          proxyhost: data.proxyhost,
           proxy_username: "",
+          proxy_password: data.proxy_password,
+          username: row.username,
+          password: row.password
+        }
+      }
+
+      if (row.proxy_password==undefined) {
+        data = {
+          proxyhost: data.proxyhost,
+          proxy_username: data.proxy_username,
           proxy_password: "",
           username: row.username,
           password: row.password
         }
       }
+
       auto_add_acc(data, users_DS, mainWindow, settings_ds);
       //waiting time
     })
