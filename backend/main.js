@@ -276,6 +276,16 @@ function main() {
   ipc.on("add_new_giveway", (event, data) => {
     giveways_ds.add_D(data[0], data[1])
   })
+
+  ipc.on("share_giveaway", (event, data) => {
+    try {
+      request.post("http://51.83.99.197:5000/newgiveway").form({
+        url: data
+      })
+    } catch {}
+
+  })
+
   ipc.on("delete_app_giveway", (event, data) => {
     giveways_ds.remove_D(data)
   })

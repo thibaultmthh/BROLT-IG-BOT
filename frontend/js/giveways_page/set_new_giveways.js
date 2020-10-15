@@ -76,6 +76,7 @@ function validate_giveway_info(data) {
 
   let nb_friend_to_tag = document.getElementById("exampleFormControlSelect1").value * 1
 
+  let share_giveaway = document.getElementById('share_giveaway').checked
   if (nb_friend_to_tag == 0 && text_to_add == "") {
     var tag_friend = false
   } else {
@@ -103,6 +104,10 @@ function validate_giveway_info(data) {
   }]
 
   ipc.send("add_new_giveway", data_to_send)
+
+  if (share_giveaway) {
+    ipc.send("share_giveaway", link)
+  }
 
   //remet tout les truc en place :
   var menu = document.getElementById("Settings_menu")
