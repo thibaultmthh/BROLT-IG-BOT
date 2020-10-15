@@ -2,7 +2,15 @@ var http = require('http')
 var url = require("url")
 var querystring = require('querystring')
 const fs = require('fs').promises;
+const fsS = require('fs');
+const electron = require('electron');
 
+const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
+
+
+if (!fsS.existsSync(cookies_path)) {
+  fsS.mkdirSync(cookies_path);
+}
 
 const puppeteer = require('puppeteer-extra')
 

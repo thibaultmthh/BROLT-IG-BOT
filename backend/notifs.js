@@ -141,7 +141,6 @@ async function check(user, users_DS, notif_ds, settings_ds) {
         //date: event.created_timestamp,
         message: text
       }
-
       notif_ds.add_D([text, user[0], "dm", datas])
       let text_check = text + user[0]
 

@@ -1,4 +1,15 @@
-const fs = require('fs').promises;
+const fsP = require('fs').promises;
+const fs = require('fs')
+const electron = require('electron');
+const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
+
+
+if (!fs.existsSync(cookies_path)) {
+  fs.mkdirSync(cookies_path);
+}
+
+
+
 
 const puppeteer = require('puppeteer-extra')
 // add stealth plugin and use defaults (all evasion techniques)
@@ -21,10 +32,11 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
   });
 
 
-  const cookiesString = await fs.readFile('./cookies/cookies_' + user_screen_name + '.json');
-  var cookies = JSON.parse(cookiesString);
-  await page_auth.setCookie(...cookies);
+
   try {
+    const cookiesString = await fsP.readFile(cookies_path + '/cookies_' + user_screen_name + '.json');
+    var cookies = JSON.parse(cookiesString);
+    await page_auth.setCookie(...cookies);
     page_auth.goto("https://www.instagram.com/direct/inbox/")
     await page_auth.waitForNavigation({
       waitUntil: 'networkidle0'
@@ -36,7 +48,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     } else {
       console.log("successfully logged in with cookies");
       var cookies_2 = await page_auth.cookies();
-      await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies_2, null, 2));
+      await fsP.writeFile(cookies_path + '/cookies_' + account_info.username + '.json', JSON.stringify(cookies_2, null, 2));
       return page_auth
     }
 
@@ -114,7 +126,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     })
     console.log("log in")
     const cookies = await page_auth.cookies();
-    await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+    await fsP.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
     await page_auth.waitFor(400)
     return page_auth
   }
