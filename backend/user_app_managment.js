@@ -5,6 +5,12 @@ const fs = require('fs').promises;
 const fsS = require('fs');
 const electron = require('electron');
 
+
+//Module csv
+const csv = require('csv-parser');
+
+
+
 const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
 
 
@@ -144,6 +150,40 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
 
 
 
+async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, settings_ds) {
+  console.log("add multiple accounts");
+
+  fsS.createReadStream(fichier_path)
+    .pipe(csv())
+    .on('data', (row) => {
+      console.log(row);
+      data = {
+        proxyhost: row.proxyhost,
+        proxy_username: row.proxy_username,
+        proxy_password: row.proxy_password,
+        username: row.username,
+        password: row.password
+      };
+
+      //console.log(row.proxyhost==undefined);
+
+      if (row.proxyhost==undefined || row.proxy_username==undefined || row.proxy_password==undefined) {
+        data = {
+          proxyhost: "",
+          proxy_username: "",
+          proxy_password: "",
+          username: row.username,
+          password: row.password
+        }
+      }
+      auto_add_acc(data, users_DS, mainWindow, settings_ds);
+      //waiting time
+    })
+    .on('end', () => {
+      console.log('CSV file successfully processed');
+    });
+}
+
 
 
 
@@ -175,3 +215,4 @@ function add_new_app(name, tokens, app_ds, mainWindow) {
 
 module.exports.auto_add_acc = auto_add_acc;
 module.exports.add_new_app = add_new_app;
+module.exports.auto_add_multiple_acc = auto_add_multiple_acc;

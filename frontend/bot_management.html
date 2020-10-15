@@ -76,6 +76,8 @@
 
                 <div class="justify-content-center display-flex">
                   <button type="button" name="button" class="btn btn-primary" id="btn_new_user">Add a new bot </button>
+                  <input type="file" id="acc_csv" name="acc_csv" accept=".csv">
+                  <button type="button" id="csv_button" name="button">Upload csv file</button>
                 </div>
 
               </div>
@@ -83,16 +85,16 @@
             </div>
             <div class="w-65 h-100 p-4 pb-5">
               <div class="border_brolt h-100" id="liste_account">
-          
+
+              </div>
+
+
             </div>
-
-
           </div>
         </div>
       </div>
+      <p id="actual_version"></p>
     </div>
-    <p id="actual_version"></p>
-  </div>
 </body>
 <script type="text/javascript" src="js/common/ipc.js"></script>
 <script>
