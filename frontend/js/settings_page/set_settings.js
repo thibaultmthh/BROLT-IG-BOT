@@ -186,6 +186,17 @@ window.onclick = function(event) {
 }
 
 
+logo = document.getElementById("logo_brolt")
+var count = 0
+logo.addEventListener("click", (event) => {
+  console.log("ok");
+  count++;
+  console.log(count);
+  if(count == 20){
+    logo.src="pictures/logosd.png"
+    logo.height=40
+  }
+})
 
 
 

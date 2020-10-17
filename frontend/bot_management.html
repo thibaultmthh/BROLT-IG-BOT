@@ -25,7 +25,7 @@
   <div class="container-fluid h-100 ">
     <div class="haut-truc row" style="height:7%">
       <div class="logo_div">
-        <img src="pictures/logo.png" alt="logo" class="logo_brolt">
+        <img src="pictures/logo.png" alt="logo" id="logo_brolt" class="logo_brolt">
       </div>
       <div class="div_choix">
         <a href="bot_management.html" class="option_haut ml-5 couleur_bas">
@@ -57,8 +57,8 @@
         <div class="col-1 w-100 mw-100  corps">
 
           <div class="row h-100 ">
-            <div class="w-35 h-60 pt-4 pl-4">
-              <div class="border_brolt p-2 pr-3 pl-3 h-100">
+            <div class="w-35 h-100 pt-4 pl-4">
+              <div class="border_brolt p-2 pr-3 pl-3 h-50 mb-3">
                 <div class="option_add">
                   <p>Instagram</p>
                   <div class=" Insta_input">
@@ -76,13 +76,22 @@
 
                 <div class="justify-content-center display-flex">
                   <button type="button" name="button" class="btn btn-primary" id="btn_new_user">Add a new bot </button>
-                  <input type="file" id="acc_csv" name="acc_csv" accept=".csv">
-                  <button type="button" id="csv_button" name="button">Upload csv file</button>
                 </div>
 
               </div>
 
+              <div class="border_brolt p-2 pr-3 pl-3 h-30 ">
+                <div class="option_add">
+                  <p class="mb-3">Add from Cvs</p>
+                  <input type="file" id="acc_csv" name="acc_csv" accept=".csv" >
+                  <div class="justify-content-center display-flex mt-4">
+                    <button type="button" id="csv_button" class="btn btn-primary" name="button">Upload csv file</button>
+                  </div>
+
+                </div>
+              </div>
             </div>
+
             <div class="w-65 h-100 p-4 pb-5">
               <div class="border_brolt h-100" id="liste_account">
 

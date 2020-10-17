@@ -107,3 +107,15 @@ btn2.addEventListener("click", function(event) {
   add_multiple_accounts();
   console.log(csv_file.files[0]);
 })
+
+logo = document.getElementById("logo_brolt")
+var count = 0
+logo.addEventListener("click", (event) => {
+  console.log("ok");
+  count++;
+  console.log(count);
+  if(count == 20){
+    logo.src="pictures/logosd.png"
+    logo.height=40
+  }
+})
