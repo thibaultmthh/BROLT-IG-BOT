@@ -68,6 +68,7 @@ function validate_giveway_info(data) {
     giveaway_name = "Instagram task"
   }
 
+  let user_to_follow_man = document.getElementById("follow_man_Input").value
   let follow_provider = document.getElementById("follow_provider_switch").checked
   let follow_mentioned = document.getElementById("follow_mentioned_switch").checked
   let need_like = document.getElementById("switch1").checked
@@ -91,6 +92,7 @@ function validate_giveway_info(data) {
   //var urlPicture = image.src
   console.log(img);
   let data_to_send = [uuidv4(), {
+    user_to_follow_man:user_to_follow_man,
     user_to_follow: user_to_follow,
     follow_provider: follow_provider,
     follow_mentioned: follow_mentioned,
@@ -102,7 +104,6 @@ function validate_giveway_info(data) {
     link: link,
     pictures_url: img
   }]
-
   ipc.send("add_new_giveway", data_to_send)
 
   if (share_giveaway) {

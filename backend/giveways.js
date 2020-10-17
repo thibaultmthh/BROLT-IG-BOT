@@ -255,6 +255,15 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
     }
   }
+  if (giveway_rules.user_to_follow_man.length != 0 ){
+    let user_to_follow_man = []
+    user_to_follow_man = giveway_rules.user_to_follow_man.split(" ");
+    for (i in user_to_follow_man ){
+      let  follow_man = user_to_follow_man[i]
+        await follow(browser, account_info, follow_man, notif_ds, user_screen_name)
+    }
+
+  }
   await browser.close()
 
 }
