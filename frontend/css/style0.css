@@ -1213,3 +1213,8 @@ textarea {
   opacity: 0.8
 
 }
+
+#input_webhook{
+  width: 500px!important;
+  height: 25px !important;
+}
