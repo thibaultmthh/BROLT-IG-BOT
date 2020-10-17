@@ -69,7 +69,6 @@ function validate_giveway_info(data) {
   }
 
   let user_to_follow_man = document.getElementById("follow_man_Input").value
-  let follow_man = document.getElementById("follow_man").checked
   let follow_provider = document.getElementById("follow_provider_switch").checked
   let follow_mentioned = document.getElementById("follow_mentioned_switch").checked
   let need_like = document.getElementById("switch1").checked
@@ -94,7 +93,6 @@ function validate_giveway_info(data) {
   console.log(img);
   let data_to_send = [uuidv4(), {
     user_to_follow_man:user_to_follow_man,
-    follow_man:follow_man,
     user_to_follow: user_to_follow,
     follow_provider: follow_provider,
     follow_mentioned: follow_mentioned,
