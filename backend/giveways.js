@@ -182,7 +182,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       matches.push(match[0])
       match = regex.exec(description)
     }
-    var user_to_follow = []
+    */var user_to_follow = []
     var mention_without_dupicate = Array.from(new Set(matches))
     for (i = 0; i < mention_without_dupicate.length; i++) {
       let a = mention_without_dupicate[i].replace("@", "")
@@ -196,7 +196,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
     return
 
-  }
+  }*/
   await page2.waitFor(5000)
 
 
@@ -254,6 +254,15 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       await follow(browser, account_info, mention, notif_ds, user_screen_name)
 
     }
+  }
+  if (giveway_rules.user_to_follow_man.length != 0 ){
+    let user_to_follow_man = []
+    user_to_follow_man = giveway_rules.user_to_follow_man.split(" ");
+    for (i in user_to_follow_man ){
+      let  follow_man = user_to_follow_man[i]
+        await follow(browser, account_info, follow_man, notif_ds, user_screen_name)
+    }
+
   }
   await browser.close()
 
