@@ -216,7 +216,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
     }
   } catch (e) {
-    console.log("Can't get asked DM", e.message);
+    console.log("");
   }
 
   await browser.close()

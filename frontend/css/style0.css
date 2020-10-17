@@ -528,7 +528,7 @@ p {
   font-size: 1.2em;
 }
 
-.settings-options input[type="number"] {
+.settings-options input{
   padding-left: 2px;
   padding-right: 0;
   width: 45px !important;
@@ -1211,5 +1211,5 @@ textarea {
   bottom: 10px;
   right: 10px;
   opacity: 0.8
-  
+
 }
