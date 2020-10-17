@@ -22,6 +22,7 @@ const request = require("request")
 
 //modules perso
 const {
+  auto_add_multiple_acc,
   auto_add_acc,
   add_new_app
 } = require("./user_app_managment.js")
@@ -297,24 +298,11 @@ function main() {
     auto_add_acc(data, users_DS, mainWindow, settings_ds)
   })
 
+  //Ajout comptes via csv
 
-  ipc.on("add_multiple_accounts", (event, data) => {
-    console.log("add multiple accounts", );
-    //import jquery-csv     http://github.com/evanplaice/jquery-csv/
-    var csv_accounts = $.csv.toObjects(csv);
-
-    for (let i = 0; i < csv_accounts.length; i++) {
-      data = {
-        username: csv_accounts[i].username,
-        password: csv_accounts[i].password,
-        proxy_username: csv_accounts[i].proxy_username,
-        proxy_password: csv_accounts[i].proxy_password
-      };
-
-      auto_add_acc(data, users_DS, mainWindow, settings_ds)
-      //wait between each account
-    }
-  })
+  ipc.on("add_multiple_accounts", async (event, fichier_path) => {
+    auto_add_multiple_acc(fichier_path, users_DS, mainWindow, settings_ds);
+  });
 
 
   ipc.on("get_all_app_name", (event, data) => {

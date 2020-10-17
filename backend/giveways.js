@@ -182,7 +182,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       matches.push(match[0])
       match = regex.exec(description)
     }
-    */var user_to_follow = []
+    var user_to_follow = []
     var mention_without_dupicate = Array.from(new Set(matches))
     for (i = 0; i < mention_without_dupicate.length; i++) {
       let a = mention_without_dupicate[i].replace("@", "")
@@ -196,7 +196,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
     return
 
-  }*/
+  }
   await page2.waitFor(5000)
 
 

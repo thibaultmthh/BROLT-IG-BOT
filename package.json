@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@cryptlex/lexactivator": "^3.9.4",
+    "csv-parser": "^2.3.3",
     "discord-rich-presence": "^0.0.8",
     "discord-webhook-node": "^1.1.8",
     "electron-reload": "^1.5.0",
