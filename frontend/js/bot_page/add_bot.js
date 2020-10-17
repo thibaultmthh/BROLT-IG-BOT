@@ -4,13 +4,13 @@ var last = 0
 console.log(last);
 
 function add_account() {
-console.log(last);
+  console.log(last);
   var now = Math.floor(Date.now() / 1000)
   if (now - last < 20) {
     let modal = document.getElementById("myModal-error");
     let error_div = document.getElementById("error")
-      error_div.textContent = "Please wait 20 seconds"
-      modal.style.display = "block";
+    error_div.textContent = "Please wait 20 seconds"
+    modal.style.display = "block";
     console.log("not");
     return 0
   }
@@ -26,6 +26,24 @@ console.log(last);
   })
 }
 
+//Marius
+function add_multiple_accounts() {
+  //  console.log(last);
+  //  var now = Math.floor(Date.now() / 1000)
+  //  if (now - last < 20) {
+  //    let modal = document.getElementById("myModal-error");
+  //    let error_div = document.getElementById("error")
+  //    error_div.textContent = "Please wait 20 seconds"
+  //    modal.style.display = "block";
+  //    console.log("not");
+  //    return 0
+  //  }
+  //  last = now
+
+  ipc.send("add_multiple_accounts", csv_file.files[0].path)
+}
+
+//
 
 
 function wait(text) {
@@ -34,6 +52,7 @@ function wait(text) {
   texts.textContent = text
   wait.style.display = "flex"
 }
+
 function done(text) {
   let wait = document.getElementById("doneNotif")
   wait.style.display = "flex"
@@ -41,6 +60,7 @@ function done(text) {
     wait.style.display = "none";
   }, 3000);
 }
+
 function stopWait() {
   let wait = document.getElementById("waitNotif")
   wait.style.display = "none"
@@ -49,14 +69,12 @@ function stopWait() {
 ipc.on("new_user_state", (event, data) => {
   let modal = document.getElementById("myModal-error");
   let error_div = document.getElementById("error")
-  if (data.message =="Wait ..."){
+  if (data.message == "Wait ...") {
     wait(data.message)
-  }
-  else if (data.message =="successfully added"){
+  } else if (data.message == "successfully added") {
     done("a")
     stopWait()
-  }
-  else{
+  } else {
     stopWait()
     error_div.textContent = data.message
     console.log(data.message);
@@ -81,4 +99,11 @@ btn.addEventListener("click", function(event) {
   event.preventDefault();
   add_account();
   //shell.openExternal(this.href);
+})
+
+var csv_file = document.getElementById("acc_csv")
+var btn2 = document.getElementById("csv_button")
+btn2.addEventListener("click", function(event) {
+  add_multiple_accounts();
+  console.log(csv_file.files[0]);
 })
