@@ -758,6 +758,26 @@ p {
   color: white;
 }
 
+.btn-orange-vrai {
+  background-color: #96141400;
+  ;
+  color: white;
+  width: 120px;
+  padding-top: 0px;
+  border: 2px solid #cc7d07;
+  height: 25px !important;
+  font-size: 0.9em;
+}
+
+.btn-orange-vrai:hover {
+  background-color: #b57009;
+  color: white;
+}
+
+.btn-orange-vrai:active {
+  background-color: #a56506;
+  color: white;
+}
 .bandeau_notif {
   display: flex;
 }
@@ -1223,7 +1243,7 @@ textarea {
 }
 #acc_csv{
   color:white
-  
+
 }
 #csv_button {
   background-color: #fff0;

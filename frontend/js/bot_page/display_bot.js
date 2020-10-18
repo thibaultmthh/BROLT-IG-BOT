@@ -49,7 +49,7 @@ function display_bot_list(data) {
         "                      <p>" + proxyhost + "</p>" +
         "                    </div>" +
         "                    <div class='btn_r_dm'>" +
-        "                      <p id='" + botname + "' >Read dm</p>" +
+        "                      <p id='" + botname + "' class='btn btn-orange-vrai ml-3'>Read dm</p>" +
         "                    </div>" +
         "                    <div class='btn_delete'>" +
         "                      <p id='" + botname + "' class='btn btn-orange ml-3'>Delete</p>" +
