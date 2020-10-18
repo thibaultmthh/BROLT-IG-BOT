@@ -26,7 +26,7 @@ function createError(errorText) {
 }
 
 easter.addEventListener("click", function (){
-  createError("I think you found something  Type: !EatserFinder in our discord for something cool  ;)")
+  createError("I think you found something.")
 })
 
 
@@ -133,7 +133,7 @@ function display_notif(data) {
 
 
 
-    
+
       }
       if (displayed == "dm") {
         let yes = bold_chaine(notif[3].message)
@@ -183,3 +183,15 @@ window.onclick = function(event) {
 }
 
 //
+
+logo = document.getElementById("logo_brolt")
+var count = 0
+logo.addEventListener("click", (event) => {
+  console.log("ok");
+  count++;
+  console.log(count);
+  if(count == 20){
+    logo.src="pictures/logosd.png"
+    logo.height=40
+  }
+})

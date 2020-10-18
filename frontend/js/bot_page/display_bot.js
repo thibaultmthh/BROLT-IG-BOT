@@ -16,7 +16,12 @@ function delete_acc(event) {
   get_bot_list()
 }
 
-
+function check_dm(event) {
+  console.log(event);
+  acc = event.target.id
+  //console.log(acc);
+  ipc.send("check_dm", acc)
+}
 
 
 
@@ -30,8 +35,8 @@ function display_bot_list(data) {
     botname = data[i][0]
     proxyhost = data[i][2].proxyhost
     proxyhost = proxyhost.substring(0, proxyhost.length - 5)
-    if (proxyhost == ""){
-      proxyhost= "No Proxy"
+    if (proxyhost == "") {
+      proxyhost = "No Proxy"
     }
     if (user_displayed.includes(botname) == false) {
       user_displayed.push(botname);
@@ -42,6 +47,9 @@ function display_bot_list(data) {
         "                    </div>" +
         "                    <div class=''>" +
         "                      <p>" + proxyhost + "</p>" +
+        "                    </div>" +
+        "                    <div class='btn_r_dm'>" +
+        "                      <p id='" + botname + "' >Read dm</p>" +
         "                    </div>" +
         "                    <div class='btn_delete'>" +
         "                      <p id='" + botname + "' class='btn btn-orange ml-3'>Delete</p>" +
@@ -62,6 +70,10 @@ function display_bot_list(data) {
   $(".btn_delete").on("click", (event) => {
     event.preventDefault();
     delete_acc(event);
+  })
+  $(".btn_r_dm").on("click", (event) => {
+    event.preventDefault();
+    check_dm(event);
   })
 }
 

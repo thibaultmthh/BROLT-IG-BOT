@@ -22,6 +22,7 @@ const request = require("request")
 
 //modules perso
 const {
+  auto_add_multiple_acc,
   auto_add_acc,
   add_new_app
 } = require("./user_app_managment.js")
@@ -44,7 +45,9 @@ const {
 const {
   check_all_notifs
 } = require("./notifs.js")
-
+const {
+  open_dm_page
+} = require("./instagram.js")
 //declaration classes perso
 const unstored_data = new Unstored_DS()
 const users_DS = new Users_DS()
@@ -178,7 +181,7 @@ function app_window() {
   // and load the index.html of the app.
   mainWindow.loadFile('./frontend/Giveaways.html')
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   return mainWindow
 }
@@ -224,6 +227,7 @@ function main() {
     check_all_notifs(users_DS, notif_ds, settings_ds)
     setInterval(check_all_notifs, 400000, users_DS, notif_ds, settings_ds)
     giveways_ds.clear_running()
+    //    open_dm_page(users_DS, notif_ds, "jeantoinelebg")
 
 
     client.updatePresence({
@@ -273,6 +277,16 @@ function main() {
   ipc.on("add_new_giveway", (event, data) => {
     giveways_ds.add_D(data[0], data[1])
   })
+
+  ipc.on("share_giveaway", (event, data) => {
+    try {
+      request.post("http://51.83.99.197:5000/newgiveway").form({
+        url: data
+      })
+    } catch {}
+
+  })
+
   ipc.on("delete_app_giveway", (event, data) => {
     giveways_ds.remove_D(data)
   })
@@ -281,8 +295,15 @@ function main() {
   //bot managment window (add new user)
   ipc.on("add_account", (event, data) => {
     console.log("go add", data);
-    auto_add_acc(data, users_DS, mainWindow)
+    auto_add_acc(data, users_DS, mainWindow, settings_ds)
   })
+
+  //Ajout comptes via csv
+
+  ipc.on("add_multiple_accounts", async (event, fichier_path) => {
+    auto_add_multiple_acc(fichier_path, users_DS, mainWindow, settings_ds);
+  });
+
 
   ipc.on("get_all_app_name", (event, data) => {
     mainWindow.webContents.send("all_app_name", app_ds.get_All_app_name())
@@ -290,6 +311,9 @@ function main() {
   //display all bots
   ipc.on("get_bot_list", (event, data) => {
     mainWindow.webContents.send("bot_list", users_DS.get_All())
+  })
+  ipc.on("check_dm", (event, data) => {
+    open_dm_page(users_DS, notif_ds, data)
   })
   ipc.on("delete_account", (event, data) => {
     users_DS.remove_D(data)
@@ -346,7 +370,9 @@ autoUpdater.on('update-downloaded', (ev, info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
-  setTimeout(function() {      autoUpdater.quitAndInstall();    }, 5000)
+  setTimeout(function() {
+    autoUpdater.quitAndInstall();
+  }, 5000)
 })
 autoUpdater.on('checking-for-update', () => {
   console.log("check");

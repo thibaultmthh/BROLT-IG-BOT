@@ -43,7 +43,7 @@ function send_giveway_link() {
 
 
   } else {
-    createError("Please specify a giveaway")
+    createError("Please specify a post")
   }
 
 }
@@ -65,9 +65,10 @@ function validate_giveway_info(data) {
   }
   let giveaway_name = document.getElementById("giveaway_name_form").value.trim()
   if (giveaway_name == "") {
-    giveaway_name = "Instagram giveaway"
+    giveaway_name = "Instagram task"
   }
 
+  let user_to_follow_man = document.getElementById("follow_man_Input").value
   let follow_provider = document.getElementById("follow_provider_switch").checked
   let follow_mentioned = document.getElementById("follow_mentioned_switch").checked
   let need_like = document.getElementById("switch1").checked
@@ -76,6 +77,7 @@ function validate_giveway_info(data) {
 
   let nb_friend_to_tag = document.getElementById("exampleFormControlSelect1").value * 1
 
+  let share_giveaway = document.getElementById('share_giveaway').checked
   if (nb_friend_to_tag == 0 && text_to_add == "") {
     var tag_friend = false
   } else {
@@ -90,6 +92,7 @@ function validate_giveway_info(data) {
   //var urlPicture = image.src
   console.log(img);
   let data_to_send = [uuidv4(), {
+    user_to_follow_man:user_to_follow_man,
     user_to_follow: user_to_follow,
     follow_provider: follow_provider,
     follow_mentioned: follow_mentioned,
@@ -101,8 +104,11 @@ function validate_giveway_info(data) {
     link: link,
     pictures_url: img
   }]
-
   ipc.send("add_new_giveway", data_to_send)
+
+  if (share_giveaway) {
+    ipc.send("share_giveaway", link)
+  }
 
   //remet tout les truc en place :
   var menu = document.getElementById("Settings_menu")

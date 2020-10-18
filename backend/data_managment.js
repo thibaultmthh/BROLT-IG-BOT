@@ -234,11 +234,34 @@ class Notif_DS extends Store {
   constructor() {
     super()
     this.data_name = "notif_save"
-    this.defaut =
-      this.datas = this.get(this.data_name) || [] // [source (user or system), type(dm, mention, error), datas{message, date, ect}]
+    this.defaut = ""
+    this.datas = this.get(this.data_name) || [] // [source (user or system), type(dm, mention, error), datas{message, date, ect}]
     //this.datas = [["a"],["b"],["be"]]
+    this.webhook_sent = this.get("webhook_sent") || []
 
   }
+
+
+  is_w_sent(text) {
+
+    for (var index_user in this.webhook_sent) {
+      if (this.webhook_sent.hasOwnProperty(index_user)) {
+        if (this.webhook_sent[index_user] == text) {
+          return true
+        }
+      }
+    }
+
+    return false
+
+  }
+
+  w_sent(text) {
+    this.webhook_sent.push(text)
+    this.set("webhook_sent", this.webhook_sent)
+  }
+
+
   get_D(notif_id) {
     for (var index_user in this.datas) {
       if (this.datas.hasOwnProperty(index_user)) {

@@ -38,6 +38,9 @@ body, html {
 .h-90 {
   height: 90%;
 }
+.h-30{
+  height: 30%;
+}
 
 .h-15 {
   height: 15%;
@@ -528,7 +531,7 @@ p {
   font-size: 1.2em;
 }
 
-.settings-options input[type="number"] {
+.settings-options input{
   padding-left: 2px;
   padding-right: 0;
   width: 45px !important;
@@ -916,6 +919,7 @@ p {
 
 .border_brolt {
   border: 2px solid #00b490;
+  overflow:hidden;
 }
 
 .option_add {
@@ -954,7 +958,6 @@ p {
 
 #btn_new_user {
   background-color: #fff0;
-  margin-top: 10px;
   border: 2px solid #00b490;
 }
 
@@ -1144,7 +1147,7 @@ p {
 textarea {
   background-color: #fff0;
   padding-left: 5px;
-  margin-top: 15px;
+  margin-top: 10px;
   color: white;
 }
 
@@ -1171,7 +1174,7 @@ textarea {
   }
 
   to {
-    right: 0;
+    right: 0;btn_new_user
     opacity: 1
   }
 }
@@ -1211,5 +1214,22 @@ textarea {
   bottom: 10px;
   right: 10px;
   opacity: 0.8
+
+}
+
+#input_webhook{
+  width: 500px!important;
+  height: 25px !important;
+}
+#acc_csv{
+  color:white
   
+}
+#csv_button {
+  background-color: #fff0;
+  border: 2px solid #00b490;
+}
+
+#csv_button:active {
+  border-color: #038168;
 }

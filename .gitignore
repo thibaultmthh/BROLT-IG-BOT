@@ -2,5 +2,7 @@
 yarn.lock
 package-lock.json
 *.log
-/dist
 *.png
+/dist
+*.PNG
+cookies/*json

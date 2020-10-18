@@ -30,7 +30,7 @@
     <!-- Modal content -->
     <div class="modal-content-account">
       <div class="h-15 haut_modal  text-align-center mb-2">
-        <p class="titre">Add a new giveaway</p>
+        <p class="titre">Add a new Task</p>
       </div>
       <div class="h-70 pt-2">
         <div class="display-flex justify-content-center">
@@ -51,26 +51,33 @@
               <input type="checkbox" class="custom-control-input" id="switch1" checked="">
               <label class="custom-control-label" for="switch1">Like</label>
             </div>
-          </div>
-          <div class="w-50 pl-2" style="padding-top:8px;">
-            <div class="">
-
-              <div class="people_to_tag">
-                <select class="form-control " id="exampleFormControlSelect1">
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="share_giveaway" checked="">
+              <label class="custom-control-label" for="share_giveaway">Share the giveways with comunity</label>
+            </div>
 
 
-                </select>
-                <p>People to tag</p>
+            <div class="people_to_tag mt-4">
+              <select class="form-control " id="exampleFormControlSelect1">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
 
-              </div>
+
+              </select>
+              <p>People to tag</p>
 
             </div>
-            <textarea name="name" class="border_brolt " rows="3" cols="40" placeholder="Text to add" id="hashtagsInput"></textarea>
+
+
+
+          </div>
+          <div class="w-50 pl-2" style="padding-top:8px;">
+
+            <textarea name="name" class="border_brolt " rows="2" cols="40" placeholder="Text to add" id="hashtagsInput"></textarea>
+            <textarea name="name" class="border_brolt " rows="3" cols="40" placeholder="Users to follow" id="follow_man_Input"></textarea>
           </div>
 
 
@@ -90,39 +97,39 @@
 
 
 
-    <div class="centrer" id="waitNotif">
-      <p id="waitText"></p>
+  <div class="centrer" id="waitNotif">
+    <p id="waitText"></p>
+  </div>
+  <div class="container-fluid h-100 relative">
+
+    <div class="haut-truc row" style="height:7%">
+      <div class="logo_div">
+        <img src="pictures/logo.png" alt="logo" id="logo_brolt" class="logo_brolt">
+      </div>
+      <div class="div_choix">
+        <a href="bot_management.html" class="option_haut ml-5">
+          <p>Accounts</p>
+        </a>
+        <a href="Giveaways.html" class="option_haut couleur_bas">
+          <p>Tasks</p>
+        </a>
+        <a href="Notifications.html" class="option_haut ">
+          <p>Notifications</p>
+        </a>
+        <a href="Settings.html" class="option_haut ">
+          <p>Settings</p>
+        </a>
+      </div>
+      <div class="croix">
+        <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
+      </div>
     </div>
-    <div class="container-fluid h-100 relative">
-
-      <div class="haut-truc row" style="height:7%">
-        <div class="logo_div">
-          <img src="pictures/logo.png" alt="logo" class="logo_brolt">
-        </div>
-        <div class="div_choix">
-          <a href="bot_management.html" class="option_haut ml-5">
-            <p>Accounts</p>
-          </a>
-          <a href="Giveaways.html" class="option_haut couleur_bas">
-            <p>Giveaways</p>
-          </a>
-          <a href="Notifications.html" class="option_haut ">
-            <p>Notifications</p>
-          </a>
-          <a href="Settings.html" class="option_haut ">
-            <p>Settings</p>
-          </a>
-        </div>
-        <div class="croix">
-          <a href="#"> <img src="pictures/croix.png" alt="croix" id="close"> </a>
-        </div>
-      </div>
-      <div class="row" style="height:93%">
-        <!--Main-->
-        <div class="col-12 h-100 p-0 main ">
-          <div class="col-1 w-100 mw-100 pt-4 corps">
-            <div class="h-90 pb-3 pr-2 pl-2 ">
-              <div class="cont_tasks h-100 pt-3 pr- pl-3" id="cont_tasks">
+    <div class="row" style="height:93%">
+      <!--Main-->
+      <div class="col-12 h-100 p-0 main ">
+        <div class="col-1 w-100 mw-100 pt-4 corps">
+          <div class="h-90 pb-3 pr-2 pl-2 ">
+            <div class="cont_tasks h-100 pt-3 pr- pl-3" id="cont_tasks">
 
 
 
@@ -130,21 +137,21 @@
 
 
 
-              </div>
             </div>
-            <div class="display-flex justify-content-center h-10 ">
-              <div class="display-flex">
-                <p class="mt-1">Add a new task</p>
-                <input type="link" class="form-control ml-4" id="linkInput" aria-describedby="" placeholder="Enter link">
-                <button type="button" class="btn " id="btn_valide_giveway" name="button">Submit</button>
-              </div>
-            </div>
-
-
           </div>
+          <div class="display-flex justify-content-center h-10 ">
+            <div class="display-flex">
+              <p class="mt-1">Add a new task</p>
+              <input type="link" class="form-control ml-4" id="linkInput" aria-describedby="" placeholder="Enter link">
+              <button type="button" class="btn " id="btn_valide_giveway" name="button">Submit</button>
+            </div>
+          </div>
+
+
         </div>
       </div>
-      <p id="actual_version"></p>
+    </div>
+    <p id="actual_version"></p>
   </div>
 </body>
 <script>

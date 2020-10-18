@@ -2,6 +2,32 @@ const request = require("request")
 const {
   v4: uuidv4
 } = require('uuid')
+const {
+  login,
+  like,
+  follow
+} = require("./instagram.js")
+
+const {
+  Webhook,
+  MessageBuilder
+} = require('discord-webhook-node');
+
+
+
+function win_message(chaine) {
+  var keywords = ["win", "winner", "winners", "congrats", "congratulation", "congratulations", "dm", "claim", "won", "tinumi389"];
+  var yes = false;
+  for (var i in keywords) {
+
+    if (chaine.toLowerCase().includes(keywords[i])) {
+      yes = true;
+    }
+  }
+
+  return yes
+}
+
 
 const puppeteer = require('puppeteer-extra')
 
@@ -32,52 +58,8 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
   });
 
-  const page_auth = await browser.newPage()
-  await page_auth.authenticate({
-    username: account_info.proxy_username,
-    password: account_info.proxy_password,
-  });
-  try {
-    await page_auth.goto("https://www.instagram.com/")
-  } catch (e) {
-    console.log("Cant connect" + e.message);
-    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant connect" + e.message])
-    await browser.close()
-    return
-  }
+  await login(browser, account_info, notif_ds, account_info.username)
 
-  await page_auth.waitFor(1000)
-  // authentifiction
-  try {
-    await page_auth.focus("input[name='username']")
-    await page_auth.keyboard.type(account_info.username)
-    await page_auth.focus("input[name='password']")
-    await page_auth.keyboard.type(account_info.password)
-    await page_auth.keyboard.press('Enter');
-    await page_auth.waitFor(3000)
-    await page_auth.keyboard.press('Enter');
-
-    try {
-      await page_auth.waitForNavigation({
-        waitUntil: 'networkidle0'
-      })
-    } catch (e) {
-      await page_auth.waitFor(3000)
-      await page_auth.keyboard.press('Enter');
-      await page_auth.waitForNavigation({
-        waitUntil: 'networkidle0'
-      })
-      await page_auth.waitFor(800)
-
-    }
-
-  } catch (e) {
-    console.log("Cant find connexion form", e.message);
-    //notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Cant find connextion form" + e.message])
-    await browser.close()
-    return
-
-  }
 
   try {
     var page2 = await browser.newPage()
@@ -103,7 +85,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
     const elements = await page2.$$(".YFq-A")
     var keywords = ["mentioned"];
-
+    console.log("partie 1");
     for (i in elements) {
       let element = elements[i]
       let text = await page2.evaluate(element => element.textContent, element);
@@ -121,8 +103,27 @@ async function check(user, users_DS, notif_ds, settings_ds) {
           message: text,
           //send_by: mention.user.screen_name
         }])
+        let text_check = text + user[0]
+        if (notif_ds.is_w_sent(text_check) && win_message(text)) {
+          console.log("webhook sent");
+          let webhook_url = settings_ds.get_All().webhook_url
+          const hook = new Webhook(webhook_url);
+          const embed = new MessageBuilder()
+            .setTitle('New Instagram win')
+            //.setAuthor('Brolt Tools. Instagram ')
+            .addField('Text', text)
+            .addField('Receive on ', user[0])
+            .setColor('#00b0f4')
+            .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+            //.setDescription('Oh look a description :)')
+            .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+            .setTimestamp();
+
+          hook.send(embed);
+          notif_ds.w_sent(text_check)
+        }
+
       }
-      console.log("Mentions", text);
 
     }
   } catch (e) {
@@ -130,16 +131,37 @@ async function check(user, users_DS, notif_ds, settings_ds) {
   }
 
   try {
+    console.log("Partie 2");
     const elements_x = await page2.$$(".se6yk.qyrsm")
     for (i in elements_x) {
+      console.log(i);
       let element = elements_x[i]
       let text = await page2.evaluate(element => element.textContent, element);
       let datas = {
         //date: event.created_timestamp,
         message: text
       }
-
       notif_ds.add_D([text, user[0], "dm", datas])
+      let text_check = text + user[0]
+
+      if (!notif_ds.is_w_sent(text_check)) {
+        console.log("webhook sent");
+        let webhook_url = settings_ds.get_All().webhook_url
+        const hook = new Webhook(webhook_url);
+        const embed = new MessageBuilder()
+          .setTitle('New Instagram Direct Message Not aprouved')
+          //.setAuthor('Brolt Tools. Instagram ')
+          .addField('Text', text)
+          .addField('Receive on ', user[0])
+          .setColor('#00b0f4')
+          .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          //.setDescription('Oh look a description :)')
+          .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          .setTimestamp();
+
+        hook.send(embed);
+        notif_ds.w_sent(text_check)
+      }
       console.log("DM", text);
 
     }
@@ -147,16 +169,17 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     console.log("Can't get DM", e.message);
   }
 
+
+
+
+
+
   try {
-    await page2.screenshot({
-      path: 'example.png'
-    });
+    console.log("partie 3");
     await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
     await page2.click("#react-root > section > div > div.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.oNO81 > div.Igw0E.IwRSH.eGOV_._4EzTm.i0EQd > div > div > div > div > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm.pjcA_.iHqQ7.L-sTb > button")
 
-    await page2.screenshot({
-      path: 'example2.png'
-    });
+
     const elements_y = await page2.$$(".se6yk")
 
 
@@ -168,13 +191,32 @@ async function check(user, users_DS, notif_ds, settings_ds) {
         //date: event.created_timestamp,
         message: text
       }
+      let text_check = text + user[0]
 
       notif_ds.add_D([text, user[0], "dm", datas])
+      if (!notif_ds.is_w_sent(text_check)) {
+        console.log("webhook sent");
+        let webhook_url = settings_ds.get_All().webhook_url
+        const hook = new Webhook(webhook_url);
+        const embed = new MessageBuilder()
+          .setTitle('New Instagram Direct Message ')
+          //.setAuthor('Brolt Tools. Instagram ')
+          .addField('Text', text)
+          .addField('Receive on ', user[0])
+          .setColor('#00b0f4')
+          .setThumbnail('https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          //.setDescription('Oh look a description :)')
+          .setFooter('Brolt Tools. Instagram ', 'https://cdn.discordapp.com/attachments/742710800644309092/742711391546245130/Brolt_Blue.png')
+          .setTimestamp();
+
+        hook.send(embed);
+        notif_ds.w_sent(text_check)
+      }
       console.log("DM", text);
 
     }
   } catch (e) {
-    console.log("Can't get asked DM", e.message);
+    console.log("");
   }
 
   await browser.close()
@@ -195,7 +237,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
 
 function check_all_notifs(users_DS, notif_ds, settings_ds) {
   var all_user = users_DS.get_All_screen_name()
-  var delay_between_user_check = 14000
+  var delay_between_user_check = 30000
 
   for (var i in all_user) {
     user = all_user[i]

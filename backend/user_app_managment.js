@@ -1,6 +1,22 @@
 var http = require('http')
 var url = require("url")
 var querystring = require('querystring')
+const fs = require('fs').promises;
+const fsS = require('fs');
+const electron = require('electron');
+
+
+//Module csv
+const csv = require('csv-parser');
+
+
+
+const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
+
+
+if (!fsS.existsSync(cookies_path)) {
+  fsS.mkdirSync(cookies_path);
+}
 
 const puppeteer = require('puppeteer-extra')
 
@@ -19,7 +35,7 @@ function getChromiumExecPath() {
   return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 }
 
-async function auto_add_acc(account_info, users_DS, mainWindow) {
+async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
   /*
   account_info = {
   proxyhost: "http://proxy.com:5555",
@@ -35,7 +51,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
     ignoreHTTPSErrors: true,
     slowMo: 30,
-    headless: false,
+    headless: settings_ds.get_D("input_headless"),
     executablePath: getChromiumExecPath()
 
   });
@@ -44,8 +60,6 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
     message: "Wait ..."
   });
   const page = await browser.newPage();
-  //await page.setRequestInterception(true);
-
   await page.authenticate({
     username: account_info.proxy_username,
     password: account_info.proxy_password,
@@ -63,6 +77,10 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
   }
   try {
     await page.waitFor(1000)
+    const [button_accept] = await page.$x("//button[contains(., 'Accept')]"); //click on save info
+    if (button_accept) {
+      await button_accept.click();
+    }
     // authentifiction
     await page.focus("input[name='username']")
     await page.keyboard.type(account_info.username)
@@ -90,10 +108,10 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
         await page.waitFor(100000)
         if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
           mainWindow.webContents.send("new_user_state", {
-      type: "error",
-      message: err.message
-    });
-    await browser.close()
+            type: "error",
+            message: err.message
+          });
+          await browser.close()
         }
 
       }
@@ -106,10 +124,17 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
       users_DS.add_D(data_to_add)
     }
 
-    mainWindow.webContents.send("new_user_state", {
-      type: "success",
-      message: "successfully added"
-    });
+    const [button_save] = await page.$x("//button[contains(., 'Save Info')]"); //click on save info
+    if (button_save) {
+      await button_save.click();
+    }
+    await page.waitForNavigation({
+      waitUntil: 'networkidle0'
+    })
+    const cookies = await page.cookies();
+    await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+    await page.waitFor(400)
+
     await browser.close()
   } catch (err) {
     mainWindow.webContents.send("new_user_state", {
@@ -124,6 +149,61 @@ async function auto_add_acc(account_info, users_DS, mainWindow) {
 }
 
 
+
+async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, settings_ds) {
+  console.log("add multiple accounts");
+
+  fsS.createReadStream(fichier_path)
+    .pipe(csv())
+    .on('data', (row) => {
+      console.log(row);
+      data = {
+        proxyhost: row.proxyhost,
+        proxy_username: row.proxy_username,
+        proxy_password: row.proxy_password,
+        username: row.username,
+        password: row.password
+      };
+
+      //console.log(row.proxyhost==undefined);
+
+      if (row.proxyhost==undefined) {
+        data = {
+          proxyhost: "",
+          proxy_username: data.proxy_username,
+          proxy_password: data.proxy_password,
+          username: row.username,
+          password: row.password
+        }
+      }
+
+      if (row.proxy_username==undefined) {
+        data = {
+          proxyhost: data.proxyhost,
+          proxy_username: "",
+          proxy_password: data.proxy_password,
+          username: row.username,
+          password: row.password
+        }
+      }
+
+      if (row.proxy_password==undefined) {
+        data = {
+          proxyhost: data.proxyhost,
+          proxy_username: data.proxy_username,
+          proxy_password: "",
+          username: row.username,
+          password: row.password
+        }
+      }
+
+      auto_add_acc(data, users_DS, mainWindow, settings_ds);
+      //waiting time
+    })
+    .on('end', () => {
+      console.log('CSV file successfully processed');
+    });
+}
 
 
 
@@ -156,3 +236,4 @@ function add_new_app(name, tokens, app_ds, mainWindow) {
 
 module.exports.auto_add_acc = auto_add_acc;
 module.exports.add_new_app = add_new_app;
+module.exports.auto_add_multiple_acc = auto_add_multiple_acc;
