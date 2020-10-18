@@ -171,8 +171,10 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     username: account_info.proxy_username,
     password: account_info.proxy_password,
   });
-
-  await page2.waitFor(5000)
+  let wait =  page2.waitForNavigation()
+  await page2.goto(giveway_rules.link)
+  await wait
+  await page2.waitFor(800)
 
 
   if (giveway_rules.need_like) {
@@ -225,7 +227,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   if ( giveway_rules.follow_mentioned) {
     try {
-      await page2.goto(givewayrules.link)
+
       const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
       const regex = /@[a-zA-Z-.-]{0,}/g
       var matches = []
