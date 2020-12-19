@@ -171,6 +171,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     username: account_info.proxy_username,
     password: account_info.proxy_password,
   });
+<<<<<<< HEAD
 
   try {
     await page2.goto(giveway_rules.link)
@@ -199,6 +200,12 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   }
   await page2.waitFor(5000)
+=======
+  let wait =  page2.waitForNavigation()
+  await page2.goto(giveway_rules.link)
+  await wait
+  await page2.waitFor(800)
+>>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
 
 
   if (giveway_rules.need_like) {
@@ -249,14 +256,45 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   }
 
-  if (user_to_follow.length != 0 && giveway_rules.follow_mentioned) {
+  if ( giveway_rules.follow_mentioned) {
+    try {
+
+      const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
+      const regex = /@[a-zA-Z-.-]{0,}/g
+      var matches = []
+      var match = regex.exec(description)
+      while (match != null) {
+        matches.push(match[0])
+        match = regex.exec(description)
+      }
+      var user_to_follow = []
+      var mention_without_dupicate = Array.from(new Set(matches))
+      for (i = 0; i < mention_without_dupicate.length; i++) {
+        let a = mention_without_dupicate[i].replace("@", "")
+        user_to_follow.push(a)
+      }
+      console.log(user_to_follow)
+    } catch (e) {
+      console.log("Can't fetch description", e.message);
+      notif_ds.add_D([Date.now().toString(), user_screen_name, "error", "Can't fetch description" + e.message])
+      await browser.close()
+
+      return
+
+    }
+    if (user_to_follow.length != 0){
     for (var i in user_to_follow) {
       let mention = user_to_follow[i]
       await follow(browser, account_info, mention, notif_ds, user_screen_name)
 
     }
+<<<<<<< HEAD
   }
   if (giveway_rules.user_to_follow_man.length != 0) {
+=======
+  }}
+  if (giveway_rules.user_to_follow_man.length != 0 ){
+>>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
     let user_to_follow_man = []
     user_to_follow_man = giveway_rules.user_to_follow_man.split(" ");
     for (i in user_to_follow_man) {

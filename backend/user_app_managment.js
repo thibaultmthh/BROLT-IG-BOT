@@ -11,7 +11,7 @@ const csv = require('csv-parser');
 
 
 
-const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
+const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies/";
 
 
 if (!fsS.existsSync(cookies_path)) {
@@ -143,7 +143,11 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
       waitUntil: 'networkidle0'
     })
     const cookies = await page.cookies();
+<<<<<<< HEAD
     await fs.writeFile(cookies_path + '/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+=======
+    await fs.writeFile(cookies_path+'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+>>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
     await page.waitFor(400)
 
     await browser.close()

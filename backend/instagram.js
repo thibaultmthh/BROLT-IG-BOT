@@ -1,10 +1,11 @@
 const fsP = require('fs').promises;
 const fs = require('fs')
 const electron = require('electron');
-const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies";
+const cookies_path = (electron.app || electron.remote.app).getPath('userData') + "/cookies_i/";
 
-
+console.log(cookies_path);
 if (!fs.existsSync(cookies_path)) {
+  console.log("existe paaaaa");
   fs.mkdirSync(cookies_path);
 }
 
@@ -34,7 +35,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
 
 
   try {
-    const cookiesString = await fsP.readFile(cookies_path + '/cookies_' + user_screen_name + '.json');
+    const cookiesString = await fsP.readFile(cookies_path + 'cookies_' + user_screen_name + '.json');
     var cookies = JSON.parse(cookiesString);
     await page_auth.setCookie(...cookies);
     page_auth.goto("https://www.instagram.com/direct/inbox/")
@@ -48,7 +49,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     } else {
       console.log("successfully logged in with cookies");
       var cookies_2 = await page_auth.cookies();
-      await fsP.writeFile(cookies_path + '/cookies_' + account_info.username + '.json', JSON.stringify(cookies_2, null, 2));
+      await fsP.writeFile(cookies_path + 'cookies_' + account_info.username + '.json', JSON.stringify(cookies_2, null, 2));
       return page_auth
     }
 
@@ -119,8 +120,12 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     })
     console.log("log in")
     const cookies = await page_auth.cookies();
+<<<<<<< HEAD
     await fsP.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
     console.log("Cookies saved")
+=======
+    await fsP.writeFile(cookies_path+ 'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+>>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
     await page_auth.waitFor(400)
     return page_auth
   }
