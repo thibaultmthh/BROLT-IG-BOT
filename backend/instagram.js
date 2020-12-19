@@ -56,13 +56,6 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     console.log(e.message)
   }
 
-
-
-
-
-
-
-
   try {
     console.log("plan B de connection");
     await page_auth.goto("https://www.instagram.com/")
@@ -127,6 +120,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     console.log("log in")
     const cookies = await page_auth.cookies();
     await fsP.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+    console.log("Cookies saved")
     await page_auth.waitFor(400)
     return page_auth
   }

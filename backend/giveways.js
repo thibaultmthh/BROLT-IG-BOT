@@ -174,6 +174,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   try {
     await page2.goto(giveway_rules.link)
+    await page2.waitFor(300)
     const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
     const regex = /@[a-zA-Z-.-_]{0,}/g
     var matches = []
@@ -255,12 +256,12 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
     }
   }
-  if (giveway_rules.user_to_follow_man.length != 0 ){
+  if (giveway_rules.user_to_follow_man.length != 0) {
     let user_to_follow_man = []
     user_to_follow_man = giveway_rules.user_to_follow_man.split(" ");
-    for (i in user_to_follow_man ){
-      let  follow_man = user_to_follow_man[i]
-        await follow(browser, account_info, follow_man, notif_ds, user_screen_name)
+    for (i in user_to_follow_man) {
+      let follow_man = user_to_follow_man[i]
+      await follow(browser, account_info, follow_man, notif_ds, user_screen_name)
     }
 
   }

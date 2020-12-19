@@ -46,12 +46,14 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
 
 }
   */
+  let args = ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost]
+  console.log(args);
   const browser = await puppeteer.launch({
 
-    args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost],
+    args: args,
     ignoreHTTPSErrors: true,
     slowMo: 30,
-    headless: settings_ds.get_D("input_headless"),
+    headless: false,
     executablePath: getChromiumExecPath()
 
   });
@@ -101,17 +103,26 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
       });
     } catch (err) {
       await page.waitFor(1000)
-      let regex1 = new RegExp('two_factor');
-      let regex2 = new RegExp('challenge');
+      let regex1 = new RegExp('two_factor|challenge');
       let url = page.url()
-      if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
+      if (regex1.test(url) == true) {
         await page.waitFor(100000)
-        if ((regex1.test(url) == true) || (regex2.test(url) == true)) {
-          mainWindow.webContents.send("new_user_state", {
-            type: "error",
-            message: err.message
-          });
-          await browser.close()
+
+        for (var i = 0; i < 100; i++) {
+          await page.waitFor(2000);
+          if (i == 98) {
+            console.log("ERROR : ", "Challenge not completed");
+            mainWindow.webContents.send("new_user_state", {
+              type: "error",
+              message: "Challenge not completed"
+            });
+            await browser.close()
+            return
+          }
+          if (regex1.test(page.url())) {
+            break
+          }
+
         }
 
       }
@@ -132,7 +143,7 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
       waitUntil: 'networkidle0'
     })
     const cookies = await page.cookies();
-    await fs.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+    await fs.writeFile(cookies_path + '/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
     await page.waitFor(400)
 
     await browser.close()
@@ -167,7 +178,7 @@ async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, setting
 
       //console.log(row.proxyhost==undefined);
 
-      if (row.proxyhost==undefined) {
+      if (row.proxyhost == undefined) {
         data = {
           proxyhost: "",
           proxy_username: data.proxy_username,
@@ -177,7 +188,7 @@ async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, setting
         }
       }
 
-      if (row.proxy_username==undefined) {
+      if (row.proxy_username == undefined) {
         data = {
           proxyhost: data.proxyhost,
           proxy_username: "",
@@ -187,7 +198,7 @@ async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, setting
         }
       }
 
-      if (row.proxy_password==undefined) {
+      if (row.proxy_password == undefined) {
         data = {
           proxyhost: data.proxyhost,
           proxy_username: data.proxy_username,
@@ -196,8 +207,15 @@ async function auto_add_multiple_acc(fichier_path, users_DS, mainWindow, setting
           password: row.password
         }
       }
+      try {
+        auto_add_acc(data, users_DS, mainWindow, settings_ds);
 
-      auto_add_acc(data, users_DS, mainWindow, settings_ds);
+      } catch (e) {
+        mainWindow.webContents.send("new_user_state", {
+          type: "error",
+          message: err.message
+        });
+      }
       //waiting time
     })
     .on('end', () => {

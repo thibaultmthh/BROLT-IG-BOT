@@ -67,15 +67,11 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     await page2.waitFor(1000)
 
     //await page2.click("body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.HoLwm")
-    await page2.click("#react-root > section > div > div._lz6s.Hz2lF > div > div.ctQZg > div > div:nth-child(4) > a")
 
 
     await page2.waitFor(5000)
   } catch (e) {
-    console.log("Can't start page 2", e.message);
-    await page2.screenshot({
-      path: 'example.png'
-    });
+
     await browser.close()
     return
 

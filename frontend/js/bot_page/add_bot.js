@@ -26,26 +26,6 @@ function add_account() {
   })
 }
 
-//Marius
-function add_multiple_accounts() {
-  //  console.log(last);
-  //  var now = Math.floor(Date.now() / 1000)
-  //  if (now - last < 20) {
-  //    let modal = document.getElementById("myModal-error");
-  //    let error_div = document.getElementById("error")
-  //    error_div.textContent = "Please wait 20 seconds"
-  //    modal.style.display = "block";
-  //    console.log("not");
-  //    return 0
-  //  }
-  //  last = now
-
-  ipc.send("add_multiple_accounts", csv_file.files[0].path)
-}
-
-//
-
-
 function wait(text) {
   let wait = document.getElementById("waitNotif")
   let texts = document.getElementById("waitText")
@@ -101,6 +81,27 @@ btn.addEventListener("click", function(event) {
   //shell.openExternal(this.href);
 })
 
+//Marius
+function add_multiple_accounts() {
+  //  console.log(last);
+  //  var now = Math.floor(Date.now() / 1000)
+  //  if (now - last < 20) {
+  //    let modal = document.getElementById("myModal-error");
+  //    let error_div = document.getElementById("error")
+  //    error_div.textContent = "Please wait 20 seconds"
+  //    modal.style.display = "block";
+  //    console.log("not");
+  //    return 0
+  //  }
+  //  last = now
+
+  ipc.send("add_multiple_accounts", csv_file.files[0].path)
+}
+
+//
+
+
+
 var csv_file = document.getElementById("acc_csv")
 var btn2 = document.getElementById("csv_button")
 btn2.addEventListener("click", function(event) {
@@ -114,8 +115,8 @@ logo.addEventListener("click", (event) => {
   console.log("ok");
   count++;
   console.log(count);
-  if(count == 20){
-    logo.src="pictures/logosd.png"
-    logo.height=40
+  if (count == 20) {
+    logo.src = "pictures/logosd.png"
+    logo.height = 40
   }
 })
