@@ -120,12 +120,7 @@ async function login(browser, account_info, notif_ds, user_screen_name) {
     })
     console.log("log in")
     const cookies = await page_auth.cookies();
-<<<<<<< HEAD
-    await fsP.writeFile('./cookies/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
-    console.log("Cookies saved")
-=======
-    await fsP.writeFile(cookies_path+ 'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
->>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
+    await fsP.writeFile(cookies_path + 'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
     await page_auth.waitFor(400)
     return page_auth
   }

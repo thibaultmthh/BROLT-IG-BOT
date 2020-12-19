@@ -79,7 +79,7 @@ async function start_giveway(giveways_ds, users_DS, unstored_data, notif_ds, set
 
   }
   giveways_ds.set_done(giveway_data[0]);
-  setTimeout(function() {
+  setTimeout(function () {
     unstored_data.set_D("giveways_state", 0)
   }, settings_ds.get_D("cooldown_giveaways") + (13 * 1000))
 }
@@ -171,7 +171,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     username: account_info.proxy_username,
     password: account_info.proxy_password,
   });
-<<<<<<< HEAD
+
 
   try {
     await page2.goto(giveway_rules.link)
@@ -200,13 +200,6 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   }
   await page2.waitFor(5000)
-=======
-  let wait =  page2.waitForNavigation()
-  await page2.goto(giveway_rules.link)
-  await wait
-  await page2.waitFor(800)
->>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
-
 
   if (giveway_rules.need_like) {
     await like(page2, notif_ds, user_screen_name)
@@ -217,7 +210,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
     console.log("tag fiend");
     let random_screen_name = []
     let all_screen_name = shuffle(users_DS.get_All_screen_name())
-    all_screen_name.forEach(function(item) {
+    all_screen_name.forEach(function (item) {
       //console.log(random_screen_name.length, giveway_rules.nb_friend_to_tag)
       if (item != user_screen_name && random_screen_name.length < giveway_rules.nb_friend_to_tag) {
         random_screen_name.push("@" + item)
@@ -256,7 +249,7 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
 
   }
 
-  if ( giveway_rules.follow_mentioned) {
+  if (giveway_rules.follow_mentioned) {
     try {
 
       const description = await page2.$eval("#react-root > section > main > div > div > article > div.eo2As > div.EtaWk > ul > div > li > div > div > div.C4VMK > span", elem => elem.innerText)
@@ -282,19 +275,17 @@ async function take_giveway(giveway_data, user_screen_name, users_DS, giveways_d
       return
 
     }
-    if (user_to_follow.length != 0){
-    for (var i in user_to_follow) {
-      let mention = user_to_follow[i]
-      await follow(browser, account_info, mention, notif_ds, user_screen_name)
+    if (user_to_follow.length != 0) {
+      for (var i in user_to_follow) {
+        let mention = user_to_follow[i]
+        await follow(browser, account_info, mention, notif_ds, user_screen_name)
+
+      }
 
     }
-<<<<<<< HEAD
   }
   if (giveway_rules.user_to_follow_man.length != 0) {
-=======
-  }}
-  if (giveway_rules.user_to_follow_man.length != 0 ){
->>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
+
     let user_to_follow_man = []
     user_to_follow_man = giveway_rules.user_to_follow_man.split(" ");
     for (i in user_to_follow_man) {

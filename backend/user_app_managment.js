@@ -143,11 +143,8 @@ async function auto_add_acc(account_info, users_DS, mainWindow, settings_ds) {
       waitUntil: 'networkidle0'
     })
     const cookies = await page.cookies();
-<<<<<<< HEAD
-    await fs.writeFile(cookies_path + '/cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
-=======
-    await fs.writeFile(cookies_path+'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
->>>>>>> 0f8159538a23ec0bacfe64494fe5842951c97ddf
+    await fs.writeFile(cookies_path + 'cookies_' + account_info.username + '.json', JSON.stringify(cookies, null, 2));
+
     await page.waitFor(400)
 
     await browser.close()
@@ -240,7 +237,7 @@ function add_new_app(name, tokens, app_ds, mainWindow) {
     consumer_secret: tokens.consumer_secret
   });
   api.getRequestToken(tokens.callback)
-    .then(function(res) {
+    .then(function (res) {
       app_ds.add_D([name, {
         consumer_key: tokens.consumer_key,
         consumer_secret: tokens.consumer_secret,
@@ -249,7 +246,7 @@ function add_new_app(name, tokens, app_ds, mainWindow) {
       }]);
       mainWindow.webContents.send("add_app_error", "good");
     })
-    .catch(function(error) {
+    .catch(function (error) {
       mainWindow.webContents.send("add_app_error", error);
     })
 

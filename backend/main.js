@@ -181,7 +181,7 @@ function app_window() {
   // and load the index.html of the app.
   mainWindow.loadFile('./frontend/Giveaways.html')
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   return mainWindow
 }
@@ -247,7 +247,7 @@ function main() {
   })
 
   //activation window
-  ipc.on('check_key', function(event, data) {
+  ipc.on('check_key', function (event, data) {
     let activate_status = activate(data, settings_ds)
     console.log(activate_status);
     if (activate_status[0] == 0) {
@@ -283,7 +283,7 @@ function main() {
       request.post("http://51.83.99.197:5000/newgiveway").form({
         url: data
       })
-    } catch {}
+    } catch { }
 
   })
 
@@ -362,7 +362,7 @@ function main() {
 
 
 }
-app.on('ready', function() {
+app.on('ready', function () {
   autoUpdater.checkForUpdates();
 });
 
@@ -370,7 +370,7 @@ autoUpdater.on('update-downloaded', (ev, info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
-  setTimeout(function() {
+  setTimeout(function () {
     autoUpdater.quitAndInstall();
   }, 5000)
 })
@@ -389,10 +389,10 @@ autoUpdater.on('error', (ev, err) => {
 
 app.whenReady().then(main)
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-app.on('activate', function() {
+app.on('activate', function () {
   if (BrowserWindow.getAllWindows().length === 0) main()
 })
