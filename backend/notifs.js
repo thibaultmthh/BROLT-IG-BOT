@@ -53,7 +53,7 @@ async function check(user, users_DS, notif_ds, settings_ds) {
     args: ['--enable-features=NetworkService', "--proxy-server=" + account_info.proxyhost, '--window-size=1920,1080', '--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'],
     ignoreHTTPSErrors: true,
     slowMo: 20,
-    headless: false,
+    headless: true,
     executablePath: getChromiumExecPath()
 
   });

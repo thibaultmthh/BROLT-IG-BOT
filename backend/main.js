@@ -181,7 +181,7 @@ function app_window() {
   // and load the index.html of the app.
   mainWindow.loadFile('./frontend/Giveaways.html')
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   return mainWindow
 }
@@ -232,7 +232,7 @@ function main() {
 
     client.updatePresence({
       //state: 'Winning Giveaways ...',
-      details: '1.0.2',
+      details: '1.0.4',
       startTimestamp: Date.now(),
       largeImageKey: 'brolt_blue_1_',
       instance: true,

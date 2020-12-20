@@ -1,6 +1,6 @@
 {
   "name": "brolt-instagram-bot",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "increase your chances of winning prizes of instagram giveaways",
   "main": "backend/main.js",
   "scripts": {
