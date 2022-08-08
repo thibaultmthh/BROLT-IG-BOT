@@ -1,4 +1,4 @@
 # BROLT-IG-BOT
 
-An instagram giveaway bot using puppetter and with an UI 
+An instagram giveaway bot using puppetter  with an electron UI 
 
